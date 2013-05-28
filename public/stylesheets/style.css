@@ -1,0 +1,337 @@
+@import url("http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,100italic,300italic,400italic,500italic,700&subset=latin,latin-ext");
+@import url("http://fonts.googleapis.com/css?family=KaushanScript");
+body {
+  font-family: 'Roboto', 'Lucida Grande', sans-serif;
+  font-weight: 300;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  background: #dce0e6;
+}
+#grayarea {
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -kthtml-transition: all 1s ease;
+  transition: all 1s ease;
+  background: rgba(31,41,61,0.4);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 1001;
+  display: none;
+}
+#authWrapper {
+  width: 720px;
+  height: 320px;
+  background: #fff;
+  border-radius: 10px;
+  margin: 100px auto 0 auto;
+  box-shadow: 0px 0px 1px 1px #000;
+}
+#authWrapper header {
+  height: 45px;
+  width: 100%;
+  background: #343434;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0px 0px 1px 1px #000;
+}
+#authWrapper header p {
+  line-height: 45px;
+  font-weight: 500;
+  font-size: 20px;
+  color: #dce0e6;
+  text-align: center;
+}
+#authWrapper header section p {
+  text-align: left;
+  margin-left: 30px;
+  font-weight: 400;
+  font-size: 15px;
+}
+#authWrapper header section p a {
+  color: #2b4c7e;
+}
+#authWrapper header section #loginMessage {
+  margin-top: 64px;
+}
+#authWrapper header section #registerMessage {
+  margin-top: 10px;
+}
+#authWrapper header #authleft {
+  float: left;
+  width: 360px;
+  height: 275px;
+  position: relative;
+}
+#authWrapper header #authright {
+  float: left;
+  width: 360px;
+  height: 275px;
+  position: relative;
+}
+#authWrapper header #authright p {
+  color: #343434;
+}
+#header {
+  width: 80%;
+  min-width: 1000px;
+  height: 55px;
+  padding: 0 10%;
+  margin: 0 auto;
+  background: #343434;
+}
+.button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: block;
+  background-image: -moz-linear-gradient(top, #7a9aca, #567ebb);
+  background-image: -ms-linear-gradient(top, #7a9aca, #567ebb);
+  background-image: -o-linear-gradient(top, #7a9aca, #567ebb);
+  background-image: -webkit-linear-gradient(top, #7a9aca, #567ebb);
+  background-image: linear-gradient(top, #7a9aca, #567ebb);
+  color: #fff;
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.3);
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  padding: 0 5px;
+}
+.button:hover {
+  background-image: -moz-linear-gradient(top, #93acd3, #6e90c5);
+  background-image: -ms-linear-gradient(top, #93acd3, #6e90c5);
+  background-image: -o-linear-gradient(top, #93acd3, #6e90c5);
+  background-image: -webkit-linear-gradient(top, #93acd3, #6e90c5);
+  background-image: linear-gradient(top, #93acd3, #6e90c5);
+}
+.button:active {
+  background-image: -moz-linear-gradient(top, #567ebb, #7a9aca);
+  background-image: -ms-linear-gradient(top, #567ebb, #7a9aca);
+  background-image: -o-linear-gradient(top, #567ebb, #7a9aca);
+  background-image: -webkit-linear-gradient(top, #567ebb, #7a9aca);
+  background-image: linear-gradient(top, #567ebb, #7a9aca);
+}
+.darkBoxShadow {
+  -webkit-box-shadow: inset 0px 0px 1px 1px #0a0a0a;
+  box-shadow: inset 0px 0px 1px 1px #0a0a0a;
+}
+.blueBoxShadow {
+  -webkit-box-shadow: inset 0px 0px 1px 1px #2b4c7e;
+  box-shadow: inset 0px 0px 1px 1px #0077a3;
+}
+#logo {
+  font-family: 'Kaushan Script', cursive;
+  font-weight: 400;
+  font-size: 20pt;
+  float: left;
+  height: 55px;
+  line-height: 55px;
+  color: #82b885;
+}
+#logo span {
+  color: #dce0e6;
+}
+#nav {
+  margin-top: 12.5px;
+  margin-right: 20px;
+  float: right;
+}
+#nav ul li {
+  display: block;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 10px;
+}
+#nav ul #loginButton {
+  padding: 0 5px;
+  width: 70px;
+}
+#nav ul #userButton {
+  padding: 0 35px 0 5px;
+  width: auto;
+  position: relative;
+  font-size: 15px;
+}
+#nav ul #userButton #arrowDown {
+  height: 30px;
+  width: 20px;
+  position: absolute;
+  top: 0;
+  color: #86a3ce;
+  right: 5px;
+  font-weight: 100;
+  font-size: 18px;
+  text-shadow: 1px 0px 1px #223756;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+}
+#nav ul #userButton #arrowDown span {
+  padding-left: 5px;
+}
+#nav ul #userButton:hover #arrowDown {
+  color: #3b5d92;
+  text-shadow: 1px 0px 1px #cfdaec;
+}
+#nav ul li:last-child() {
+  margin-right: 0px;
+}
+.visibleHeader {
+  background: rgba(100,100,100,0.5);
+  box-shadow: 0px 3px 3px #232323;
+}
+#content {
+  padding-top: 20px;
+  color: #c80000;
+  width: 1000px;
+  margin: 0 auto;
+}
+#searchBox {
+  margin: 180px auto 0 auto;
+  width: 380px;
+  height: 200px;
+}
+#searchBox ul {
+  display: block;
+  width: 380px;
+  height: 40px;
+  box-shadow: 1px 1px 3px 0px #000;
+  border-radius: 5px;
+}
+#searchBox ul li {
+  display: block;
+  float: left;
+}
+#searchBox ul li:nth-child(1) input {
+  width: 310px;
+  height: 40px;
+  padding: 0 10px;
+  border: none;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+}
+#searchBox ul li:nth-child(2) input {
+  width: 50px;
+  height: 40px;
+  border: none;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #f7f9fe;
+  cursor: pointer;
+}
+#searchBox ul li:nth-child(2) input:hover {
+  background: #bed2d9;
+}
+.authForm {
+  width: 300px;
+  height: auto;
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+}
+.authForm form ul li {
+  margin-bottom: 10px;
+}
+.authForm form ul li:last-of-type {
+  margin-bottom: 0;
+}
+.authForm form ul li:last-of-type input {
+  height: 40px;
+  width: 150px;
+  padding: 0 10px;
+  float: right;
+}
+.ifield {
+  width: 280px;
+  height: 40px;
+  border: 1px solid #919191;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+.ifield:focus {
+  outline: none;
+  border: 1px solid #567ebb;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
+}
+#loginForm ul li:last-of-type input {
+  width: 100px;
+}
+#lostPass {
+  position: absolute;
+  bottom: 28px;
+}
+#registerMessage {
+  display: none;
+}
+#registerForm {
+  display: none;
+}
+#triangle {
+  position: absolute;
+  display: none;
+  top: 45px;
+  width: 0;
+  height: 0;
+  margin-left: 30px;
+  border-left: 17px solid transparent;
+  border-right: 17px solid transparent;
+  border-bottom: 17px solid #272727;
+}
+#bigTriangle {
+  position: absolute;
+  display: none;
+  top: 46px;
+  width: 0;
+  height: 0;
+  margin-left: 32px;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 16px solid #eee;
+  z-index: 1000;
+}
+#userMenu {
+  position: absolute;
+  top: 59px;
+  padding: 0;
+  width: 150px;
+  border-top: none;
+}
+#userMenu ul {
+  display: none;
+}
+#userMenu ul li:first-child {
+  border-top: 1px solid #272727;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+#userMenu ul li:last-child {
+  border-bottom: 1px solid #272727;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#userMenu ul li {
+  float: none;
+  padding: 3px 12px;
+  font-size: 11pt;
+  border-left: 1px solid #272727;
+  border-right: 1px solid #272727;
+  background: #eee;
+}
+#userMenu ul li a {
+  color: #477c4a;
+  text-decoration: none;
+}
+#userMenu ul li a:hover {
+  text-decoration: underline;
+}
