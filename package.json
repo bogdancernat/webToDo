@@ -11,6 +11,6 @@
     "stylus": "*",
     "nano": "*",
     "socket.io" : "*",
-    "nodemw": "*"
+    "websockets": "0.9.*"
   }
 }

@@ -10,9 +10,10 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , auth = require('./routes/auth')
-  , search = require('./routes/search')
+  // , search = require('./routes/search')
   , path = require('path')
   , db = require('./db')
+  , io = require('socket.io').listen(server)
   ;
    
 // all environments
@@ -43,7 +44,7 @@ app.get('/users', user.list);
 app.get('/login', auth.loginPage);
 app.get('/register', auth.registerPage);
 app.get('/logout',auth.logout);
-app.get('/search',search.info);
+// app.get('/search',search.info);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
 
