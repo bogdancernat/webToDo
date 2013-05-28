@@ -83,7 +83,7 @@ body {
   height: 55px;
   padding: 0 10%;
   margin: 0 auto;
-  background: #343434;
+  background: #606d80;
 }
 .button {
   -webkit-touch-callout: none;
@@ -195,42 +195,6 @@ body {
   color: #c80000;
   width: 1000px;
   margin: 0 auto;
-}
-#searchBox {
-  margin: 180px auto 0 auto;
-  width: 380px;
-  height: 200px;
-}
-#searchBox ul {
-  display: block;
-  width: 380px;
-  height: 40px;
-  box-shadow: 1px 1px 3px 0px #000;
-  border-radius: 5px;
-}
-#searchBox ul li {
-  display: block;
-  float: left;
-}
-#searchBox ul li:nth-child(1) input {
-  width: 310px;
-  height: 40px;
-  padding: 0 10px;
-  border: none;
-  border-bottom-left-radius: 5px;
-  border-top-left-radius: 5px;
-}
-#searchBox ul li:nth-child(2) input {
-  width: 50px;
-  height: 40px;
-  border: none;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
-  background: #f7f9fe;
-  cursor: pointer;
-}
-#searchBox ul li:nth-child(2) input:hover {
-  background: #bed2d9;
 }
 .authForm {
   width: 300px;
