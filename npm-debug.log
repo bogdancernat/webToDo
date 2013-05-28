@@ -1,0 +1,45 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', 'socket.io', '-g' ]
+2 info using npm@1.2.21
+3 info using node@v0.10.7
+4 verbose node symlink /usr/bin/node
+5 verbose read json /usr/lib/package.json
+6 verbose read json /usr/lib/package.json
+7 verbose cache add [ 'socket.io', null ]
+8 verbose cache add name=undefined spec="socket.io" args=["socket.io",null]
+9 verbose parsed url { protocol: null,
+9 verbose parsed url   slashes: null,
+9 verbose parsed url   auth: null,
+9 verbose parsed url   host: null,
+9 verbose parsed url   port: null,
+9 verbose parsed url   hostname: null,
+9 verbose parsed url   hash: null,
+9 verbose parsed url   search: null,
+9 verbose parsed url   query: null,
+9 verbose parsed url   pathname: 'socket.io',
+9 verbose parsed url   path: 'socket.io',
+9 verbose parsed url   href: 'socket.io' }
+10 silly lockFile 71475bfd-socket-io socket.io
+11 verbose lock socket.io /home/adrian/.npm/71475bfd-socket-io.lock
+12 silly lockFile 71475bfd-socket-io socket.io
+13 verbose addNamed [ 'socket.io', '' ]
+14 verbose addNamed [ null, '' ]
+15 silly lockFile c03de861-socket-io socket.io@
+16 verbose lock socket.io@ /home/adrian/.npm/c03de861-socket-io.lock
+17 silly lockFile c03de861-socket-io socket.io@
+18 error Error: EACCES, open '/home/adrian/.npm/c03de861-socket-io.lock'
+18 error  { [Error: EACCES, open '/home/adrian/.npm/c03de861-socket-io.lock']
+18 error   errno: 3,
+18 error   code: 'EACCES',
+18 error   path: '/home/adrian/.npm/c03de861-socket-io.lock' }
+19 error Please try running this command again as root/Administrator.
+20 error System Linux 3.8.0-21-generic
+21 error command "/usr/bin/node" "/usr/bin/npm" "install" "socket.io" "-g"
+22 error cwd /home/adrian/Desktop/TW/webToDo
+23 error node -v v0.10.7
+24 error npm -v 1.2.21
+25 error path /home/adrian/.npm/c03de861-socket-io.lock
+26 error code EACCES
+27 error errno 3
+28 error stack Error: EACCES, open '/home/adrian/.npm/c03de861-socket-io.lock'
+29 verbose exit [ 3, true ]
