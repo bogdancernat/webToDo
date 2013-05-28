@@ -6,7 +6,7 @@ body {
   width: 100%;
   height: 100%;
   overflow-y: hidden;
-  background: #dce0e6;
+  background-image: url("../images/pw_maze_white.png");
 }
 #grayarea {
   -webkit-transition: all 1s ease;
@@ -93,11 +93,11 @@ body {
   -ms-user-select: none;
   user-select: none;
   display: block;
-  background-image: -moz-linear-gradient(top, #7a9aca, #567ebb);
-  background-image: -ms-linear-gradient(top, #7a9aca, #567ebb);
-  background-image: -o-linear-gradient(top, #7a9aca, #567ebb);
-  background-image: -webkit-linear-gradient(top, #7a9aca, #567ebb);
-  background-image: linear-gradient(top, #7a9aca, #567ebb);
+  background-image: -moz-linear-gradient(top, #4fb4ff, #2da6ff);
+  background-image: -ms-linear-gradient(top, #4fb4ff, #2da6ff);
+  background-image: -o-linear-gradient(top, #4fb4ff, #2da6ff);
+  background-image: -webkit-linear-gradient(top, #4fb4ff, #2da6ff);
+  background-image: linear-gradient(top, #4fb4ff, #2da6ff);
   color: #fff;
   text-shadow: 0 -1px 1px rgba(0,0,0,0.3);
   text-align: center;
@@ -107,26 +107,18 @@ body {
   padding: 0 5px;
 }
 .button:hover {
-  background-image: -moz-linear-gradient(top, #93acd3, #6e90c5);
-  background-image: -ms-linear-gradient(top, #93acd3, #6e90c5);
-  background-image: -o-linear-gradient(top, #93acd3, #6e90c5);
-  background-image: -webkit-linear-gradient(top, #93acd3, #6e90c5);
-  background-image: linear-gradient(top, #93acd3, #6e90c5);
+  background-image: -moz-linear-gradient(top, #71c2ff, #3eadff);
+  background-image: -ms-linear-gradient(top, #71c2ff, #3eadff);
+  background-image: -o-linear-gradient(top, #71c2ff, #3eadff);
+  background-image: -webkit-linear-gradient(top, #71c2ff, #3eadff);
+  background-image: linear-gradient(top, #71c2ff, #3eadff);
 }
 .button:active {
-  background-image: -moz-linear-gradient(top, #567ebb, #7a9aca);
-  background-image: -ms-linear-gradient(top, #567ebb, #7a9aca);
-  background-image: -o-linear-gradient(top, #567ebb, #7a9aca);
-  background-image: -webkit-linear-gradient(top, #567ebb, #7a9aca);
-  background-image: linear-gradient(top, #567ebb, #7a9aca);
-}
-.darkBoxShadow {
-  -webkit-box-shadow: inset 0px 0px 1px 1px #0a0a0a;
-  box-shadow: inset 0px 0px 1px 1px #0a0a0a;
-}
-.blueBoxShadow {
-  -webkit-box-shadow: inset 0px 0px 1px 1px #2b4c7e;
-  box-shadow: inset 0px 0px 1px 1px #0077a3;
+  background-image: -moz-linear-gradient(top, #2da6ff, #4fb4ff);
+  background-image: -ms-linear-gradient(top, #2da6ff, #4fb4ff);
+  background-image: -o-linear-gradient(top, #2da6ff, #4fb4ff);
+  background-image: -webkit-linear-gradient(top, #2da6ff, #4fb4ff);
+  background-image: linear-gradient(top, #2da6ff, #4fb4ff);
 }
 #logo {
   font-family: 'Kaushan Script', cursive;
@@ -167,11 +159,11 @@ body {
   width: 20px;
   position: absolute;
   top: 0;
-  color: #86a3ce;
+  color: #0081a7;
   right: 5px;
   font-weight: 100;
   font-size: 18px;
-  text-shadow: 1px 0px 1px #223756;
+  text-shadow: 1px 0px #71c2ff;
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   -o-transform: rotate(90deg);
@@ -180,8 +172,8 @@ body {
   padding-left: 5px;
 }
 #nav ul #userButton:hover #arrowDown {
-  color: #3b5d92;
-  text-shadow: 1px 0px 1px #cfdaec;
+  color: #009bc9;
+  text-shadow: 1px 0px 1px #93d1ff;
 }
 #nav ul li:last-child() {
   margin-right: 0px;

@@ -15,7 +15,7 @@ html
         if (user == null)
           nav#nav
             ul
-              li#loginButton.button.darkBoxShadow log in
+              li#loginButton.button log in
               //- a(href='#')
               //-   li Register
         else
@@ -23,7 +23,7 @@ html
             ul
               div#triangle
               div#bigTriangle
-              li#userButton.button.darkBoxShadow
+              li#userButton.button
                 | #{user["user"]}
                 div#arrowDown
                   span &rang;

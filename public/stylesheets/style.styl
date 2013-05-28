@@ -6,7 +6,8 @@ body
   width:100%
   height:100%
   overflow-y: hidden;
-  background: rgba(220, 224, 230, 1)
+  background-image: url('../images/pw_maze_white.png')
+  // background: rgba(220, 224, 230, 1)
 linkcolor= rgba(43, 76, 126, 1)
 #grayarea
   -webkit-transition: all 1s ease
@@ -81,8 +82,8 @@ h = 30
 w = 80
 rd = 20
 padH = 5 
-gr_start = rgba(122, 154, 202, 1)
-gr_stop = rgba(86, 126, 187, 1)
+gr_start = rgba(79, 180, 255, 1)
+gr_stop = rgba(45, 166, 255, 1)
 .button
   -webkit-touch-callout: none
   -webkit-user-select: none
@@ -104,8 +105,8 @@ gr_stop = rgba(86, 126, 187, 1)
   border-radius: 5px
   padding: 0 (padH px)
 .button:hover
-  grhover_start = rgba(147, 172, 211, 1)
-  grhover_stop = rgba(110, 144, 197, 1)
+  grhover_start = rgba(113, 194, 255, 1)
+  grhover_stop = rgba(62, 173, 255, 1)
   background-image: -moz-linear-gradient(top, grhover_start, grhover_stop)
   background-image: -ms-linear-gradient(top, grhover_start, grhover_stop)
   background-image: -o-linear-gradient(top, grhover_start, grhover_stop)
@@ -119,12 +120,6 @@ gr_stop = rgba(86, 126, 187, 1)
   background-image: -o-linear-gradient(top, gractive_start, gractive_stop)
   background-image: -webkit-linear-gradient(top, gractive_start, gractive_stop)
   background-image: linear-gradient(top, gractive_start, gractive_stop)
-.darkBoxShadow
-  -webkit-box-shadow: inset 0px 0px 1px 1px rgba(10, 10, 10, 1);
-  box-shadow: inset 0px 0px 1px 1px rgba(10, 10, 10, 1);
-.blueBoxShadow
-  -webkit-box-shadow: inset 0px 0px 1px 1px rgba(43, 76, 126, 1);
-  box-shadow: inset 0px 0px 1px 1px rgba(0, 119, 163, 1);
 #logo
   font-family: 'Kaushan Script', cursive;
   font-weight: 400
@@ -161,11 +156,11 @@ gr_stop = rgba(86, 126, 187, 1)
         width:sw px
         position:absolute;
         top:0
-        color:rgba(134, 163, 206, 1)
+        color:rgba(0, 129, 167, 1)
         right:padH px
         font-weight: 100
         font-size:18px
-        text-shadow: 1px 0px 1px rgba(34, 55, 86, 1)
+        text-shadow: 1px 0px rgba(113, 194, 255, 1)
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);  // FF3.5+ 
         -o-transform: rotate(90deg);  // Opera 10.5 
@@ -177,8 +172,8 @@ gr_stop = rgba(86, 126, 187, 1)
           padding-left:5px
     #userButton:hover
       #arrowDown
-        color:rgba(59, 93, 146, 1)
-        text-shadow: 1px 0px 1px rgba(207, 218, 236, 1)
+        color:rgba(0, 155, 201, 1)
+        text-shadow: 1px 0px 1px rgba(147, 209, 255, 1)
     li:last-child()
       margin-right: 0px
 
