@@ -291,6 +291,3 @@ body {
 #userMenu ul li a:hover {
   text-decoration: underline;
 }
-.notValidInput {
-  background: #f9dae2;
-}
