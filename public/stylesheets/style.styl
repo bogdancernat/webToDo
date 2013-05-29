@@ -1,3 +1,4 @@
+// http://www.colourlovers.com/palette/184383/Tiger_2-XL
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,100italic,300italic,400italic,500italic,700&subset=latin,latin-ext)
 // @import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
 body
@@ -81,13 +82,15 @@ hH = 55
   padding:0
   margin:0 auto
   // position: fixed
-  background: rgba(113, 194, 255, 1)
+  background: rgba(86,87,94, 1)
 h = 30
 w = 80
 rd = 20
 padH = 5 
-gr_start = rgba(79, 180, 255, 1)
-gr_stop = rgba(45, 166, 255, 1)
+// gr_start = rgba(79, 180, 255, 1)
+gr_start = #75a4f3
+// gr_stop = rgba(45, 166, 255, 1)
+gr_stop = #568ff0
 .button
   -webkit-touch-callout: none
   -webkit-user-select: none
@@ -110,8 +113,10 @@ gr_stop = rgba(45, 166, 255, 1)
   border-radius: 5px
   padding: 0 (padH px)
 .button:hover
-  grhover_start = rgba(113, 194, 255, 1)
-  grhover_stop = rgba(62, 173, 255, 1)
+  // grhover_start = rgba(113, 194, 255, 1)
+  grhover_start = #85aef4
+  // grhover_stop = rgba(62, 173, 255, 1)
+  grhover_stop = #6699f1
   background-image: -moz-linear-gradient(top, grhover_start, grhover_stop)
   background-image: -ms-linear-gradient(top, grhover_start, grhover_stop)
   background-image: -o-linear-gradient(top, grhover_start, grhover_stop)
@@ -164,11 +169,11 @@ gr_stop = rgba(45, 166, 255, 1)
         width:sw px
         position:absolute;
         top:0
-        color:rgba(0, 129, 167, 1)
+        color:#2770ec
         right:padH px
         font-weight: 100
         font-size:18px
-        text-shadow: 1px 0px rgba(113, 194, 255, 1)
+        text-shadow: 1px 0px #85aef4
         -webkit-transform: rotate(90deg);
         -moz-transform: rotate(90deg);  // FF3.5+ 
         -o-transform: rotate(90deg);  // Opera 10.5 
@@ -180,8 +185,8 @@ gr_stop = rgba(45, 166, 255, 1)
           padding-left:5px
     #userButton:hover
       #arrowDown
-        color:rgba(0, 155, 201, 1)
-        text-shadow: 1px 0px 1px rgba(147, 209, 255, 1)
+        color:#377aed
+        text-shadow: 1px 0px 1px #94b8f6
     li:last-child()
       margin-right: 0px
 
@@ -230,6 +235,23 @@ rSNwidth = 200px
       background:white
   .sideNavGroup:not(:first-child)
     margin-top:10px
+
+ntdSize= 100
+#noToDos
+  span
+    color:#828fa2
+    display:block
+    width:ntdSize px
+    height:ntdSize px
+    background:#606D80
+    border-radius:50%
+    border:4px solid #515c6d
+    box-shadow:inset 0px 0px 7px #828fa2
+    line-height:(ntdSize - 2) px
+    text-align:center
+    font-size:(ntdSize - 30)px
+    font-weight: 200
+
 ihts= 40 // input fields height
 sBw= 380 // search box width
 sBcolor= #F7F9FE // submit buttons color
