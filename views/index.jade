@@ -1,17 +1,21 @@
 extends layout
 
 block content
-  nav#rightSideNav
-    div.sideNavGroup
-      h1 
-        | teams
-      div.listItemsNavGroup
-    div.sideNavGroup
-      h1
-        | projects
-      div.listItemsNavGroup
-    div.sideNavGroup
-      h1
-      div.listItemsNavGroup
-        
-
+  if (user != null)
+    nav#rightSideNav
+      div.sideNavGroup
+        h1 
+          | teams
+        div.listItemsNavGroup
+      div.sideNavGroup
+        h1
+          | projects
+        div.listItemsNavGroup
+      div.sideNavGroup
+        h1
+        div.listItemsNavGroup
+  div#noToDos
+    span
+      | +
+    p
+      | Add a ToDo item
