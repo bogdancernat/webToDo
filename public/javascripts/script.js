@@ -1,11 +1,11 @@
 $(document).ready(function() {
   var loginSection = true;
   var displayingSubmenu = false;
+
+  // fade in!
   $('#loginButton').click(function(){
     $('#grayarea').css("display","block");
-    $('#grayarea').animate({
-      opacity: '1'
-    },200);
+    $('#grayarea').fadeTo(200,1);
     $('#authWrapper').css("display","block");
     $('#authWrapper').animate({
       marginTop:'220px'
@@ -13,17 +13,15 @@ $(document).ready(function() {
     if(!loginSection){
       switchAuthForms();
   }});
+  // fade out!
   $('#grayarea').click(function(){
-    $('#grayarea').animate({
-      opacity: '0'
-    },400, function(){
-      $('#grayarea').css("display","none");
-    });
     $('#authWrapper').animate({
       marginTop:'-320px'
     },400, function(){
       $('#authWrapper').css("display","none");
-      
+    });
+    $('#grayarea').fadeTo(200,0, function(){
+      $('#grayarea').css("display","none");
     });
   });
   $('#authWrapper').click(function(e){

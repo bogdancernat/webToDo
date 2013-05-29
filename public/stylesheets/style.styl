@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,100italic,300italic,400italic,500italic,700&subset=latin,latin-ext)
-@import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
+// @import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
 body
   font-family: 'Roboto','Lucida Grande', sans-serif;
   font-weight: 300
@@ -23,6 +23,7 @@ linkcolor= rgba(43, 76, 126, 1)
   height:100%
   position:fixed
   z-index: 1001
+  opacity:0
   display: none
 #authWrapper
   width: 720px
@@ -30,20 +31,20 @@ linkcolor= rgba(43, 76, 126, 1)
   background: rgb(255,255,255)
   border-radius: 10px
   margin: -320px auto 0 auto
-  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 1)
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 1)
   display:none
   header
     height: 45px
     width: 100%
-    background: rgba(96,109,128, 1)
+    background: rgba(113, 194, 255, 1)
     border-top-left-radius: 10px
     border-top-right-radius: 10px
-    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 1)
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 1)
     p
       line-height: 45px
-      font-weight: 500
+      font-weight: 400
       font-size: 20px
-      color: rgba(220, 224, 230, 1)
+      color: rgba(255,255,255, 1)
       text-align: center
     section
       p
@@ -68,17 +69,19 @@ linkcolor= rgba(43, 76, 126, 1)
       height:275px
       position:relative
       p
+        font-weight:300
+        font-size:17px
         color: rgba(52, 52, 52, 1)
 
 hH = 55
 #header
-  width: 80%
+  width: 100%
   min-width: 1000px;
   height: (hH)px;
-  padding:0 10%
+  padding:0
   margin:0 auto
   // position: fixed
-  background: rgba(96,109,128, 1)
+  background: rgba(113, 194, 255, 1)
 h = 30
 w = 80
 rd = 20
@@ -103,6 +106,7 @@ gr_stop = rgba(45, 166, 255, 1)
   text-align: center
   cursor: pointer
   border: none
+  box-shadow:0px 0px 2px #232323
   border-radius: 5px
   padding: 0 (padH px)
 .button:hover
@@ -122,19 +126,22 @@ gr_stop = rgba(45, 166, 255, 1)
   background-image: -webkit-linear-gradient(top, gractive_start, gractive_stop)
   background-image: linear-gradient(top, gractive_start, gractive_stop)
 #logo
-  font-family: 'Kaushan Script', cursive;
-  font-weight: 400
+  font-family: 'Roboto', cursive;
+  font-weight: 300
   font-size: 20pt
+  margin-left:10%
   float:left
   height:hH px
   line-height:hH px
-  color: rgba(130, 184, 133, 1)
+  color: rgba(209,242,165, 1)
   span
-      color: rgba(220, 224, 230, 1)
+      color: rgba(255,255,255, 1)
 #nav
   margin-top: (hH/2 - h/2)px
-  margin-right: rd px
+  margin-right: 5%
   float:right
+  ul:first-child
+    position:relative
   ul
     li
       display: block
@@ -182,10 +189,47 @@ gr_stop = rgba(45, 166, 255, 1)
   background: rgba(100,100,100,0.5)
   box-shadow: 0px 3px 3px #232323
 #content
-  padding-top: 20px
-  color: rgba(200,0,0,1)
-  width: 1000px
-  margin: 0 auto
+  padding: 1% 1% 5% 1%
+  width: 98%
+  min-width:1000px
+  // margin: 0 auto
+
+// gradGroup_start = rgba(113, 194, 255, 1)
+gradGroup_start = #a4d8ff
+// gradGroup_stop = rgba(62, 173, 255, 1)
+gradGroup_stop = #71c2ff
+
+rSNwidth = 200px
+#rightSideNav
+  color:#fefefe
+  float:right
+  width:rSNwidth
+  min-height:800px
+  .sideNavGroup
+    border-radius:15px
+    background-image: -moz-linear-gradient(top, gradGroup_start, gradGroup_stop)
+    background-image: -ms-linear-gradient(top, gradGroup_start, gradGroup_stop)
+    background-image: -o-linear-gradient(top, gradGroup_start, gradGroup_stop)
+    background-image: -webkit-linear-gradient(top, gradGroup_start, gradGroup_stop)
+    background-image: linear-gradient(top, gradGroup_start, gradGroup_stop)
+    box-shadow: 0px 2px 3px #fff
+    width: rSNwidth
+    height: 200px
+    h1
+      height: 35px
+      font-size: 1.3em
+      font-weight: 300
+      line-height: 35px
+      width: 270px
+      padding-left: 30px
+      text-shadow: 1px 1px 1px gradGroup_stop
+    .listItemsNavGroup
+      box-shadow: inset 0px 1px 8px -1px #000
+      width:rSNwidth
+      height:155px
+      background:white
+  .sideNavGroup:not(:first-child)
+    margin-top:10px
 ihts= 40 // input fields height
 sBw= 380 // search box width
 sBcolor= #F7F9FE // submit buttons color
@@ -237,52 +281,57 @@ ipad = 10
 #registerForm
   display: none
 
+userMenuBg=rgba(255,255,255,1)
+userMenuBorder=rgba(39, 39, 39, 0.3)
+
 #triangle
   position: absolute
   display: none
-  top: 45px
+  top: 35px
+  right: (28+5) px
   width: 0; 
   height: 0; 
-  margin-left: 30px
   border-left: 17px solid transparent
   border-right: 17px solid transparent
-  border-bottom: 17px solid rgba(39, 39, 39, 1)
+  border-bottom: 17px solid userMenuBorder
 #bigTriangle
   position: absolute
   display: none
-  top: 46px
+  top: 36px
+  right: (30+5) px
   width: 0; 
   height: 0; 
-  margin-left: 32px
   border-left: 15px solid transparent
   border-right: 15px solid transparent
-  border-bottom: 16px solid rgba(238, 238, 238, 1)
+  border-bottom: 16px solid userMenuBg
   z-index: 1000
 #userMenu
   position: absolute
-  top: 59px
+  top: 49px
   padding: 0
+  right:0
   width: 150px
   border-top: none
   ul
     display: none
     li:first-child
-      border-top: 1px solid rgba(39, 39, 39, 1)
+      border-top: 1px solid userMenuBorder
       border-top-right-radius: 5px  
       border-top-left-radius: 5px
     li:last-child
-      border-bottom: 1px solid rgba(39, 39, 39, 1)
-      border-bottom-right-radius: 5px  
+      border-bottom: 1px solid userMenuBorder 
+      border-bottom-right-radius: 5px 
       border-bottom-left-radius: 5px
     li
       float: none
       padding: 3px 12px
       font-size: 11pt
-      border-left: 1px solid rgba(39, 39, 39, 1)
-      border-right:1px solid rgba(39, 39, 39, 1)
-      background: rgba(238, 238, 238, 1)
+      border-left: 1px solid userMenuBorder
+      border-right:1px solid userMenuBorder
+      background: userMenuBg
       a
         color: rgba(71, 124, 74, 1)
         text-decoration: none
       a:hover
         text-decoration: underline
+

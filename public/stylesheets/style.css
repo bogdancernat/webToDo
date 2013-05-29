@@ -1,5 +1,4 @@
 @import url("http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,100italic,300italic,400italic,500italic,700&subset=latin,latin-ext");
-@import url("http://fonts.googleapis.com/css?family=KaushanScript");
 body {
   font-family: 'Roboto', 'Lucida Grande', sans-serif;
   font-weight: 300;
@@ -22,6 +21,7 @@ body {
   height: 100%;
   position: fixed;
   z-index: 1001;
+  opacity: 0;
   display: none;
 }
 #authWrapper {
@@ -30,22 +30,22 @@ body {
   background: #fff;
   border-radius: 10px;
   margin: -320px auto 0 auto;
-  box-shadow: 0px 0px 1px 1px #000;
+  box-shadow: 0px 0px 3px #000;
   display: none;
 }
 #authWrapper header {
   height: 45px;
   width: 100%;
-  background: #606d80;
+  background: #71c2ff;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  box-shadow: 0px 0px 1px 1px #000;
+  box-shadow: 0px 1px 1px #000;
 }
 #authWrapper header p {
   line-height: 45px;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 20px;
-  color: #dce0e6;
+  color: #fff;
   text-align: center;
 }
 #authWrapper header section p {
@@ -76,15 +76,17 @@ body {
   position: relative;
 }
 #authWrapper header #authright p {
+  font-weight: 300;
+  font-size: 17px;
   color: #343434;
 }
 #header {
-  width: 80%;
+  width: 100%;
   min-width: 1000px;
   height: 55px;
-  padding: 0 10%;
+  padding: 0;
   margin: 0 auto;
-  background: #606d80;
+  background: #71c2ff;
 }
 .button {
   -webkit-touch-callout: none;
@@ -104,6 +106,7 @@ body {
   text-align: center;
   cursor: pointer;
   border: none;
+  box-shadow: 0px 0px 2px #232323;
   border-radius: 5px;
   padding: 0 5px;
 }
@@ -122,21 +125,25 @@ body {
   background-image: linear-gradient(top, #2da6ff, #4fb4ff);
 }
 #logo {
-  font-family: 'Kaushan Script', cursive;
-  font-weight: 400;
+  font-family: 'Roboto', cursive;
+  font-weight: 300;
   font-size: 20pt;
+  margin-left: 10%;
   float: left;
   height: 55px;
   line-height: 55px;
-  color: #82b885;
+  color: #d1f2a5;
 }
 #logo span {
-  color: #dce0e6;
+  color: #fff;
 }
 #nav {
   margin-top: 12.5px;
-  margin-right: 20px;
+  margin-right: 5%;
   float: right;
+}
+#nav ul:first-child {
+  position: relative;
 }
 #nav ul li {
   display: block;
@@ -184,10 +191,44 @@ body {
   box-shadow: 0px 3px 3px #232323;
 }
 #content {
-  padding-top: 20px;
-  color: #c80000;
-  width: 1000px;
-  margin: 0 auto;
+  padding: 1% 1% 5% 1%;
+  width: 98%;
+  min-width: 1000px;
+}
+#rightSideNav {
+  color: #fefefe;
+  float: right;
+  width: 200px;
+  min-height: 800px;
+}
+#rightSideNav .sideNavGroup {
+  border-radius: 15px;
+  background-image: -moz-linear-gradient(top, #a4d8ff, #71c2ff);
+  background-image: -ms-linear-gradient(top, #a4d8ff, #71c2ff);
+  background-image: -o-linear-gradient(top, #a4d8ff, #71c2ff);
+  background-image: -webkit-linear-gradient(top, #a4d8ff, #71c2ff);
+  background-image: linear-gradient(top, #a4d8ff, #71c2ff);
+  box-shadow: 0px 2px 3px #fff;
+  width: 200px;
+  height: 200px;
+}
+#rightSideNav .sideNavGroup h1 {
+  height: 35px;
+  font-size: 1.3em;
+  font-weight: 300;
+  line-height: 35px;
+  width: 270px;
+  padding-left: 30px;
+  text-shadow: 1px 1px 1px #71c2ff;
+}
+#rightSideNav .sideNavGroup .listItemsNavGroup {
+  box-shadow: inset 0px 1px 8px -1px #000;
+  width: 200px;
+  height: 155px;
+  background: #fff;
+}
+#rightSideNav .sideNavGroup:not(:first-child) {
+  margin-top: 10px;
 }
 .authForm {
   width: 300px;
@@ -237,30 +278,31 @@ body {
 #triangle {
   position: absolute;
   display: none;
-  top: 45px;
+  top: 35px;
+  right: 33px;
   width: 0;
   height: 0;
-  margin-left: 30px;
   border-left: 17px solid transparent;
   border-right: 17px solid transparent;
-  border-bottom: 17px solid #272727;
+  border-bottom: 17px solid rgba(39,39,39,0.3);
 }
 #bigTriangle {
   position: absolute;
   display: none;
-  top: 46px;
+  top: 36px;
+  right: 35px;
   width: 0;
   height: 0;
-  margin-left: 32px;
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
-  border-bottom: 16px solid #eee;
+  border-bottom: 16px solid #fff;
   z-index: 1000;
 }
 #userMenu {
   position: absolute;
-  top: 59px;
+  top: 49px;
   padding: 0;
+  right: 0;
   width: 150px;
   border-top: none;
 }
@@ -268,12 +310,12 @@ body {
   display: none;
 }
 #userMenu ul li:first-child {
-  border-top: 1px solid #272727;
+  border-top: 1px solid rgba(39,39,39,0.3);
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }
 #userMenu ul li:last-child {
-  border-bottom: 1px solid #272727;
+  border-bottom: 1px solid rgba(39,39,39,0.3);
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -281,9 +323,9 @@ body {
   float: none;
   padding: 3px 12px;
   font-size: 11pt;
-  border-left: 1px solid #272727;
-  border-right: 1px solid #272727;
-  background: #eee;
+  border-left: 1px solid rgba(39,39,39,0.3);
+  border-right: 1px solid rgba(39,39,39,0.3);
+  background: #fff;
 }
 #userMenu ul li a {
   color: #477c4a;
