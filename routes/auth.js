@@ -7,6 +7,7 @@ function getHash (user, callback){
   user['password'] = md5.update(user['password']).digest('hex');
   callback(user);
 }
+
 exports.loginPage = function(req, res){
   res.render('login', {title: 'Login', msg: 'salut'});
 }
