@@ -3,11 +3,28 @@ $(document).ready(function() {
   var displayingSubmenu = false;
   $('#loginButton').click(function(){
     $('#grayarea').css("display","block");
+    $('#grayarea').animate({
+      opacity: '1'
+    },200);
+    $('#authWrapper').css("display","block");
+    $('#authWrapper').animate({
+      marginTop:'220px'
+    },400);
     if(!loginSection){
       switchAuthForms();
   }});
   $('#grayarea').click(function(){
-    $('#grayarea').css("display","none");
+    $('#grayarea').animate({
+      opacity: '0'
+    },400, function(){
+      $('#grayarea').css("display","none");
+    });
+    $('#authWrapper').animate({
+      marginTop:'-320px'
+    },400, function(){
+      $('#authWrapper').css("display","none");
+      
+    });
   });
   $('#authWrapper').click(function(e){
     e.stopPropagation();
