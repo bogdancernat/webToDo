@@ -61,10 +61,12 @@ io.sockets.on('connection', function (socket) {
   socket.on('validateEmail', function(data){
       data.email = data.email.replace(/\s/g,'');
       data.email = data.email.toLowerCase();
-      console.log(data.email);
       db.uniqueUser(data.email, function (itIs){
+        var matches = data.email.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+        if (matches == null || matches.length != 1) 
+          itIs = false;
+
         data.isValid = itIs; 
-        console.log(data.isValid); 
         socket.emit('validationResult', data);  
       });
   });

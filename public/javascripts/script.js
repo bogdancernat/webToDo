@@ -2,6 +2,7 @@ $(document).ready(function() {
   var loginSection = true;
   var displayingSubmenu = false;
   var socket = io.connect('http://localhost:3000');
+  var isValidRegisterData = { '#passReg': false, '#confPassReg': false, '#emailReg': false};
 
   $('#loginButton').click(function(){
     $('#grayarea').css("display","block");
@@ -53,16 +54,45 @@ $(document).ready(function() {
     return false;
   });
 
-  $('#emailReg').keyup(function(){
-    socket.emit('validateEmail', { elementId: '#emailReg', email: $('#emailReg').val()});
+  $('#emailReg').blur(function(){
+    if ($('#emailReg').val() != "")
+      socket.emit('validateEmail', { elementId: '#emailReg', email: $('#emailReg').val()});
+  });
+
+  $('#passReg').blur(function(){
+    if ($('#passReg').val() != "")
+      socket.emit('validatePass', { elementId: '#passReg', password: $('#passReg').val()});
+    if ($('#confPassReg').val() != "")
+      socket.emit('validateConfPass', { elementId: '#confPassReg', password: $('#passReg').val(), rePassword: $('#confPassReg').val()});
+  });
+
+  $('#confPassReg').blur(function(){
+    if ($('#confPassReg').val() != "")
+      socket.emit('validateConfPass', { elementId: '#confPassReg', password: $('#passReg').val(), rePassword: $('#confPassReg').val()});
   });
 
   $('#passReg').keyup(function(){
-    socket.emit('validatePass', { elementId: '#passReg', password: $('#passReg').val()});
+    if ($('#passReg').val() == "")
+      $('#passReg').css('background', 'rgba(255, 255, 255, 1)');
+  });
+
+  $('#emailReg').keyup(function(){
+    if ($('#emailReg').val() == "")
+      $('#emailReg').css('background', 'rgba(255, 255, 255, 1)');
   });
 
   $('#confPassReg').keyup(function(){
-    socket.emit('validateConfPass', { elementId: '#confPassReg', password: $('#passReg').val(), rePassword: $('#confPassReg').val()});
+    if ($('#confPassReg').val() == "")
+      $('#confPassReg').css('background', 'rgba(255, 255, 255, 1)');
+  });
+
+  $('#registerFormId').submit(function(e){
+    if (isValidRegisterData['#emailReg'] == false)
+      e.preventDefault(); 
+    if (isValidRegisterData['#passReg'] == false)
+      e.preventDefault(); 
+    if (isValidRegisterData['#confPassReg'] == false)
+      e.preventDefault(); 
   });
 
   socket.on('updateToDoList', function (data){
@@ -73,8 +103,10 @@ $(document).ready(function() {
     console.log(data);
     if (!data.isValid) {
       $(data.elementId).css('background', 'rgba(249, 218, 226, 1)');
+      isValidRegisterData[data.elementId] = false;
     } else {
-      $(data.elementId).css('background', 'rgba(255, 255, 255, 1)');
+      $(data.elementId).css('background', 'rgba(167, 251, 204, 1)');
+      isValidRegisterData[data.elementId] = true;
     }
   });
 });

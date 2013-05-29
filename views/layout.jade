@@ -68,7 +68,7 @@ html
                 a(href='#register').authswitch 
                   | login here
               div.authForm#registerForm
-                form(method='post', action='/register')
+                form(method='post', action='/register', id='registerFormId')
                   ul
                     li
                       input(type='e-mail', placeholder='A valid email address', name='email', id="emailReg", autocomplete="off").ifield 
