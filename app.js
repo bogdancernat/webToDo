@@ -53,8 +53,40 @@ server.listen(app.get('port'), function(){
 });
 
 io.sockets.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
+  socket.on('addToDo', function (data){
     console.log(data);
+    socket.emit('updateToDoList', data);
+  });
+
+  socket.on('validateEmail', function(data){
+      data.email = data.email.replace(/\s/g,'');
+      data.email = data.email.toLowerCase();
+      console.log(data.email);
+      db.uniqueUser(data.email, function (itIs){
+        data.isValid = itIs; 
+        console.log(data.isValid); 
+        socket.emit('validationResult', data);  
+      });
+  });
+
+  socket.on('validatePass', function(data){
+      var isValid = true;
+      if (data.password.length < 6 || data.password.length > 32)
+        isValid = false;
+
+      data.isValid = isValid;
+      socket.emit('validationResult', data);
+  });
+
+  socket.on('validateConfPass', function(data){
+    var isValid = true;
+
+    if (data.password != data.rePassword)
+      isValid = false;
+
+    data.isValid = isValid;
+
+    socket.emit('validationResult', data);
   });
 });
+

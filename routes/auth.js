@@ -2,9 +2,10 @@ var db = require('../db')
   , cr = require('crypto')
   , md5
   ;
-function getHash (str){
+function getHash (user, callback){
   md5 = cr.createHash('md5');
-  return md5.update(str).digest('hex');
+  user['password'] = md5.update(user['password']).digest('hex');
+  callback(user);
 }
 exports.loginPage = function(req, res){
   res.render('login', {title: 'Login', msg: 'salut'});
@@ -26,15 +27,16 @@ exports.login = function(req, res){
   db.getUser(user['email'], function (resp){
     if(resp){
       console.log(resp);
-      if(resp.value['password'] == getHash(user['password'])){
-        res.cookie("et_logged_in",{
-          "user": user.email,
-          "_id": resp.value._id
-        },{
-          expires: new Date(Date.now()+99999999),
-          signed: true
-        });
-      }
+      getHash(user, function(user){
+        if (resp.value['password'] == user['password'])
+          res.cookie("et_logged_in",{
+            "user": user.email,
+            "_id": resp.value._id
+          },{
+            expires: new Date(Date.now()+99999999),
+            signed: true
+          });
+      });
       res.redirect('/');  
     }
     else {
@@ -67,9 +69,10 @@ exports.register = function(req,res){
     db.uniqueUser(user['email'],function (itIs){
       if(itIs && user['password'] == user['repassword']){
         delete user['repassword'];
-        user['password'] = getHash(user['password']);
-        db.insert(user);
-        res.redirect('/');
+        getHash(user, function(user) {
+          db.insert(user);
+          res.redirect('/');
+        });
       }else{
         res.redirect('/');
       }

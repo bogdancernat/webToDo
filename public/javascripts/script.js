@@ -1,6 +1,8 @@
 $(document).ready(function() {
   var loginSection = true;
   var displayingSubmenu = false;
+  var socket = io.connect('http://localhost:3000');
+
   $('#loginButton').click(function(){
     $('#grayarea').css("display","block");
     if(!loginSection){
@@ -46,10 +48,34 @@ $(document).ready(function() {
   $('.authswitch').click(function(){
     switchAuthForms();
   });
+  $('#addButton').click(function(){
+    socket.emit('addToDo', { toDo: $('#toDoTextArea').val()});    
+    return false;
+  });
+
+  $('#emailReg').keyup(function(){
+    socket.emit('validateEmail', { elementId: '#emailReg', email: $('#emailReg').val()});
+  });
+
+  $('#passReg').keyup(function(){
+    socket.emit('validatePass', { elementId: '#passReg', password: $('#passReg').val()});
+  });
+
+  $('#confPassReg').keyup(function(){
+    socket.emit('validateConfPass', { elementId: '#confPassReg', password: $('#passReg').val(), rePassword: $('#confPassReg').val()});
+  });
+
+  socket.on('updateToDoList', function (data){
+    $('#toDos').append('<li>' + data.toDo + '</li>');
+  });
+
+  socket.on('validationResult', function(data){
+    console.log(data);
+    if (!data.isValid) {
+      $(data.elementId).css('background', 'rgba(249, 218, 226, 1)');
+    } else {
+      $(data.elementId).css('background', 'rgba(255, 255, 255, 1)');
+    }
+  });
 });
 
-var socket = io.connect('http://localhost:3000');
-socket.on('news', function (data) {
-  console.log(data);
-  socket.emit('my other event', { my: 'data' });
-});

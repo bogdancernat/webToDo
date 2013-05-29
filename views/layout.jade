@@ -55,7 +55,7 @@ html
                 form(method='post', action='/login')
                   ul
                     li
-                      input(type='text', placeholder='Your email', name='email').ifield
+                      input(type='email', placeholder='Your email', name='email').ifield
                     li
                       input(type='password', placeholder='******', name='password').ifield
                     li
@@ -71,10 +71,10 @@ html
                 form(method='post', action='/register')
                   ul
                     li
-                      input(type='e-mail', placeholder='A valid email address', name='email').ifield 
+                      input(type='e-mail', placeholder='A valid email address', name='email', id="emailReg", autocomplete="off").ifield 
                     li
-                      input(type='password', placeholder='Your password', name='password').ifield
+                      input(type='password', placeholder='Your password', name='password', id="passReg").ifield
                     li
-                      input(type='password', placeholder='Retype your password', name='password2').ifield
+                      input(type='password', placeholder='Retype your password', name='password2', id="confPassReg").ifield
                     li
                       input(type='submit', value='register').button.blueBoxShadow
