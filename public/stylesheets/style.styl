@@ -220,6 +220,8 @@ rSNwidth = 200
       width:(rSNwidth - 30) px
       // background: #7f808a
       background: #fff
+      border-top-left-radius: 3px
+      border-bottom-left-radius: 3px
       box-shadow: 1px 1px 3px hColor
       height:25px
       float:right
@@ -299,18 +301,71 @@ ntdSize= 100
     text-shadow: 2px 2px 3px rgba(255,255,255,0.5)
     // box-shadow:1px 1px 5px #767881
 
-#addToDo
-  position:absolute
-  width: 400px
-  height: 200px
-  background: teal
 ihts= 40 // input fields height
 sBw= 380 // search box width
 sBcolor= #F7F9FE // submit buttons color
 sBcolorH= #BED2D9 // on hover
-
-afw = 300 // auth form width
 ipad = 10
+afw = 300 // auth form width
+
+#addToDo
+  position:absolute
+  left: 50%
+  top: 140px
+  box-shadow: 1px 1px 3px #000
+  padding:10px
+  ul
+    width:auto
+    li
+      display:block
+      float:left
+    li:not(:first-child)
+      margin-left:5px
+    li:first-child
+      width:10px
+      height:ihts px
+      position:relative
+#addToDoDueDate
+  width: (110 - ipad*2)px
+
+hp_start=rgba(248,98,103,1)
+hp_stop=rgba(247,65,72,1)
+.highPriority
+  background-image: -moz-linear-gradient(top, hp_start, hp_stop)
+  background-image: -ms-linear-gradient(top, hp_start, hp_stop)
+  background-image: -o-linear-gradient(top, hp_start, hp_stop)
+  background-image: -webkit-linear-gradient(top, hp_start, hp_stop)
+  background-image: linear-gradient(top, hp_start, hp_stop)
+.hpBorder
+  border-color: hp_start
+mp_start=rgba(1,1,1,1)
+mp_stop=rgba(1,1,1,1)
+.mediumPriority
+  background-image: -moz-linear-gradient(top, mp_start, mp_stop)
+  background-image: -ms-linear-gradient(top, mp_start, mp_stop)
+  background-image: -o-linear-gradient(top, mp_start, mp_stop)
+  background-image: -webkit-linear-gradient(top, mp_start, mp_stop)
+  background-image: linear-gradient(top, mp_start, mp_stop)
+.mpBorder
+  border-color: mp_start
+lp_start=rgba(1,1,1,1)
+lp_stop=rgba(1,1,1,1)
+.lowPriority
+  background-image: -moz-linear-gradient(top, lp_start, lp_stop)
+  background-image: -ms-linear-gradient(top, lp_start, lp_stop)
+  background-image: -o-linear-gradient(top, lp_start, lp_stop)
+  background-image: -webkit-linear-gradient(top, lp_start, lp_stop)
+  background-image: linear-gradient(top, lp_start, lp_stop)
+.lpBorder
+  border-color: lp_start
+.addPriority
+  border-top-left-radius: 50%
+  border-bottom-left-radius: 50%
+  width:(ihts/2 + 10) px
+  height:(ihts+2) px
+  position:absolute
+  z-index:-6
+
 .authForm
   width: afw px
   height: auto

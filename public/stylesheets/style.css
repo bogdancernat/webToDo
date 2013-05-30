@@ -210,6 +210,8 @@ body {
 #rightSideNav .sideNavGroup h1 {
   width: 170px;
   background: #fff;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
   box-shadow: 1px 1px 3px #56575e;
   height: 25px;
   float: right;
@@ -290,9 +292,66 @@ body {
 }
 #addToDo {
   position: absolute;
-  width: 400px;
-  height: 200px;
-  background: #008080;
+  left: 50%;
+  top: 140px;
+  box-shadow: 1px 1px 3px #000;
+  padding: 10px;
+}
+#addToDo ul {
+  width: auto;
+}
+#addToDo ul li {
+  display: block;
+  float: left;
+}
+#addToDo ul li:not(:first-child) {
+  margin-left: 5px;
+}
+#addToDo ul li:first-child {
+  width: 10px;
+  height: 40px;
+  position: relative;
+}
+#addToDoDueDate {
+  width: 90px;
+}
+.highPriority {
+  background-image: -moz-linear-gradient(top, #f86267, #f74148);
+  background-image: -ms-linear-gradient(top, #f86267, #f74148);
+  background-image: -o-linear-gradient(top, #f86267, #f74148);
+  background-image: -webkit-linear-gradient(top, #f86267, #f74148);
+  background-image: linear-gradient(top, #f86267, #f74148);
+}
+.hpBorder {
+  border-color: #f86267;
+}
+.mediumPriority {
+  background-image: -moz-linear-gradient(top, #010101, #010101);
+  background-image: -ms-linear-gradient(top, #010101, #010101);
+  background-image: -o-linear-gradient(top, #010101, #010101);
+  background-image: -webkit-linear-gradient(top, #010101, #010101);
+  background-image: linear-gradient(top, #010101, #010101);
+}
+.mpBorder {
+  border-color: #010101;
+}
+.lowPriority {
+  background-image: -moz-linear-gradient(top, #010101, #010101);
+  background-image: -ms-linear-gradient(top, #010101, #010101);
+  background-image: -o-linear-gradient(top, #010101, #010101);
+  background-image: -webkit-linear-gradient(top, #010101, #010101);
+  background-image: linear-gradient(top, #010101, #010101);
+}
+.lpBorder {
+  border-color: #010101;
+}
+.addPriority {
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+  width: 30px;
+  height: 42px;
+  position: absolute;
+  z-index: -6;
 }
 .authForm {
   width: 300px;
