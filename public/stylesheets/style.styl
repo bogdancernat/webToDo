@@ -76,6 +76,7 @@ linkcolor= rgba(43, 76, 126, 1)
         color: rgba(52, 52, 52, 1)
 
 hH = 55
+hColor=rgba(86,87,94, 1)
 #header
   width: 100%
   min-width: 1000px;
@@ -83,7 +84,7 @@ hH = 55
   padding:0
   margin:0 auto
   // position: fixed
-  background: rgba(86,87,94, 1)
+  background: hColor
 h = 30
 w = 80
 rd = 20
@@ -205,17 +206,28 @@ gradGroup_start = #a4d8ff
 // gradGroup_stop = rgba(62, 173, 255, 1)
 gradGroup_stop = #71c2ff
 
-rSNwidth = 200px
+rSNwidth = 200
 #rightSideNav
   color:#fefefe
   float:right
-  width:rSNwidth
+  width:rSNwidth px
   min-height:800px
   background:white
+  box-shadow:inset 1px 1px 3px hColor
   .sideNavGroup
-    
-  .sideNavGroup:not(:first-child)
     margin-top:10px
+    h1
+      width:rSNwidth px
+      background: #767881
+      box-shadow: 1px 1px 3px hColor
+      height:25px
+      p
+        color:#fff
+        padding-left:10px
+        line-height: 25px
+        font-size:15px
+        font-weight:300
+        text-shadow: 0px 0px 3px #000
 
 ntdSize= 100
 #noToDos
@@ -335,7 +347,7 @@ userMenuBorder=rgba(39, 39, 39, 0.3)
       a
         color: gr_start
         text-decoration: none
-        text-shadow:0px 0px 1px gr_stop
+        text-shadow:0px 0px 3px #E2E2E2
       a:hover
         text-decoration: underline
 

@@ -201,10 +201,24 @@ body {
   width: 200px;
   min-height: 800px;
   background: #fff;
+  box-shadow: inset 1px 1px 3px #56575e;
 }
-#rightSideNav .sideNavGroup,
-#rightSideNav .sideNavGroup:not(:first-child) {
+#rightSideNav .sideNavGroup {
   margin-top: 10px;
+}
+#rightSideNav .sideNavGroup h1 {
+  width: 200px;
+  background: #767881;
+  box-shadow: 1px 1px 3px #56575e;
+  height: 25px;
+}
+#rightSideNav .sideNavGroup h1 p {
+  color: #fff;
+  padding-left: 10px;
+  line-height: 25px;
+  font-size: 15px;
+  font-weight: 300;
+  text-shadow: 0px 0px 3px #000;
 }
 #noToDos span {
   color: #828fa2;
@@ -320,7 +334,7 @@ body {
 #userMenu ul li a {
   color: #75a4f3;
   text-decoration: none;
-  text-shadow: 0px 0px 1px #568ff0;
+  text-shadow: 0px 0px 3px #e2e2e2;
 }
 #userMenu ul li a:hover {
   text-decoration: underline;
