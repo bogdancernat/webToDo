@@ -27,8 +27,24 @@ $(document).ready(function() {
   $('#authWrapper').click(function(e){
     e.stopPropagation();
   });
-  var rightSideNavHeight = window.innerHeight - $('#header').innerHeight();
-  $('#rightSideNav').css("height",rightSideNavHeight+'px');
+  if(!$('#rightSideNav').length){
+    $('#contents').css("width","100%");
+  }
+  var noHeaderHeight = window.innerHeight - $('#header').innerHeight();
+  $('#rightSideNav').css("height",noHeaderHeight+'px');
+  var topHeightCircleAdd = noHeaderHeight/2 - $('#noToDos > span').width()/2;
+  $('#noToDos').css("top",topHeightCircleAdd);
+  var ntdLeft = $("#contents").width()/2 - $('#noToDos').width()/2;
+  $('#noToDos').css("left",ntdLeft);
+
+  $(window).resize(function(){
+    noHeaderHeight = window.innerHeight - $('#header').innerHeight();
+    $('#rightSideNav').css("height",noHeaderHeight+'px');
+    topHeightCircleAdd = noHeaderHeight/2 - $('#noToDos > span').width()/2;
+    $('#noToDos').css("top",topHeightCircleAdd);
+    ntdLeft = $("#contents").width()/2 - $('#noToDos').width()/2;
+    $('#noToDos').css("left",ntdLeft);
+  });
   $('#userButton').click(function(){
     if(displayingSubmenu){
       $('#userMenu > ul').css("display","none");

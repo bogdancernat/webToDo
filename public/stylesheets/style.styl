@@ -10,7 +10,7 @@ body
   background-image: url('../images/pw_maze_white.png')
   // background: rgba(220, 224, 230, 1)
 
-linkcolor= rgba(43, 76, 126, 1)
+linkcolor= rgba(86,143,240, 1)
 #grayarea
   -webkit-transition: all 1s ease
   -o-transition: all 1s ease
@@ -27,6 +27,7 @@ linkcolor= rgba(43, 76, 126, 1)
   z-index: 1001
   opacity:0
   display: none
+hColor=rgba(86,87,94, 1)
 #authWrapper
   width: 720px
   height: 320px
@@ -38,13 +39,13 @@ linkcolor= rgba(43, 76, 126, 1)
   header
     height: 45px
     width: 100%
-    background: rgba(113, 194, 255, 1)
+    background: hColor
     border-top-left-radius: 10px
     border-top-right-radius: 10px
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 1)
     p
       line-height: 45px
-      font-weight: 400
+      font-weight: 300
       font-size: 20px
       color: rgba(255,255,255, 1)
       text-align: center
@@ -76,7 +77,6 @@ linkcolor= rgba(43, 76, 126, 1)
         color: rgba(52, 52, 52, 1)
 
 hH = 55
-hColor=rgba(86,87,94, 1)
 #header
   width: 100%
   min-width: 1000px;
@@ -111,7 +111,7 @@ gr_stop = #568ff0
   text-align: center
   cursor: pointer
   border: none
-  box-shadow:0px 0px 2px #232323
+  box-shadow:0px 0px 2px #000
   border-radius: 5px
   padding: 0 (padH px)
 .button:hover
@@ -199,8 +199,8 @@ gr_stop = #568ff0
   padding: 0 0 5% 0
   width: 100%
   min-width:1000px
+  position:relative
   // margin: 0 auto
-
 // gradGroup_start = rgba(113, 194, 255, 1)
 gradGroup_start = #a4d8ff
 // gradGroup_stop = rgba(62, 173, 255, 1)
@@ -218,7 +218,7 @@ rSNwidth = 200
     margin-top:10px
     h1
       width:rSNwidth px
-      background: #767881
+      background: #7f808a
       box-shadow: 1px 1px 3px hColor
       height:25px
       p
@@ -228,22 +228,65 @@ rSNwidth = 200
         font-size:15px
         font-weight:300
         text-shadow: 0px 0px 3px #000
+axW = rSNwidth px
+#contents
+  width: calc(100% \- axW)
+  width: -moz-calc(100% \- axW)
+  width: -webkit-calc(100% \- axW)
+  position: relative
 
+/*Big add TODO circle*/
 ntdSize= 100
+/*@keyframes noinset
+  from{box-shadow:inset 1px 1px 5px #767881}
+  to{box-shadow:inset 0px 0px 0px #767881}
+
+@-webkit-keyframes noinset
+  from{box-shadow:inset 1px 1px 5px #767881}
+  to{box-shadow:inset 0px 0px 0px #767881}
+ */
 #noToDos
-  span
-    color:#828fa2
+  -webkit-touch-callout: none
+  -webkit-user-select: none
+  -khtml-user-select: none
+  -moz-user-select: none
+  -ms-user-select: none
+  user-select: none
+  position:absolute
+  top: 300px
+  color:rgba(154,155,162,0.6)
+  span /* le circle */
+    margin:0 auto
+    -webkit-transition: all 1s ease
+    -o-transition: all 1s ease
+    -moz-transition: all 1s ease
+    -ms-transition: all 1s ease
+    -kthtml-transition: all 1s ease
+    transition: all 1s ease
+    text-shadow: 0px 0px 3px #a2a3aa
     display:block
     width:ntdSize px
     height:ntdSize px
-    background:#606D80
+    background:#fff
     border-radius:50%
-    border:4px solid #515c6d
-    box-shadow:inset 0px 0px 7px #828fa2
+    // border:2px solid #828fa2
+    box-shadow:inset 1px 1px 5px #767881
     line-height:(ntdSize - 2) px
     text-align:center
     font-size:(ntdSize - 30)px
     font-weight: 200
+    cursor:pointer
+  span:hover
+    box-shadow:inset 1px 1px 5px #000
+    font-size:(ntdSize - 34)px
+  p
+    // color: rgba(154,155,162,0.6)
+    margin-top:20px
+    font-size:40px
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.4)
+    
+    
+    // box-shadow:1px 1px 5px #767881
 
 ihts= 40 // input fields height
 sBw= 380 // search box width
@@ -309,6 +352,8 @@ userMenuBorder=rgba(39, 39, 39, 0.3)
   border-left: 17px solid transparent
   border-right: 17px solid transparent
   border-bottom: 17px solid userMenuBorder
+  z-index: 999
+
 #bigTriangle
   position: absolute
   display: none
@@ -327,6 +372,7 @@ userMenuBorder=rgba(39, 39, 39, 0.3)
   right:0
   width: 150px
   border-top: none
+  z-index:999
   ul
     display: none
     li:first-child
@@ -345,7 +391,7 @@ userMenuBorder=rgba(39, 39, 39, 0.3)
       border-right:1px solid userMenuBorder
       background: userMenuBg
       a
-        color: gr_start
+        color: linkcolor
         text-decoration: none
         text-shadow:0px 0px 3px #E2E2E2
       a:hover
