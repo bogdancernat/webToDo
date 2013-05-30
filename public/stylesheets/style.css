@@ -201,25 +201,30 @@ body {
   float: right;
   width: 200px;
   min-height: 800px;
-  background: #fff;
+  background: #d6e6f6;
   box-shadow: inset 1px 1px 3px #56575e;
 }
 #rightSideNav .sideNavGroup {
   margin-top: 10px;
 }
 #rightSideNav .sideNavGroup h1 {
-  width: 200px;
-  background: #7f808a;
+  width: 170px;
+  background: #fff;
   box-shadow: 1px 1px 3px #56575e;
   height: 25px;
+  float: right;
+  cursor: pointer;
 }
 #rightSideNav .sideNavGroup h1 p {
-  color: #fff;
+  color: #56575e;
   padding-left: 10px;
   line-height: 25px;
   font-size: 15px;
-  font-weight: 300;
-  text-shadow: 0px 0px 3px #000;
+  font-weight: 200;
+  text-shadow: 0px 0px 1px #232323;
+}
+#rightSideNav .sideNavGroup:not(:first-child) h1 {
+  margin-top: 20px;
 }
 #contents {
   width: calc(100% - 200px);
@@ -273,9 +278,15 @@ body {
   font-size: 66px;
 }
 #noToDos p {
+  background-color: rgba(154,155,162,0.6);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-top: 20px;
   font-size: 40px;
-  text-shadow: 2px 2px 3px rgba(255,255,255,0.4);
+  font-weight: 300;
+  text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
 }
 .authForm {
   width: 300px;
@@ -348,6 +359,7 @@ body {
 }
 #userMenu {
   position: absolute;
+  display: none;
   top: 49px;
   padding: 0;
   right: 0;

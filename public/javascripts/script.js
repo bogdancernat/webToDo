@@ -59,6 +59,9 @@ $(document).ready(function() {
       displayingSubmenu = true;
     }
   });
+  $('#noToDos > span').click(function(){
+    console.log('click');
+  });
   function switchAuthForms(){
     if(loginSection){
       $('#loginMessage').css("display","none");
