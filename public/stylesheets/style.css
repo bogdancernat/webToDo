@@ -139,7 +139,7 @@ body {
 }
 #nav {
   margin-top: 12.5px;
-  margin-right: 5%;
+  margin-right: 0.5%;
   float: right;
 }
 #nav ul:first-child {
@@ -288,6 +288,12 @@ body {
   font-weight: 300;
   text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
 }
+#addToDo {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  background: #008080;
+}
 .authForm {
   width: 300px;
   height: auto;
@@ -359,7 +365,6 @@ body {
 }
 #userMenu {
   position: absolute;
-  display: none;
   top: 49px;
   padding: 0;
   right: 0;
