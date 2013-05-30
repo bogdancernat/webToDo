@@ -23,10 +23,11 @@ block content
       p
         | Add a ToDo item
     div#addToDo
-      ul
-        li
-          div.addPriority.highPriority
-        li
-          input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifield.hpBorder
-        li
-          input(placeholder='Due Date',type='text').ifield#addToDoDueDate
+      form(method='post', action='')
+        ul
+          li
+            div#addPriority.highPriority
+          li
+            input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifield.hpBorder
+          li
+            input(placeholder='Due Date',type='text').ifield#addToDoDueDate

@@ -9,7 +9,9 @@ function getHash (str){
 exports.loginPage = function(req, res){
   res.render('login', {title: 'Login', msg: 'salut'});
 }
-
+exports.user = function(){
+  return userLogged;
+}
 exports.logout = function(req, res){
   res.clearCookie('et_logged_in');
   res.redirect('/');
@@ -27,7 +29,7 @@ exports.login = function(req, res){
     if(resp){
       console.log(resp);
       if(resp.value['password'] == getHash(user['password'])){
-        res.cookie("et_logged_in",{
+        res.cookie("todo_logged_in",{
           "user": user.email,
           "_id": resp.value._id
         },{

@@ -345,7 +345,7 @@ body {
 .lpBorder {
   border-color: #010101;
 }
-.addPriority {
+#addPriority {
   border-top-left-radius: 50%;
   border-bottom-left-radius: 50%;
   width: 30px;

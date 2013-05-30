@@ -62,6 +62,32 @@ $(document).ready(function() {
   $('#noToDos > span').click(function(){
     console.log('click');
   });
+  $('#addToDo').keypress(function(e){
+    if(e.which == 13){
+      var iElem = $('#addToDoInput')
+        , dateElem = $('#addToDoDueDate')
+        , priorityElem =$('#addPriority')
+        , priority
+        ;
+      // console.log();
+      $.each(priorityElem.attr('class').split(/\s+/), function(index, item){
+        if(item=='highPriority'){
+          priority = 'high';
+        } else if(item=='mediumPriority'){
+          priority = 'medium';
+        } else if(item=='lowPriority'){
+          priority = 'low';
+        }
+      });
+      if(iElem.text().length != 0){
+        var todoItem = {
+          todo: iElem.text(),
+          dueDate: dateElem.text(),
+          priority: priority
+        }
+      }
+    }
+  });
   function switchAuthForms(){
     if(loginSection){
       $('#loginMessage').css("display","none");
