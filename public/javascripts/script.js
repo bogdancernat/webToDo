@@ -27,6 +27,8 @@ $(document).ready(function() {
   $('#authWrapper').click(function(e){
     e.stopPropagation();
   });
+  var rightSideNavHeight = window.innerHeight - $('#header').innerHeight();
+  $('#rightSideNav').css("height",rightSideNavHeight+'px');
   $('#userButton').click(function(){
     if(displayingSubmenu){
       $('#userMenu > ul').css("display","none");

@@ -191,8 +191,8 @@ body {
   box-shadow: 0px 3px 3px #232323;
 }
 #content {
-  padding: 1% 1% 5% 1%;
-  width: 98%;
+  padding: 0 0 5% 0;
+  width: 100%;
   min-width: 1000px;
 }
 #rightSideNav {
@@ -200,33 +200,9 @@ body {
   float: right;
   width: 200px;
   min-height: 800px;
-}
-#rightSideNav .sideNavGroup {
-  border-radius: 15px;
-  background-image: -moz-linear-gradient(top, #a4d8ff, #71c2ff);
-  background-image: -ms-linear-gradient(top, #a4d8ff, #71c2ff);
-  background-image: -o-linear-gradient(top, #a4d8ff, #71c2ff);
-  background-image: -webkit-linear-gradient(top, #a4d8ff, #71c2ff);
-  background-image: linear-gradient(top, #a4d8ff, #71c2ff);
-  box-shadow: 0px 2px 3px #fff;
-  width: 200px;
-  height: 200px;
-}
-#rightSideNav .sideNavGroup h1 {
-  height: 35px;
-  font-size: 1.3em;
-  font-weight: 300;
-  line-height: 35px;
-  width: 270px;
-  padding-left: 30px;
-  text-shadow: 1px 1px 1px #71c2ff;
-}
-#rightSideNav .sideNavGroup .listItemsNavGroup {
-  box-shadow: inset 0px 1px 8px -1px #000;
-  width: 200px;
-  height: 155px;
   background: #fff;
 }
+#rightSideNav .sideNavGroup,
 #rightSideNav .sideNavGroup:not(:first-child) {
   margin-top: 10px;
 }
@@ -342,8 +318,9 @@ body {
   background: #fff;
 }
 #userMenu ul li a {
-  color: #477c4a;
+  color: #75a4f3;
   text-decoration: none;
+  text-shadow: 0px 0px 1px #568ff0;
 }
 #userMenu ul li a:hover {
   text-decoration: underline;

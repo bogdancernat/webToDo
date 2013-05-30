@@ -9,6 +9,7 @@ body
   overflow-y: hidden;
   background-image: url('../images/pw_maze_white.png')
   // background: rgba(220, 224, 230, 1)
+
 linkcolor= rgba(43, 76, 126, 1)
 #grayarea
   -webkit-transition: all 1s ease
@@ -194,8 +195,8 @@ gr_stop = #568ff0
   background: rgba(100,100,100,0.5)
   box-shadow: 0px 3px 3px #232323
 #content
-  padding: 1% 1% 5% 1%
-  width: 98%
+  padding: 0 0 5% 0
+  width: 100%
   min-width:1000px
   // margin: 0 auto
 
@@ -210,29 +211,9 @@ rSNwidth = 200px
   float:right
   width:rSNwidth
   min-height:800px
+  background:white
   .sideNavGroup
-    border-radius:15px
-    background-image: -moz-linear-gradient(top, gradGroup_start, gradGroup_stop)
-    background-image: -ms-linear-gradient(top, gradGroup_start, gradGroup_stop)
-    background-image: -o-linear-gradient(top, gradGroup_start, gradGroup_stop)
-    background-image: -webkit-linear-gradient(top, gradGroup_start, gradGroup_stop)
-    background-image: linear-gradient(top, gradGroup_start, gradGroup_stop)
-    box-shadow: 0px 2px 3px #fff
-    width: rSNwidth
-    height: 200px
-    h1
-      height: 35px
-      font-size: 1.3em
-      font-weight: 300
-      line-height: 35px
-      width: 270px
-      padding-left: 30px
-      text-shadow: 1px 1px 1px gradGroup_stop
-    .listItemsNavGroup
-      box-shadow: inset 0px 1px 8px -1px #000
-      width:rSNwidth
-      height:155px
-      background:white
+    
   .sideNavGroup:not(:first-child)
     margin-top:10px
 
@@ -352,8 +333,9 @@ userMenuBorder=rgba(39, 39, 39, 0.3)
       border-right:1px solid userMenuBorder
       background: userMenuBg
       a
-        color: rgba(71, 124, 74, 1)
+        color: gr_start
         text-decoration: none
+        text-shadow:0px 0px 1px gr_stop
       a:hover
         text-decoration: underline
 
