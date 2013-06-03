@@ -44,7 +44,10 @@ html
           p 
             | Log in (to) (web to do)++
           section#authleft
-
+              form(method='GET', action='/loginTwitter')
+                input(type='submit', value='login twitter')
+              form(method='GET', action='/loginGoogle')
+                input(type='submit', value='login google')    
           section#authright
               p#loginMessage
                 | New to (web to do)++? Why not 

@@ -1,7 +1,57 @@
 var db = require('../db')
   , cr = require('crypto')
   , md5
+  , passport = require('passport')
+  , TwitterStrategy = require('passport-twitter').Strategy
+  , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
   ;
+
+exports.passport = passport;
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+passport.use(new TwitterStrategy({
+    consumerKey: 's6wF0QuG4mRhwaZCWswA',
+    consumerSecret: 'TfLKblLHtYe6sAr5iOy2deSdbSdwQVYTjuGoBsgu9A',
+    callbackURL: "http://localhost:3000/loginTwitter/"
+  },
+  function(token, tokenSecret, profile, done) {
+    process.nextTick(function () {
+      
+      // To keep the example simple, the user's Twitter profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the Twitter account with a user record in your database,
+      // and return that user instead.
+      return done(null, profile);
+    });
+  }
+));
+
+passport.use(new GoogleStrategy({
+    clientID: '291727398085-2u4d917nj3cvdc1ltmonnkib8mrqp0j1.apps.googleusercontent.com',
+    clientSecret: 'ijuWf0OW6q_hIoedHAPSsphU',
+    callbackURL: 'http://localhost:3000/loginGoogle'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      
+      // To keep the example simple, the user's Google profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the Google account with a user record in your database,
+      // and return that user instead.
+      console.log(profile);
+      return done(null, profile);
+    });
+  }
+));
+
 function getHash (user, callback){
   md5 = cr.createHash('md5');
   user['password'] = md5.update(user['password']).digest('hex');
