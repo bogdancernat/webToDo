@@ -1,8 +1,6 @@
-
 /**
  * Module dependencies.
  */
-
 var express = require('express')
   , http = require('http')
   , app = express()
@@ -15,7 +13,7 @@ var express = require('express')
   , db = require('./db')
   , io = require('socket.io').listen(server) 
   ;
-   
+  
 // all environments
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -40,7 +38,6 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/login', auth.loginPage);
@@ -49,7 +46,7 @@ app.get('/logout',auth.logout);
 app.get('/search',search.info);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
-app.get('/loginTwitter', function(req, res, next) {
+app.get('/loginTwitter', function (req, res, next) {
   auth.passport.authenticate('twitter', function(err, user, info) {
     console.log(user);
     if (user) {
@@ -65,7 +62,7 @@ app.get('/loginTwitter', function(req, res, next) {
   })(req, res, next);
 });
 
-app.get('/loginGoogle', function(req, res, next) {
+app.get('/loginGoogle', function (req, res, next) {
   auth.passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }, function(err, user, info) {
     if (user) {
       res.cookie("et_logged_in",{
@@ -80,18 +77,13 @@ app.get('/loginGoogle', function(req, res, next) {
   })(req, res, next);
 });
 
-
-server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
-});
-
 io.sockets.on('connection', function (socket) {
   socket.on('addToDo', function (data){
     console.log(data);
     socket.emit('updateToDoList', data);
   });
 
-  socket.on('validateEmail', function(data){
+  socket.on('validateEmail', function (data){
       data.email = data.email.replace(/\s/g,'');
       data.email = data.email.toLowerCase();
       db.uniqueUser(data.email, function (itIs){
@@ -104,7 +96,7 @@ io.sockets.on('connection', function (socket) {
       });
   });
 
-  socket.on('validatePass', function(data){
+  socket.on('validatePass', function (data){
       var isValid = true;
       if (data.password.length < 6 || data.password.length > 32)
         isValid = false;
@@ -113,7 +105,7 @@ io.sockets.on('connection', function (socket) {
       socket.emit('validationResult', data);
   });
 
-  socket.on('validateConfPass', function(data){
+  socket.on('validateConfPass', function (data){
     var isValid = true;
 
     if (data.password != data.rePassword)
@@ -124,7 +116,7 @@ io.sockets.on('connection', function (socket) {
     socket.emit('validationResult', data);
   });
   
-  socket.on('addToDo', function(data){
+  socket.on('addToDo', function (data){
     var item = data.data;
     var todo = {
       'type' : 'todo_item',
@@ -141,7 +133,6 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login')
-}
+server.listen(app.get('port'), function (){
+  console.log('Express server listening on port ' + app.get('port'));
+});
