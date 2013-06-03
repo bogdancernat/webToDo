@@ -48,6 +48,24 @@ app.get('/logout',auth.logout);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
 
+io.sockets.on('connection',function(socket){
+  socket.on('addToDo', function(data){
+    var item = data.data;
+    var todo = {
+      'type' : 'todo_item',
+      'user' : {
+        'email' : item.user,
+        '_id'  : item._id,
+      },
+      'todo' : item.todo,
+      'duedate': item.duedate,
+      'priority' : item.priority
+    }
+    // console.log(todo);
+    db.insert(todo);
+  });
+});
+
 server.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

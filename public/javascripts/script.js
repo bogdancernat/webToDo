@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var loginSection = true;
   var displayingSubmenu = false;
-
+  var socket = io.connect('http://localhost:3000');
   // fade in!
   $('#loginButton').click(function(){
     $('#grayarea').css("display","block");
@@ -64,6 +64,7 @@ $(document).ready(function() {
   });
   $('#addToDo').keypress(function(e){
     if(e.which == 13){
+      // console.log("enter");
       var iElem = $('#addToDoInput')
         , dateElem = $('#addToDoDueDate')
         , priorityElem =$('#addPriority')
@@ -79,12 +80,30 @@ $(document).ready(function() {
           priority = 'low';
         }
       });
-      if(iElem.text().length != 0){
+      if(iElem.val().length != 0){
+        var cook = null;
+        var cookJson = null;
+        cook = $.cookie('todo_logged_in');
+        if(cook){
+          var startPos = cook.indexOf('{');
+          var stopPos = 0;
+          for (var i = cook.length - 1; i >= 0; i--) {
+            if(cook[i] == '}'){
+              stopPos = i+1;
+              break;
+            }
+          }
+          cookJson = $.parseJSON(cook.substring(startPos,stopPos));
+        }
+        // console.log(cookJson);
         var todoItem = {
-          todo: iElem.text(),
-          dueDate: dateElem.text(),
+          user: cookJson?cookJson.user:null,
+          _id: cookJson?cookJson._id:null,
+          todo: iElem.val(),
+          dueDate: dateElem.val()?dateElem.val():null,
           priority: priority
         }
+        socket.emit('addToDo', { data: todoItem });
       }
     }
   });

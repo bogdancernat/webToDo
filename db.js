@@ -34,14 +34,14 @@ function pushViews(){
             emit(doc.email,doc);
           }
         }
-      }/*,
-      'get_trips':{
+      },
+      'get_todos':{
         'map': function (doc) {
-          if(doc.type=='trip'){
+          if(doc.type=='todo_item'){
             emit(doc.user,doc);
           }
         }
-      }*/
+      }
     }
   };
 
