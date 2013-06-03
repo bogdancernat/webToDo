@@ -13,7 +13,7 @@ exports.user = function(){
   return userLogged;
 }
 exports.logout = function(req, res){
-  res.clearCookie('et_logged_in');
+  res.clearCookie('todo_logged_in');
   res.redirect('/');
 }
 
