@@ -43,14 +43,13 @@ app.get('/users', user.list);
 app.get('/login', auth.loginPage);
 app.get('/register', auth.registerPage);
 app.get('/logout',auth.logout);
-app.get('/search',search.info);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
 app.get('/loginTwitter', function (req, res, next) {
   auth.passport.authenticate('twitter', function(err, user, info) {
     console.log(user);
     if (user) {
-    res.cookie("et_logged_in",{
+    res.cookie("todo_logged_in",{
             "user": user.displayName,
             "_id": req.sessionID
           },{
@@ -65,7 +64,7 @@ app.get('/loginTwitter', function (req, res, next) {
 app.get('/loginGoogle', function (req, res, next) {
   auth.passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }, function(err, user, info) {
     if (user) {
-      res.cookie("et_logged_in",{
+      res.cookie("todo_logged_in",{
           "user": user.displayName,
           "_id": req.sessionID
         },{
