@@ -38,7 +38,7 @@ function pushViews(){
       'get_todos':{
         'map': function (doc) {
           if(doc.type=='todo_item'){
-            emit(doc.user,doc);
+            emit(doc.todo,doc);
           }
         }
       }

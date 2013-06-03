@@ -96,6 +96,7 @@ $(document).ready(function() {
           cookJson = $.parseJSON(cook.substring(startPos,stopPos));
         }
         // console.log(cookJson);
+        console.log(dateElem.val());
         var todoItem = {
           user: cookJson?cookJson.user:null,
           _id: cookJson?cookJson._id:null,

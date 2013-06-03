@@ -58,7 +58,7 @@ io.sockets.on('connection',function(socket){
         '_id'  : item._id,
       },
       'todo' : item.todo,
-      'duedate': item.duedate,
+      'duedate': item.dueDate,
       'priority' : item.priority
     }
     // console.log(todo);
