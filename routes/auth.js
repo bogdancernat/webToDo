@@ -159,17 +159,23 @@ exports.register = function(req,res){
         }
 
         getHash(user, function(user) {
-            db.insert(user);
+            db.insert(user , function() {
+                db.getUser(user['email'], function (resp){
+                    if(resp){
+                        res.cookie("todo_logged_in",{
+                            "user": resp.key,
+                            "_id": resp.id
+                        }, {
+                            expires: new Date(Date.now()+99999999),
+                            signed: true
+                        });
 
-            res.cookie("todo_logged_in",{
-            "user": user['email'],
-            "_id": req.sessionID
-            },{
-              expires: new Date(Date.now()+99999999),
-              signed: true
+                        res.redirect('/');  
+                    } else {
+                        res.redirect('/');
+                    }
+                });
             });
-
-            res.redirect('/');
         });
     });
 }

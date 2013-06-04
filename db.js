@@ -71,7 +71,7 @@ function pushViews(){
 
 
 
-exports.insert = function (obj){
+exports.insert = function (obj, callback){
     activeDb.insert(obj,function (err, body, header){
         console.log('inserted');
         console.log(obj);
@@ -79,6 +79,8 @@ exports.insert = function (obj){
         if (err){
             throw (err);
         }
+
+        callback();
     });
 }
 
