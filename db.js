@@ -86,8 +86,8 @@ exports.insert = function (obj, callback){
 
 
 
-exports.getUser = function (email,callback){
-    activeDb.view('web_to_do_views','get_users',{key: email}, function (err,body){
+exports.getUser = function (key, callback){
+    activeDb.view('web_to_do_views','get_users',{key: key}, function (err,body){
         if (!err){
             callback(body.rows[0]);
         }

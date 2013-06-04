@@ -34,6 +34,7 @@ passport.use (new TwitterStrategy({
         // represent the logged-in user.  In a typical application, you would want
         // to associate the Twitter account with a user record in your database,
         // and return that user instead.
+        console.log(profile);
         return done(null, profile);
     });
   }
@@ -120,6 +121,7 @@ exports.registerPage = function(req, res){
 exports.register = function(req,res){
     var user = {
         'type': 'user',
+        'from': 'email',
         'email': req.body['email'],
         'password': req.body['password'],
         'repassword': req.body['password2']

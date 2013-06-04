@@ -112,35 +112,35 @@ io.sockets.on('connection', function (socket) {
 
 
 
-  socket.on('validateConfPass', function (data){
-    var isValid = true;
+    socket.on('validateConfPass', function (data){
+        var isValid = true;
 
-    if (data.password != data.rePassword)
-      isValid = false;
+        if (data.password != data.rePassword)
+            isValid = false;
 
-    data.isValid = isValid;
+        data.isValid = isValid;
 
-    socket.emit('validationResult', data);
-  });
+        socket.emit('validationResult', data);
+    });
   
 
 
 
-  socket.on('addToDo', function (data){
-    var item = data.data;
-    var todo = {
-      'type' : 'todo_item',
-      'user' : {
-        'email' : item.user,
-        '_id'  : item._id,
-      },
-      'todo' : item.todo,
-      'duedate': item.dueDate,
-      'priority' : item.priority
-    }
-    // console.log(todo);
-    db.insert(todo);
-  });
+    socket.on('addToDo', function (data){
+        var item = data.data;
+        var todo = {
+            'type' : 'todo_item',
+            'user' : {
+                'email' : item.user,
+                '_id'  : item._id,
+             },
+            'todo' : item.todo,
+            'duedate': item.dueDate,
+            'priority' : item.priority
+        }
+
+        db.insert(todo);
+    });
 });
 
 
