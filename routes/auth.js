@@ -6,8 +6,6 @@ var db = require('../db')
   , GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
   ;
 
-exports.passport = passport;
-
 
 
 passport.serializeUser(function (user, done) {
@@ -19,6 +17,7 @@ passport.serializeUser(function (user, done) {
 passport.deserializeUser(function (obj, done) {
     done(null, obj);
 });
+
 
 
 passport.use (new TwitterStrategy({
@@ -104,9 +103,11 @@ function getHash (user, callback){
 
 
 
-exports.loginPage = function(req, res){
-    res.render('login', {title: 'Login', msg: 'salut'});
-}
+exports.getHash = getHash;
+
+
+
+exports.passport = passport;
 
 
 
@@ -165,7 +166,7 @@ exports.login = function(req, res){
     db.getUser(user['email'], function (resp){
         if(resp){
             getHash(user, function(user){
-                if (resp.value['password'] == user['password'])
+                if (resp.value['password'] == user['password']) {
                     res.cookie("todo_logged_in",{
                         "user": resp.key,
                         "_id": resp.id
@@ -173,18 +174,19 @@ exports.login = function(req, res){
                         expires: new Date(Date.now()+99999999),
                         signed: true
                     });
-            });
 
-            res.redirect('/');  
+                    res.redirect('/');  
+                } else {
+                    res.redirect('/');                      
+                }
+            });
         } else {
           res.redirect('/');
         }
     });
 }
 
-exports.registerPage = function(req, res){
-    res.render('login', {title: 'Login', msg: 'salut'});
-}
+
 
 exports.register = function(req,res){
     var user = {

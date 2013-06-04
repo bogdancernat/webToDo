@@ -35,7 +35,7 @@ $(document).ready(function() {
 
 
 
-    $('#authWrapper').click(function(e){
+    $('#authWrapper').click(function (e){
         e.stopPropagation();
     });
 
@@ -221,7 +221,7 @@ $(document).ready(function() {
 
 
 
-    $('#registerFormId').submit(function(e){
+    $('#registerFormId').submit(function (e){
         if (isValidRegisterData['#emailReg'] == false)
             e.preventDefault(); 
         if (isValidRegisterData['#passReg'] == false)
@@ -232,7 +232,39 @@ $(document).ready(function() {
 
 
 
-    socket.on('validationResult', function(data){
+    var submited = true;
+    $('#loginFormId').submit(function (e) {
+        console.log(submited);
+        if (submited === true) {
+            socket.emit('validateLoginData', { email: $('#emailLog').val(), password: $('#passLog').val() });            
+
+            return false;
+        }
+    });
+
+
+
+    socket.on('loginValidationResult', function (data){
+        console.log(data);
+        if (data.result === 'ok') {
+            submited = false;
+
+            $('#emailLog').css('background', 'rgba(255, 255, 255, 1)');
+            $('#passLog').css('background', 'rgba(255, 255, 255, 1)'); 
+            
+            $('#loginFormId').submit();
+        } else if (data.result === 'invalid_email') {
+            $('#emailLog').css('background', 'rgba(249, 218, 226, 1)');
+            $('#passLog').css('background', 'rgba(255, 255, 255, 1)');    
+        } else if (data.result === 'invalid_password') {
+            $('#emailLog').css('background', 'rgba(255, 255, 255, 1)');
+            $('#passLog').css('background', 'rgba(249, 218, 226, 1)');    
+        }
+    });
+
+
+
+    socket.on('validationResult', function (data){
         console.log(data);
         if (!data.isValid) {
             $(data.elementId).css('background', 'rgba(249, 218, 226, 1)');

@@ -13,7 +13,6 @@ var express = require('express')
     , db = require('./db')
     , io = require('socket.io').listen(server) 
   ;
-  
 
 // all environments
 app.configure(function(){
@@ -43,8 +42,6 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/login', auth.loginPage);
-app.get('/register', auth.registerPage);
 app.get('/logout',auth.logout);
 app.get('/loginGoogle', auth.loginWithGoogle);
 app.post('/login', auth.login );
@@ -110,6 +107,25 @@ io.sockets.on('connection', function (socket) {
         }
 
         db.insert(todo);
+    });
+
+
+
+    socket.on('validateLoginData', function (data){
+        console.log(data);
+        db.getUser(data['email'], function (resp){
+            if(resp){
+                auth.getHash(data, function(user){
+                    if (resp.value['password'] == data['password']) {
+                        socket.emit('loginValidationResult', {result: 'ok'});    
+                    } else {
+                        socket.emit('loginValidationResult', {result: 'invalid_password'});           
+                    }
+                });
+            } else {
+                socket.emit('loginValidationResult', {result: 'invalid_email'});
+            }
+        });
     });
 });
 
