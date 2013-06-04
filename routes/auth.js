@@ -28,15 +28,31 @@ passport.use (new TwitterStrategy({
     },
 
     function (token, tokenSecret, profile, done) {
-    process.nextTick(function () {
+            process.nextTick(function () {
+            var user = {
+                'type': 'twitterUser',
+                'username': profile.username
+            }
 
-        // To keep the example simple, the user's Twitter profile is returned to
-        // represent the logged-in user.  In a typical application, you would want
-        // to associate the Twitter account with a user record in your database,
-        // and return that user instead.
-        console.log(profile);
-        return done(null, profile);
-    });
+            db.uniqueTwitterUser(user['username'], function (itIs) {
+                if (itIs) {
+                    db.insert(user, function() {
+                        db.getTwitterUser(user['username'], function (resp){
+                            if(resp){
+                                done(null, resp);
+                            } 
+                        });   
+                    });
+                } else {
+                    db.getTwitterUser(user['username'], function (resp){
+                        if(resp){
+                            done(null, resp);
+                        } 
+                    });    
+                }
+
+            });
+        });
   }
 ));
 
@@ -49,16 +65,33 @@ passport.use(new GoogleStrategy({
     },
 
     function (accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-        // To keep the example simple, the user's Google profile is returned to
-        // represent the logged-in user.  In a typical application, you would want
-        // to associate the Google account with a user record in your database,
-        // and return that user instead.
-        console.log(profile);
-        return done(null, profile);
-    });
-  }
+        process.nextTick(function () {
+            var user = {
+                'type': 'user',
+                'from': 'googleAccount',
+                'email': profile.emails[0].value
+            }
+
+            db.uniqueUser(user['email'], function (itIs) {
+                if (itIs) {
+                    db.insert(user , function() {
+                        db.getUser(user['email'], function (resp){
+                            if(resp){
+                                done(null, resp);
+                            } 
+                        });   
+                    });
+                } else {
+                    db.getUser(user['email'], function (resp){
+                        if(resp){
+                            done(null, resp);
+                        } 
+                    });    
+                }
+
+            });
+        });
+    }
 ));
 
 
@@ -80,6 +113,41 @@ exports.loginPage = function(req, res){
 exports.logout = function(req, res){
     res.clearCookie('todo_logged_in');
     res.redirect('/');
+}
+
+
+
+exports.loginWithGoogle = function (req, res, next) {
+    passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }, 
+        function(err, user, info) {
+            if (user) {
+                res.cookie("todo_logged_in",{
+                    "user": user.key,
+                    "_id": user.id
+                }, {
+                    expires: new Date(Date.now()+99999999),
+                    signed: true
+                });
+            }
+
+            res.redirect('/'); 
+        })(req, res, next);
+}
+
+exports.loginWithTwitter = function (req, res, next) {
+    passport.authenticate('twitter', function (err, user, info) {
+        if (user) {
+            res.cookie("todo_logged_in",{
+                "user": user.key,
+                "_id": req.id
+            }, {
+                expires: new Date(Date.now()+99999999),
+                signed: true
+            });
+        }
+
+        res.redirect('/'); 
+    })(req, res, next);
 }
 
 
