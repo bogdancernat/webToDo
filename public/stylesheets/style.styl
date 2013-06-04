@@ -2,89 +2,89 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,100italic,300italic,400italic,500italic,700&subset=latin,latin-ext)
 // @import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
 body
-  font-family: 'Roboto','Lucida Grande', sans-serif;
-  font-weight: 300
-  width:100%
-  height:100%
-  overflow-y: hidden;
-  background-image: url('../images/pw_maze_white.png')
-  // background: rgba(220, 224, 230, 1)
+    font-family: 'Roboto','Lucida Grande', sans-serif;
+    font-weight: 300
+    width:100%
+    height:100%
+    overflow-y: hidden;
+    background-image: url('../images/groovepaper.png')
+    // background: rgba(220, 224, 230, 1)
 
 linkcolor= rgba(86,143,240, 1)
 #grayarea
-  -webkit-transition: all 1s ease
-  -o-transition: all 1s ease
-  -moz-transition: all 1s ease
-  -ms-transition: all 1s ease
-  -kthtml-transition: all 1s ease
-  transition: all 1s ease
-  background: rgba(31, 41, 61, 0.4)
-  top:0
-  left:0
-  width:100%
-  height:100%
-  position:fixed
-  z-index: 1001
-  opacity:0
-  display: none
+    -webkit-transition: all 1s ease
+    -o-transition: all 1s ease
+    -moz-transition: all 1s ease
+    -ms-transition: all 1s ease
+    -kthtml-transition: all 1s ease
+    transition: all 1s ease
+    background: rgba(31, 41, 61, 0.4)
+    top:0
+    left:0
+    width:100%
+    height:100%
+    position:fixed
+    z-index: 1001
+    opacity:0
+    display: none
 hColor=rgba(86,87,94, 1)
 #authWrapper
-  width: 720px
-  height: 320px
-  background: rgb(255,255,255)
-  border-radius: 10px
-  margin: -320px auto 0 auto
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 1)
-  display:none
-  header
-    height: 45px
-    width: 100%
-    background: hColor
-    border-top-left-radius: 10px
-    border-top-right-radius: 10px
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 1)
-    p
-      line-height: 45px
-      font-weight: 300
-      font-size: 20px
-      color: rgba(255,255,255, 1)
-      text-align: center
-    section
-      p
-        text-align:left
-        margin-left: 30px
-        font-weight: 400
-        font-size: 15px
-        a
-          color: linkcolor
-      #loginMessage
-        margin-top: 64px
-      #registerMessage
-        margin-top: 10px
-    #authleft
-      float:left
-      width:360px
-      height:275px
-      position:relative
-    #authright
-      float:left
-      width:360px  
-      height:275px
-      position:relative
-      p
-        font-weight:300
-        font-size:17px
-        color: rgba(52, 52, 52, 1)
+    width: 720px
+    height: 320px
+    background: rgb(255,255,255)
+    border-radius: 10px
+    margin: -320px auto 0 auto
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 1)
+    display:none
+    header
+        height: 45px
+        width: 100%
+        background: hColor
+        border-top-left-radius: 10px
+        border-top-right-radius: 10px
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 1)
+        p
+            line-height: 45px
+            font-weight: 300
+            font-size: 20px
+            color: rgba(255,255,255, 1)
+            text-align: center
+        section
+            p
+                text-align:left
+                margin-left: 30px
+                font-weight: 400
+                font-size: 15px
+                a
+                    color: linkcolor
+            #loginMessage
+                margin-top: 64px
+            #registerMessage
+                margin-top: 10px
+        #authleft
+            float:left
+            width:360px
+            height:275px
+            position:relative
+        #authright
+            float:left
+            width:360px  
+            height:275px
+            position:relative
+            p
+                font-weight:300
+                font-size:17px
+                color: rgba(52, 52, 52, 1)
 
 hH = 55
 #header
-  width: 100%
-  min-width: 1000px;
-  height: (hH)px;
-  padding:0
-  margin:0 auto
-  // position: fixed
-  background: hColor
+    width: 100%
+    min-width: 1000px;
+    height: (hH)px;
+    padding:0
+    margin:0 auto
+    // position: fixed
+    background: hColor
 h = 30
 w = 80
 rd = 20
@@ -94,113 +94,113 @@ gr_start = #75a4f3
 // gr_stop = rgba(45, 166, 255, 1)
 gr_stop = #568ff0
 .button
-  -webkit-touch-callout: none
-  -webkit-user-select: none
-  -khtml-user-select: none
-  -moz-user-select: none
-  -ms-user-select: none
-  user-select: none
-  display:block
-  background-image: -moz-linear-gradient(top, gr_start, gr_stop)
-  background-image: -ms-linear-gradient(top, gr_start, gr_stop)
-  background-image: -o-linear-gradient(top, gr_start, gr_stop)
-  background-image: -webkit-linear-gradient(top, gr_start, gr_stop)
-  background-image: linear-gradient(top, gr_start, gr_stop)
-  color: rgba(255,255,255,1)
-  text-shadow: 0 -1px 1px rgba(0,0,0,.3);
-  text-align: center
-  cursor: pointer
-  border: none
-  box-shadow:0px 0px 2px #000
-  border-radius: 5px
-  padding: 0 (padH px)
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    display:block
+    background-image: -moz-linear-gradient(top, gr_start, gr_stop)
+    background-image: -ms-linear-gradient(top, gr_start, gr_stop)
+    background-image: -o-linear-gradient(top, gr_start, gr_stop)
+    background-image: -webkit-linear-gradient(top, gr_start, gr_stop)
+    background-image: linear-gradient(top, gr_start, gr_stop)
+    color: rgba(255,255,255,1)
+    text-shadow: 0 -1px 1px rgba(0,0,0,.3);
+    text-align: center
+    cursor: pointer
+    border: none
+    box-shadow:0px 0px 2px #000
+    border-radius: 5px
+    padding: 0 (padH px)
 .button:hover
-  // grhover_start = rgba(113, 194, 255, 1)
-  grhover_start = #85aef4
-  // grhover_stop = rgba(62, 173, 255, 1)
-  grhover_stop = #6699f1
-  background-image: -moz-linear-gradient(top, grhover_start, grhover_stop)
-  background-image: -ms-linear-gradient(top, grhover_start, grhover_stop)
-  background-image: -o-linear-gradient(top, grhover_start, grhover_stop)
-  background-image: -webkit-linear-gradient(top, grhover_start, grhover_stop)
-  background-image: linear-gradient(top, grhover_start, grhover_stop)
+    // grhover_start = rgba(113, 194, 255, 1)
+    grhover_start = #85aef4
+    // grhover_stop = rgba(62, 173, 255, 1)
+    grhover_stop = #6699f1
+    background-image: -moz-linear-gradient(top, grhover_start, grhover_stop)
+    background-image: -ms-linear-gradient(top, grhover_start, grhover_stop)
+    background-image: -o-linear-gradient(top, grhover_start, grhover_stop)
+    background-image: -webkit-linear-gradient(top, grhover_start, grhover_stop)
+    background-image: linear-gradient(top, grhover_start, grhover_stop)
 .button:active
-  gractive_start = gr_stop
-  gractive_stop = gr_start
-  background-image: -moz-linear-gradient(top, gractive_start, gractive_stop)
-  background-image: -ms-linear-gradient(top, gractive_start, gractive_stop)
-  background-image: -o-linear-gradient(top, gractive_start, gractive_stop)
-  background-image: -webkit-linear-gradient(top, gractive_start, gractive_stop)
-  background-image: linear-gradient(top, gractive_start, gractive_stop)
+    gractive_start = gr_stop
+    gractive_stop = gr_start
+    background-image: -moz-linear-gradient(top, gractive_start, gractive_stop)
+    background-image: -ms-linear-gradient(top, gractive_start, gractive_stop)
+    background-image: -o-linear-gradient(top, gractive_start, gractive_stop)
+    background-image: -webkit-linear-gradient(top, gractive_start, gractive_stop)
+    background-image: linear-gradient(top, gractive_start, gractive_stop)
 #logo
-  font-family: 'Roboto', cursive;
-  font-weight: 300
-  font-size: 20pt
-  margin-left:10%
-  float:left
-  height:hH px
-  line-height:hH px
-  color: rgba(209,242,165, 1)
-  span
-      color: rgba(255,255,255, 1)
+    font-family: 'Roboto', cursive;
+    font-weight: 300
+    font-size: 20pt
+    margin-left:10%
+    float:left
+    height:hH px
+    line-height:hH px
+    color: rgba(209,242,165, 1)
+    span
+            color: rgba(255,255,255, 1)
 #nav
-  margin-top: (hH/2 - h/2)px
-  margin-right: 0.5%
-  float:right
-  ul:first-child
-    position:relative
-  ul
-    li
-      display: block
-      float: left
-      height: h px
-      line-height: h px
-      margin-right: 10px
-    #loginButton
-      padding: 0 (padH px)
-      width: (w - 2*padH)px
-    #userButton
-      padding: 0 (padH+30 px) 0 (padH px)
-      width: auto
-      position:relative
-      font-size: 15px
-      sh=30
-      sw=20
-      #arrowDown
-        height:sh px
-        width:sw px
-        position:absolute;
-        top:0
-        color:#2770ec
-        right:padH px
-        font-weight: 100
-        font-size:18px
-        text-shadow: 1px 0px #85aef4
-        -webkit-transform: rotate(90deg);
-        -moz-transform: rotate(90deg);  // FF3.5+ 
-        -o-transform: rotate(90deg);  // Opera 10.5 
-        // background-image: url('../images/arrow-down.png')
-        // background-repeat: no-repeat
-        // background-size: 15px auto
-        // background-position: center 60%
-        span
-          padding-left:5px
-    #userButton:hover
-      #arrowDown
-        color:#377aed
-        text-shadow: 1px 0px 1px #94b8f6
-    li:last-child()
-      margin-right: 0px
+    margin-top: (hH/2 - h/2)px
+    margin-right: 0.5%
+    float:right
+    ul:first-child
+        position:relative
+    ul
+        li
+            display: block
+            float: left
+            height: h px
+            line-height: h px
+            margin-right: 10px
+        #loginButton
+            padding: 0 (padH px)
+            width: (w - 2*padH)px
+        #userButton
+            padding: 0 (padH+30 px) 0 (padH px)
+            width: auto
+            position:relative
+            font-size: 15px
+            sh=30
+            sw=20
+            #arrowDown
+                height:sh px
+                width:sw px
+                position:absolute;
+                top:0
+                color:#2770ec
+                right:padH px
+                font-weight: 100
+                font-size:18px
+                text-shadow: 1px 0px #85aef4
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);  // FF3.5+ 
+                -o-transform: rotate(90deg);  // Opera 10.5 
+                // background-image: url('../images/arrow-down.png')
+                // background-repeat: no-repeat
+                // background-size: 15px auto
+                // background-position: center 60%
+                span
+                    padding-left:5px
+        #userButton:hover
+            #arrowDown
+                color:#377aed
+                text-shadow: 1px 0px 1px #94b8f6
+        li:last-child()
+            margin-right: 0px
 
 .visibleHeader
-  background: rgba(100,100,100,0.5)
-  box-shadow: 0px 3px 3px #232323
+    background: rgba(100,100,100,0.5)
+    box-shadow: 0px 3px 3px #232323
 #content
-  padding: 0 0 5% 0
-  width: 100%
-  min-width:1000px
-  position:relative
-  // margin: 0 auto
+    padding: 0 0 5% 0
+    width: 100%
+    min-width:1000px
+    position:relative
+    // margin: 0 auto
 // gradGroup_start = rgba(113, 194, 255, 1)
 gradGroup_start = #a4d8ff
 // gradGroup_stop = rgba(62, 173, 255, 1)
@@ -208,98 +208,98 @@ gradGroup_stop = #71c2ff
 
 rSNwidth = 200
 #rightSideNav
-  color:#fefefe
-  float:right
-  width:rSNwidth px
-  min-height:800px
-  background:#d6e6f6
-  box-shadow:inset 1px 1px 3px hColor
-  .sideNavGroup
-    margin-top:10px
-    h1
-      width:(rSNwidth - 30) px
-      // background: #7f808a
-      background: #fff
-      border-top-left-radius: 3px
-      border-bottom-left-radius: 3px
-      box-shadow: 1px 1px 3px hColor
-      height:25px
-      float:right
-      cursor:pointer
-      p
-        color:hColor
-        padding-left:10px
-        line-height: 25px
-        font-size:15px
-        font-weight:200
-        text-shadow: 0px 0px 1px #232323
-  .sideNavGroup:not(:first-child)
-    h1
-      margin-top:20px
+    color:#fefefe
+    float:right
+    width:rSNwidth px
+    min-height:800px
+    background:#d6e6f6
+    box-shadow:inset 1px 1px 3px hColor
+    .sideNavGroup
+        margin-top:10px
+        h1
+            width:(rSNwidth - 30) px
+            // background: #7f808a
+            background: #fff
+            border-top-left-radius: 3px
+            border-bottom-left-radius: 3px
+            box-shadow: 1px 1px 3px hColor
+            height:25px
+            float:right
+            cursor:pointer
+            p
+                color:hColor
+                padding-left:10px
+                line-height: 25px
+                font-size:15px
+                font-weight:200
+                text-shadow: 0px 0px 1px #232323
+    .sideNavGroup:not(:first-child)
+        h1
+            margin-top:20px
 
 axW = rSNwidth px
 #contents
-  width: calc(100% \- axW)
-  width: -moz-calc(100% \- axW)
-  width: -webkit-calc(100% \- axW)
-  position: relative
+    width: calc(100% \- axW)
+    width: -moz-calc(100% \- axW)
+    width: -webkit-calc(100% \- axW)
+    position: relative
 
 /*Big add TODO circle*/
 ntdSize= 100
 /*@keyframes noinset
-  from{box-shadow:inset 1px 1px 5px #767881}
-  to{box-shadow:inset 0px 0px 0px #767881}
+    from{box-shadow:inset 1px 1px 5px #767881}
+    to{box-shadow:inset 0px 0px 0px #767881}
 
 @-webkit-keyframes noinset
-  from{box-shadow:inset 1px 1px 5px #767881}
-  to{box-shadow:inset 0px 0px 0px #767881}
+    from{box-shadow:inset 1px 1px 5px #767881}
+    to{box-shadow:inset 0px 0px 0px #767881}
  */
 #noToDos
-  -webkit-touch-callout: none
-  -webkit-user-select: none
-  -khtml-user-select: none
-  -moz-user-select: none
-  -ms-user-select: none
-  user-select: none
-  position:absolute
-  top: 300px
-  color:rgba(154,155,162,0.6)
-  span /* le circle */
-    margin:0 auto
-    -webkit-transition: all 1s ease
-    -o-transition: all 1s ease
-    -moz-transition: all 1s ease
-    -ms-transition: all 1s ease
-    -kthtml-transition: all 1s ease
-    transition: all 1s ease
-    text-shadow: 0px 0px 3px #a2a3aa
-    display:block
-    width:ntdSize px
-    height:ntdSize px
-    background:#fff
-    border-radius:50%
-    // border:2px solid #828fa2
-    box-shadow:inset 1px 1px 5px #767881
-    line-height:(ntdSize - 2) px
-    text-align:center
-    font-size:(ntdSize - 30)px
-    font-weight: 200
-    cursor:pointer
-  span:hover
-    box-shadow:inset 1px 1px 5px #000
-    font-size:(ntdSize - 34)px
-  p
-    // color: rgba(154,155,162,0.6)
-    background-color: rgba(154,155,162,0.6)
-    -webkit-background-clip: text
-    -moz-background-clip: text
-    background-clip: text
-    color:transparent
-    margin-top:20px
-    font-size:40px
-    font-weight:300
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.5)
-    // box-shadow:1px 1px 5px #767881
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    position:absolute
+    top: 300px
+    color:rgba(154,155,162,0.6)
+    span /* le circle */
+        margin:0 auto
+        -webkit-transition: all 1s ease
+        -o-transition: all 1s ease
+        -moz-transition: all 1s ease
+        -ms-transition: all 1s ease
+        -kthtml-transition: all 1s ease
+        transition: all 1s ease
+        text-shadow: 0px 0px 3px #a2a3aa
+        display:block
+        width:ntdSize px
+        height:ntdSize px
+        background:#fff
+        border-radius:50%
+        // border:2px solid #828fa2
+        box-shadow:inset 1px 1px 5px #767881
+        line-height:(ntdSize - 2) px
+        text-align:center
+        font-size:(ntdSize - 30)px
+        font-weight: 200
+        cursor:pointer
+    span:hover
+        box-shadow:inset 1px 1px 5px #000
+        font-size:(ntdSize - 34)px
+    p
+        // color: rgba(154,155,162,0.6)
+        background-color: rgba(154,155,162,0.6)
+        -webkit-background-clip: text
+        -moz-background-clip: text
+        background-clip: text
+        color:transparent
+        margin-top:20px
+        font-size:40px
+        font-weight:300
+        text-shadow: 2px 2px 3px rgba(255,255,255,0.5)
+        // box-shadow:1px 1px 5px #767881
 
 ihts= 40 // input fields height
 sBw= 380 // search box width
@@ -309,162 +309,178 @@ ipad = 10
 afw = 300 // auth form width
 
 #addToDo
-  position:absolute
-  left: 50%
-  top: 140px
-  box-shadow: 1px 1px 3px #000
-  padding:10px
-  ul
-    width:auto
-    li
-      display:block
-      float:left
-    li:not(:first-child)
-      margin-left:5px
-    li:first-child
-      width:10px
-      height:ihts px
-      position:relative
+    position:absolute
+    top: 140px
+    box-shadow: 1px 1px 3px #000
+    padding:10px
+    ul
+        width:380px
+        li
+            display:block
+            float:left
+        li:nth-child(2n)
+            margin-left:5px
+        li:nth-child(3)
+            margin-top:5px
+        li:nth-child(4)
+            margin-top:5px
+        li:first-child
+            height:ihts px
+            width:70px
+            position:relative
 #addToDoDueDate
-  width: (110 - ipad*2)px
+    width: (230 - ipad*2)px
+#addToDoHour
+    width: (137 - ipad*2)px
 
-hp_start=rgba(248,98,103,1)
-hp_stop=rgba(247,65,72,1)
-.highPriority
-  background-image: -moz-linear-gradient(top, hp_start, hp_stop)
-  background-image: -ms-linear-gradient(top, hp_start, hp_stop)
-  background-image: -o-linear-gradient(top, hp_start, hp_stop)
-  background-image: -webkit-linear-gradient(top, hp_start, hp_stop)
-  background-image: linear-gradient(top, hp_start, hp_stop)
-.hpBorder
-  border-color: hp_start
-mp_start=rgba(1,1,1,1)
-mp_stop=rgba(1,1,1,1)
-.mediumPriority
-  background-image: -moz-linear-gradient(top, mp_start, mp_stop)
-  background-image: -ms-linear-gradient(top, mp_start, mp_stop)
-  background-image: -o-linear-gradient(top, mp_start, mp_stop)
-  background-image: -webkit-linear-gradient(top, mp_start, mp_stop)
-  background-image: linear-gradient(top, mp_start, mp_stop)
-.mpBorder
-  border-color: mp_start
-lp_start=rgba(1,1,1,1)
-lp_stop=rgba(1,1,1,1)
-.lowPriority
-  background-image: -moz-linear-gradient(top, lp_start, lp_stop)
-  background-image: -ms-linear-gradient(top, lp_start, lp_stop)
-  background-image: -o-linear-gradient(top, lp_start, lp_stop)
-  background-image: -webkit-linear-gradient(top, lp_start, lp_stop)
-  background-image: linear-gradient(top, lp_start, lp_stop)
-.lpBorder
-  border-color: lp_start
 #addPriority
-  border-top-left-radius: 50%
-  border-bottom-left-radius: 50%
-  width:(ihts/2 + 10) px
-  height:(ihts+2) px
-  position:absolute
-  z-index:-6
+    border-radius: 5px
+    width:100%
+    height:ihts px
+    border:1px solid rgba(145, 145, 145, 1)
+    float:left
+    line-height: ihts px
+    color:rgba(145, 145, 145, 1)
+    text-shadow: 1px 0px 1px #232323
+    text-align: center
+    cursor:pointer
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+hp_start=#fea29d
+hp_stop=#fe726a
+.highPriority
+    background-image: -moz-linear-gradient(top, hp_start, hp_stop)
+    background-image: -ms-linear-gradient(top, hp_start, hp_stop)
+    background-image: -o-linear-gradient(top, hp_start, hp_stop)
+    background-image: -webkit-linear-gradient(top, hp_start, hp_stop)
+    background-image: linear-gradient(top, hp_start, hp_stop)
+.hpBorder
+    border-color: hp_start
+mp_start=#fec99e
+mp_stop=#fead6b
+.mediumPriority
+    background-image: -moz-linear-gradient(top, mp_start, mp_stop)
+    background-image: -ms-linear-gradient(top, mp_start, mp_stop)
+    background-image: -o-linear-gradient(top, mp_start, mp_stop)
+    background-image: -webkit-linear-gradient(top, mp_start, mp_stop)
+    background-image: linear-gradient(top, mp_start, mp_stop)
+.mpBorder
+    border-color: mp_start
+lp_start=#fef0a4
+lp_stop=#fde872
+.lowPriority
+    background-image: -moz-linear-gradient(top, lp_start, lp_stop)
+    background-image: -ms-linear-gradient(top, lp_start, lp_stop)
+    background-image: -o-linear-gradient(top, lp_start, lp_stop)
+    background-image: -webkit-linear-gradient(top, lp_start, lp_stop)
+    background-image: linear-gradient(top, lp_start, lp_stop)
+.lpBorder
+    border-color: lp_start
 
 .authForm
-  width: afw px
-  height: auto
-  position: absolute
-  bottom: 30 px
-  left: (360/2 - afw/2 ) px 
-  form
-    ul
-      li
-        margin-bottom:10px
-      li:last-of-type
-        margin-bottom:0
-        input
-          height: ihts px
-          width: (afw/2 px)
-          padding: 0 (ipad px)   
-          float:right
+    width: afw px
+    height: auto
+    position: absolute
+    bottom: 30 px
+    left: (360/2 - afw/2 ) px 
+    form
+        ul
+            li
+                margin-bottom:10px
+            li:last-of-type
+                margin-bottom:0
+                input
+                    height: ihts px
+                    width: (afw/2 px)
+                    padding: 0 (ipad px)   
+                    float:right
 .ifield
-  width:(afw - ipad*2)px
-  height: ihts px 
-  border: 1px solid rgba(145, 145, 145, 1)
-  padding: 0 (ipad px)
-  border-radius: 5px
+    width:(afw - ipad*2)px
+    height: ihts px 
+    border: 1px solid rgba(145, 145, 145, 1)
+    padding: 0 (ipad px)
+    border-radius: 5px
 .ifield:focus
-  outline: none
-  border: 1px solid rgba(86, 126, 187, 1)
-  -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);
+    outline: none
+    border: 1px solid rgba(86, 126, 187, 1)
+    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);
 #loginForm
-  // display: none
-  ul
-    li:last-of-type
-      input
-        width: (afw/2 - 50 px)
+    // display: none
+    ul
+        li:last-of-type
+            input
+                width: (afw/2 - 50 px)
 // #registerForm
 //   display: none
 #lostPass
-  position:absolute
-  bottom:28px
+    position:absolute
+    bottom:28px
 #registerMessage
-  display: none
+    display: none
 #registerForm
-  display: none
+    display: none
 
 userMenuBg=rgba(255,255,255,1)
 userMenuBorder=rgba(39, 39, 39, 0.3)
 
 #triangle
-  position: absolute
-  display: none
-  top: 35px
-  right: (28+5) px
-  width: 0; 
-  height: 0; 
-  border-left: 17px solid transparent
-  border-right: 17px solid transparent
-  border-bottom: 17px solid userMenuBorder
-  z-index: 999
+    position: absolute
+    display: none
+    top: 35px
+    right: (28+5) px
+    width: 0; 
+    height: 0; 
+    border-left: 17px solid transparent
+    border-right: 17px solid transparent
+    border-bottom: 17px solid userMenuBorder
+    z-index: 999
 
 #bigTriangle
-  position: absolute
-  display: none
-  top: 36px
-  right: (30+5) px
-  width: 0; 
-  height: 0; 
-  border-left: 15px solid transparent
-  border-right: 15px solid transparent
-  border-bottom: 16px solid userMenuBg
-  z-index: 1000
-#userMenu
-  position: absolute
-  top: 49px
-  padding: 0
-  right:0
-  width: 150px
-  border-top: none
-  z-index:999
-  ul
+    position: absolute
     display: none
-    li:first-child
-      border-top: 1px solid userMenuBorder
-      border-top-right-radius: 5px  
-      border-top-left-radius: 5px
-    li:last-child
-      border-bottom: 1px solid userMenuBorder 
-      border-bottom-right-radius: 5px 
-      border-bottom-left-radius: 5px
-    li
-      float: none
-      padding: 3px 12px
-      font-size: 11pt
-      border-left: 1px solid userMenuBorder
-      border-right:1px solid userMenuBorder
-      background: userMenuBg
-      a
-        color: linkcolor
-        text-decoration: none
-        text-shadow:0px 0px 3px #E2E2E2
-      a:hover
-        text-decoration: underline
+    top: 36px
+    right: (30+5) px
+    width: 0; 
+    height: 0; 
+    border-left: 15px solid transparent
+    border-right: 15px solid transparent
+    border-bottom: 16px solid userMenuBg
+    z-index: 1000
+#userMenu
+    position: absolute
+    top: 49px
+    padding: 0
+    right:0
+    width: 150px
+    border-top: none
+    z-index:999
+    ul
+        display: none
+        li:first-child
+            border-top: 1px solid userMenuBorder
+            border-top-right-radius: 5px  
+            border-top-left-radius: 5px
+        li:last-child
+            border-bottom: 1px solid userMenuBorder 
+            border-bottom-right-radius: 5px 
+            border-bottom-left-radius: 5px
+        li
+            float: none
+            padding: 3px 12px
+            font-size: 11pt
+            border-left: 1px solid userMenuBorder
+            border-right:1px solid userMenuBorder
+            background: userMenuBg
+            a
+                color: linkcolor
+                text-decoration: none
+                text-shadow:0px 0px 3px #E2E2E2
+            a:hover
+                text-decoration: underline
 

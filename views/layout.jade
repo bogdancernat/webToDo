@@ -1,84 +1,100 @@
 doctype 5
 html
-  head
-    title= title
-    link(rel='stylesheet',href="/stylesheets/reset.css")
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    script(src='/javascripts/jquery-1.9.1.min.js')
-    script(src='/javascripts/jquery.cookie.js')
-    script(src='/socket.io/socket.io.js')  
-    script(src='/javascripts/script.js', defer='defer')
-  body
-    section#appWrapper
-      header#header
-        div#logo (
-          span web to do
-          )++
-        if (user == null)
-          nav#nav
-            ul
-              li#loginButton.button log in
-              //- a(href='#')
-              //-   li Register
-        else
-          nav#nav
-            ul
-              div#triangle
-              div#bigTriangle
-              li#userButton.button
-                | #{user["user"]}
-                div#arrowDown
-                  span &rang;
-              li#userMenu
-                ul
-                  li
-                    a(href='/profile') your profile
-                  li
-                    a(href='/logout') logout
-      section#content
-        block content
-      footer#footer
+    head
+        title= title
+        link(rel='stylesheet',href="/stylesheets/reset.css")
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src='/javascripts/jquery-1.9.1.min.js')
+        script(src='/javascripts/jquery-ui-1.8.18.custom.min.js')
+        script(src='/javascripts/jquery.cookie.js')
+        script(src='/socket.io/socket.io.js')  
+        script(src='/javascripts/script.js', defer='defer')
+    body
+        section#appWrapper
+            header#header
+                div#logo (
+                    span web to do
+                    )++
+                if (user == null)
+                    nav#nav
+                        ul
+                            li#loginButton.button log in
+                            //- a(href='#')
+                            //-   li Register
+                else
+                    nav#nav
+                        ul
+                            div#triangle
+                            div#bigTriangle
+                            li#userButton.button
+                                | #{user["user"]}
+                                div#arrowDown
+                                    span &rang;
+                            li#userMenu
+                                ul
+                                    li
+                                        a(href='/profile') your profile
+                                    li
+                                        a(href='/logout') logout
+            section#content
+                if (user != null)
+                    nav#rightSideNav
+                        div.sideNavGroup
+                            h1
+                                p 
+                                    | TEAMS
+                            div.listItemsNavGroup
+                        div.sideNavGroup
+                            h1
+                                p
+                                    | PROJECTS
+                            div.listItemsNavGroup
+                        div.sideNavGroup
+                            h1
+                            div.listItemsNavGroup   
+                block content
+            footer#footer
 
-    div#grayarea
-      div#authWrapper
-        header 
-          p 
-            | Welcome to (web to do)++
-          section#authleft
-            form(method='GET', action='/loginTwitter')
-              input(type='submit', value='login twitter')
-            form(method='GET', action='/loginGoogle')
-              input(type='submit', value='login google')
-          section#authright
-              p#loginMessage
-                | New to (web to do)++? Why not 
-                a(href='#register').authswitch 
-                  | sign up
-                |  ?
-              div.authForm#loginForm
-                form(method='post', action='/login')
-                  ul
-                    li
-                      input(type='text', placeholder='Your email', name='email').ifield
-                    li
-                      input(type='password', placeholder='******', name='password').ifield
-                    li
-                      input(type='submit', value='login').button
-              p#lostPass
-                a(href='#lostPass')
-                  | Lost password?
-              p#registerMessage
-                | Already have an account? 
-                a(href='#register').authswitch 
-                  | login here
-              div.authForm#registerForm
-                form(method='post', action='/register',id="registerFormId")
-                  ul
-                    li
-                      input(type='e-mail', placeholder='A valid email address', name='email', id="emailReg").ifield 
-                    li
-                      input(type='password', placeholder='Your password', name='password', id="passReg").ifield
-                    li
-                      input(type='password', placeholder='Retype your password', name='password2', id="confPassReg").ifield
-                    li
-                      input(type='submit', value='register').button
+        div#grayarea
+            div#authWrapper
+                header 
+                    p 
+                        | Welcome to (web to do)++
+                    section#authleft
+                        form(method='GET', action='/loginTwitter')
+                            input(type='submit', value='login twitter')
+                        form(method='GET', action='/loginGoogle')
+                            input(type='submit', value='login google')
+                    section#authright
+                            p#loginMessage
+                                | New to (web to do)++? Why not 
+                                a(href='#register').authswitch 
+                                    | sign up
+                                |  ?
+                            div.authForm#loginForm
+                                form(method='post', action='/login')
+                                    ul
+                                        li
+                                            input(type='text', placeholder='Your email', name='email').ifield
+                                        li
+                                            input(type='password', placeholder='******', name='password').ifield
+                                        li
+                                            input(type='submit', value='login').button
+                            p#lostPass
+                                a(href='#lostPass')
+                                    | Lost password?
+                            p#registerMessage
+                                | Already have an account? 
+                                a(href='#register').authswitch 
+                                    | login here
+                            div.authForm#registerForm
+                                form(method='post', action='/register',id="registerFormId")
+                                    ul
+                                        li
+                                            input(type='e-mail', placeholder='A valid email address', name='email', id="emailReg").ifield 
+                                        li
+                                            input(type='password', placeholder='Your password', name='password', id="passReg").ifield
+                                        li
+                                            input(type='password', placeholder='Retype your password', name='password2', id="confPassReg").ifield
+                                        li
+                                            input(type='submit', value='register').button

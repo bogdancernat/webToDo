@@ -1,33 +1,20 @@
 extends layout
 
 block content
-  if (user != null)
-    nav#rightSideNav
-      div.sideNavGroup
-        h1
-          p 
-            | TEAMS
-        div.listItemsNavGroup
-      div.sideNavGroup
-        h1
-          p
-            | PROJECTS
-        div.listItemsNavGroup
-      div.sideNavGroup
-        h1
-        div.listItemsNavGroup
-  div#contents
-    div#noToDos
-      span
-        | +
-      p
-        | Add a ToDo item
-    div#addToDo
-      form(method='post', action='')
-        ul
-          li
-            div#addPriority.highPriority
-          li
-            input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifield.hpBorder
-          li
-            input(placeholder='Due Date',type='text').ifield#addToDoDueDate
+    div#contents
+        div#noToDos
+            span
+                | +
+            p
+                | Add a ToDo item
+        div#addToDo
+            ul
+                li
+                    div#addPriority.lowPriority
+                        |   low
+                li
+                    input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifield.hpBorder
+                li
+                    input(placeholder='dd/mm/yyyy',type='date').ifield#addToDoDueDate
+                li
+                    input(placeholder='hh:mm',type='time').ifield#addToDoHour

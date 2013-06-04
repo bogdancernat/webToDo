@@ -48,6 +48,7 @@ app.get('/register', auth.registerPage);
 app.get('/logout',auth.logout);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
+
 app.get('/loginTwitter', function (req, res, next) {
   auth.passport.authenticate('twitter', function (err, user, info) {
     if (user) {
@@ -122,24 +123,23 @@ io.sockets.on('connection', function (socket) {
 
         socket.emit('validationResult', data);
     });
-  
-
-
 
     socket.on('addToDo', function (data){
         var item = data.data;
         var todo = {
             'type' : 'todo_item',
             'user' : {
-                'email' : item.user,
-                '_id'  : item._id,
+                '_id'  : item._id
              },
             'todo' : item.todo,
             'duedate': item.dueDate,
+            'duetime': item.dueTime,
             'priority' : item.priority
         }
 
-        db.insert(todo);
+        db.insert(todo,function(){
+            // callback
+        });
     });
 });
 

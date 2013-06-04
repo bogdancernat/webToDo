@@ -56,7 +56,8 @@ $(document).ready(function() {
     var ntdLeft = $("#contents").width()/2 - $('#noToDos').width()/2;
     $('#noToDos').css("left",ntdLeft);
 
-
+    var addToDoLeft = $("#contents").width()/2 - $('#addToDo').width()/2;
+    $('#addToDo').css("left",addToDoLeft);
 
     $(window).resize(function(){
         noHeaderHeight = window.innerHeight - $('#header').innerHeight();
@@ -67,6 +68,9 @@ $(document).ready(function() {
 
         ntdLeft = $("#contents").width()/2 - $('#noToDos').width()/2;
         $('#noToDos').css("left",ntdLeft);
+        
+        addToDoLeft = $("#contents").width()/2 - $('#addToDo').width()/2;
+        $('#addToDo').css("left",addToDoLeft);
     });
 
 
@@ -96,12 +100,33 @@ $(document).ready(function() {
     });
 
 
+    $('#addPriority').click(function(){
+        if($(this).hasClass("lowPriority")){
+            $(this).removeClass();
+            $(this).text("medium");
+            $(this).addClass("mediumPriority")
+        } else {
+            if($(this).hasClass("mediumPriority")){
+                $(this).removeClass();
+                $(this).text("high");
+                $(this).addClass("highPriority")
+            } else {
+                if($(this).hasClass("highPriority")){
+                    $(this).removeClass();
+                    $(this).text("low");
+                    $(this).addClass("lowPriority")
+                }
+            }
+        }
+
+    });
 
     $('#addToDo').keypress(function (e){
         if (e.which == 13){
 
             var iElem = $('#addToDoInput')
                 , dateElem = $('#addToDoDueDate')
+                , timeElem = $('#addToDoHour')
                 , priorityElem =$('#addPriority')
                 , priority
                 ;
@@ -135,15 +160,14 @@ $(document).ready(function() {
                     cookJson = $.parseJSON(cook.substring(startPos,stopPos));
                 }
 
-                console.log(dateElem.val());
                 var todoItem = {
                     user: cookJson?cookJson.user:null,
                     _id: cookJson?cookJson._id:null,
                     todo: iElem.val(),
                     dueDate: dateElem.val()?dateElem.val():null,
+                    dueTime: timeElem.val()?timeElem.val():null,
                     priority: priority
                 }
-
                 socket.emit('addToDo', { data: todoItem });
             }
         }
@@ -219,7 +243,17 @@ $(document).ready(function() {
             $('#confPassReg').css('background', 'rgba(255, 255, 255, 1)');
     });
 
-
+    $('#datepicker').datepicker({
+        inline: true,
+        nextText: '&rarr;',
+        prevText: '&larr;',
+        showOtherMonths: true,
+        dateFormat: 'dd MM yy',
+        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+        showOn: "button",
+        buttonImage: "img/calendar-blue.png",
+        buttonImageOnly: true,
+    });
 
     $('#registerFormId').submit(function(e){
         if (isValidRegisterData['#emailReg'] == false)
@@ -229,8 +263,14 @@ $(document).ready(function() {
         if (isValidRegisterData['#confPassReg'] == false)
             e.preventDefault(); 
     });
-
-
+    // $('.datepicker').datepicker({
+    //     inline: true,
+    //     nextText: '&rarr;',
+    //     prevText: '&larr;',
+    //     showOtherMonths: true,
+    //     dateFormat: 'dd MM yy',
+    //     dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    // });
 
     socket.on('validationResult', function(data){
         console.log(data);
