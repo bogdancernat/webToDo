@@ -313,6 +313,12 @@ $(document).ready(function() {
             isValidRegisterData[data.elementId] = true;
         }
     });
+
+
+
+    socket.on('addToDoError', function(data){
+        console.log(data);
+    });
 });
 
 
