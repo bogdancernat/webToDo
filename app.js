@@ -170,7 +170,8 @@ io.sockets.on('connection', function (socket) {
             'todo' : item.todo,
             'duedate': item.dueDate,
             'duetime': item.dueTime,
-            'priority' : item.priority
+            'priority' : item.priority,
+            'loggedIn' : item.loggedIn
         }
 
         db.insert(todo,function(){

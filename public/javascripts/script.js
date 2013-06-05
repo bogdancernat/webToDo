@@ -121,6 +121,30 @@ $(document).ready(function() {
 
     });
 
+
+    function getCookie(cookieName) {
+        var cook = null;
+        var cookJson = null;
+        cook = $.cookie(cookieName);
+
+        if (cook){
+            var startPos = cook.indexOf('{');
+            var stopPos = 0;
+
+            for (var i = cook.length - 1; i >= 0; i--) {
+                if (cook[i] == '}'){
+                    stopPos = i+1;
+                    break;
+                }
+            }
+
+            cookJson = $.parseJSON(cook.substring(startPos,stopPos));
+        }
+
+        return cookJson;
+    }
+
+
     $('#addToDo').keypress(function (e){
         if (e.which == 13){
 
@@ -141,33 +165,32 @@ $(document).ready(function() {
                 }
 
             });
+
             if (iElem.val().length != 0){
-                var cook = null;
-                var cookJson = null;
-                cook = $.cookie('todo_logged_in');
+                var cookJson = getCookie('todo_logged_in');
+                var logged;
 
-                if (cook){
-                    var startPos = cook.indexOf('{');
-                    var stopPos = 0;
+                if (!cookJson) {
+                    cookJson = getCookie('todo_memory');
 
-                    for (var i = cook.length - 1; i >= 0; i--) {
-                        if (cook[i] == '}'){
-                            stopPos = i+1;
-                            break;
-                        }
-                    }
+                    logged = 'notLogged';
 
-                    cookJson = $.parseJSON(cook.substring(startPos,stopPos));
+                    if (!cookJson)
+                        return;
+                } else {
+                    logged = cookJson?cookJson.user:null;
                 }
+                    
 
                 var todoItem = {
-                    user: cookJson?cookJson.user:null,
                     _id: cookJson?cookJson._id:null,
                     todo: iElem.val(),
                     dueDate: dateElem.val()?dateElem.val():null,
                     dueTime: timeElem.val()?timeElem.val():null,
-                    priority: priority
+                    priority: priority,
+                    loggedIn: logged
                 }
+
                 socket.emit('addToDo', { data: todoItem });
             }
         }
@@ -243,6 +266,8 @@ $(document).ready(function() {
             $('#confPassReg').css('background', 'rgba(255, 255, 255, 1)');
     });
 
+
+
     $('#datepicker').datepicker({
         inline: true,
         nextText: '&rarr;',
@@ -254,6 +279,8 @@ $(document).ready(function() {
         buttonImage: "img/calendar-blue.png",
         buttonImageOnly: true,
     });
+
+
 
     $('#registerFormId').submit(function(e){
         if (isValidRegisterData['#emailReg'] == false)
