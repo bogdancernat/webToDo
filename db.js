@@ -47,6 +47,12 @@ function pushViews(){
                         emit(doc.todo,doc);
                     }
                 }
+            },
+            'get_users_twitter':{
+                'map': function (doc) {
+                    if (doc.type=='twitterUser')
+                        emit(doc.username,doc);              
+                }
             }
         }
     };
@@ -86,18 +92,38 @@ exports.insert = function (obj, callback){
 
 
 
-exports.getUser = function (key, callback){
-    activeDb.view('web_to_do_views','get_users',{key: key}, function (err,body){
+exports.getUser = function (email, callback){
+    activeDb.view('web_to_do_views','get_users',{key: email}, function (err,body){
         if (!err){
             callback(body.rows[0]);
         }
     });
 }
 
+exports.getTwitterUser = function (username, callback){
+    activeDb.view('web_to_do_views','get_users_twitter',{key: username}, function (err,body){
+        if (!err){
+            callback(body.rows[0]);
+        }
+    });   
+}
+
 
 
 exports.uniqueUser = function (email,callback){
     activeDb.view('web_to_do_views','get_users',{key: email}, function (err,body){
+        if (!err){
+            if (body.rows[0]){
+                callback(false);
+            } else {
+                callback(true);
+            }
+        }
+    });
+}
+
+exports.uniqueTwitterUser = function (username, callback){
+    activeDb.view('web_to_do_views','get_users_twitter', {key: username}, function (err, body){
         if (!err){
             if (body.rows[0]){
                 callback(false);
