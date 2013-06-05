@@ -122,8 +122,24 @@ exports.uniqueUser = function (email,callback){
     });
 }
 
+
+
 exports.uniqueTwitterUser = function (username, callback){
     activeDb.view('web_to_do_views','get_users_twitter', {key: username}, function (err, body){
+        if (!err){
+            if (body.rows[0]){
+                callback(false);
+            } else {
+                callback(true);
+            }
+        }
+    });
+}
+
+
+
+exports.toDosById = function (id, callback){
+    activeDb.view('web_to_do_views','get_todos', {key: id}, function (err, body){
         if (!err){
             if (body.rows[0]){
                 callback(false);
