@@ -17,7 +17,7 @@ exports.index = function(req, res){
                             signed: true
                         });
   }
-  res.render('index', { title: 'WebToDo++ - Manage your time effectively!',
+  res.render('content_anon', { title: 'WebToDo++ - Manage your time effectively!',
                         user: info
                       });
 };

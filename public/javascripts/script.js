@@ -99,17 +99,17 @@ $(document).ready(function() {
         if($(this).hasClass("lowPriority")){
             $(this).removeClass();
             $(this).text("medium");
-            $(this).addClass("mediumPriority")
+            $(this).addClass("mediumPriority");
         } else {
             if($(this).hasClass("mediumPriority")){
                 $(this).removeClass();
                 $(this).text("high");
-                $(this).addClass("highPriority")
+                $(this).addClass("highPriority");
             } else {
                 if($(this).hasClass("highPriority")){
                     $(this).removeClass();
                     $(this).text("low");
-                    $(this).addClass("lowPriority")
+                    $(this).addClass("lowPriority");
                 }
             }
         }
@@ -136,33 +136,32 @@ $(document).ready(function() {
                 }
 
             });
+
             if (iElem.val().length != 0){
-                var cook = null;
-                var cookJson = null;
-                cook = $.cookie('todo_logged_in');
+                var cookJson = getCookie('todo_logged_in');
+                var logged;
 
-                if (cook){
-                    var startPos = cook.indexOf('{');
-                    var stopPos = 0;
+                if (!cookJson) {
+                    cookJson = getCookie('todo_memory');
 
-                    for (var i = cook.length - 1; i >= 0; i--) {
-                        if (cook[i] == '}'){
-                            stopPos = i+1;
-                            break;
-                        }
-                    }
+                    logged = 'notLogged';
 
-                    cookJson = $.parseJSON(cook.substring(startPos,stopPos));
+                    if (!cookJson)
+                        return;
+                } else {
+                    logged = cookJson?cookJson.user:null;
                 }
+                    
 
                 var todoItem = {
-                    user: cookJson?cookJson.user:null,
                     _id: cookJson?cookJson._id:null,
                     todo: iElem.val(),
                     dueDate: dateElem.val()?dateElem.val():null,
                     dueTime: timeElem.val()?timeElem.val():null,
-                    priority: priority
+                    priority: priority,
+                    loggedIn: logged
                 }
+
                 socket.emit('addToDo', { data: todoItem });
                 $('#addToDo').toggle();
                 iElem.val('');
@@ -171,7 +170,6 @@ $(document).ready(function() {
                 priorityElem.removeClass();
                 priorityElem.addClass('lowPriority');
                 priorityElem.val('low');
-
             }
         }
     });
@@ -311,4 +309,29 @@ $(document).ready(function() {
             isValidRegisterData[data.elementId] = true;
         }
     });
+    socket.on('addToDoError', function(data){
+        console.log(data);
+    });
 });
+
+function getCookie(cookieName) {
+    var cook = null;
+    var cookJson = null;
+    cook = $.cookie(cookieName);
+
+    if (cook){
+        var startPos = cook.indexOf('{');
+        var stopPos = 0;
+
+        for (var i = cook.length - 1; i >= 0; i--) {
+            if (cook[i] == '}'){
+                stopPos = i+1;
+                break;
+            }
+        }
+
+        cookJson = $.parseJSON(cook.substring(startPos,stopPos));
+    }
+
+    return cookJson;
+}
