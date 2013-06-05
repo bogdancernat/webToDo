@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var loginSection = true
         , displayingSubmenu = false
-        , socket = io.connect('http://localhost:3000')
+        , socket = io.connect('http://localhost:3000/shared')
         , isValidRegisterData = { '#passReg': false, '#confPassReg': false, '#emailReg': false};
 
 
@@ -121,28 +121,6 @@ $(document).ready(function() {
 
     });
 
-
-    function getCookie(cookieName) {
-        var cook = null;
-        var cookJson = null;
-        cook = $.cookie(cookieName);
-
-        if (cook){
-            var startPos = cook.indexOf('{');
-            var stopPos = 0;
-
-            for (var i = cook.length - 1; i >= 0; i--) {
-                if (cook[i] == '}'){
-                    stopPos = i+1;
-                    break;
-                }
-            }
-
-            cookJson = $.parseJSON(cook.substring(startPos,stopPos));
-        }
-
-        return cookJson;
-    }
 
 
     $('#addToDo').keypress(function (e){
@@ -336,3 +314,27 @@ $(document).ready(function() {
         }
     });
 });
+
+
+
+function getCookie(cookieName) {
+    var cook = null;
+    var cookJson = null;
+    cook = $.cookie(cookieName);
+
+    if (cook){
+        var startPos = cook.indexOf('{');
+        var stopPos = 0;
+
+        for (var i = cook.length - 1; i >= 0; i--) {
+            if (cook[i] == '}'){
+                stopPos = i+1;
+                break;
+            }
+        }
+
+        cookJson = $.parseJSON(cook.substring(startPos,stopPos));
+    }
+
+    return cookJson;
+}

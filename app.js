@@ -51,7 +51,7 @@ app.post('/register', auth.register);
 
 
 
-io.sockets.on('connection', function (socket) {
+io.of('/shared').on('connection', function (socket) {
 
     socket.on('validateEmail', function (data){
         data.email = data.email.replace(/\s/g,'');
@@ -194,6 +194,20 @@ io.sockets.on('connection', function (socket) {
                 });
             } else {
                 socket.emit('loginValidationResult', {result: 'invalid_email'});
+            }
+        });
+    });
+});
+
+
+
+io.of('/toDos').on('connection', function (socket){
+    var id;
+
+    socket.on('giveMeToDos', function (data){
+        db.getToDosById(data._id, function (resp){
+            if(resp){
+                socket.emit('takeToDos', { toDos: resp});                
             }
         });
     });
