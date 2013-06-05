@@ -124,19 +124,75 @@ io.sockets.on('connection', function (socket) {
         socket.emit('validationResult', data);
     });
 
+
+    //return == notifica utilizatorul; schimbam;
     socket.on('addToDo', function (data){
         var item = data.data;
-        var dateRe = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
         var hourRe = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
+        var date, today;
+        var todayMinutes, todayHours;
 
-        if (item.todo == "")
+        if (item.todo === '')
             return;
 
-        if (item.dueDate != null && dateRe.exec(item.dueDate) == null)
+        if (item.dueTime != null && hourRe.exec(item.dueTime) == null)
             return;
 
-        if (item.dueDate != null && hourRe.exec(item.hourRe) == null)
-            return;
+        if (item.dueDate != null) {
+            if (!Date.parse(item.dueDate))
+                return;
+
+            date = new Date(item.dueDate);
+
+            item.dueDate = date.getUTCFullYear() + "/" + (date.getUTCMonth() + 1) + "/" + date.getUTCDate();
+
+            today = new Date();
+
+            todayMinutes = today.getMinutes();
+            todayHours = today.getHours();
+
+            date.setHours(0, 0, 0, 0);
+            today.setHours(0, 0, 0, 0);
+
+            if (today > date)
+                return;
+            else if (today.getTime() == date.getTime()) { //daca dueDate = ziua curenta atunci compar ora si minutele
+                if (item.dueTime != null) {
+                    var tokens = item.dueTime.split(':');
+                    var hours = parseInt(tokens[0]);
+                    var minutes = parseInt(tokens[1]);
+
+                    if (todayHours > hours)
+                        return;
+                    else if (todayHours == hours) {
+                        if (todayMinutes >= minutes)
+                            return;
+                    }
+
+                } else 
+                    return //daca dueDate = ziua curenta si ora nu este setata, nu putem adauga to-do-ul deoarece nu stim ora la care trebuie sa il notificam
+            }
+        } else if (item.dueTime != null) { //daca nu este setata data si este setat timpul, dueDate va fi data curenta(ziua curenta); daca a trecut ora respectiva atunci va primi eroare
+            var tokens = item.dueTime.split(':');
+            var hours = parseInt(tokens[0]);
+            var minutes = parseInt(tokens[1]);
+
+            today = new Date();
+
+            todayMinutes = today.getMinutes();
+            todayHours = today.getHours();
+
+            if (todayHours > hours)
+                return;
+            else if (todayHours == hours) {
+                if (todayMinutes >= minutes)
+                    return;
+                else
+                    item.dueDate = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getUTCDate();
+            } else {
+                item.dueDate = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getUTCDate();
+            }           
+        }
 
         var todo = {
             'type' : 'todo_item',
