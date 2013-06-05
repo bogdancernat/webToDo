@@ -138,7 +138,7 @@ exports.uniqueTwitterUser = function (username, callback){
 
 
 
-exports.toDosById = function (id, callback){
+exports.getToDosById = function (id, callback){
     activeDb.view('web_to_do_views','get_todos', {key: id}, function (err, body){
         if (!err){
             if (body.rows[0]){
