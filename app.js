@@ -50,9 +50,7 @@ app.post('/login', auth.login );
 app.post('/register', auth.register);
 
 
-
 io.sockets.on('connection', function (socket) {
-
     socket.on('validateEmail', function (data){
         data.email = data.email.replace(/\s/g,'');
         data.email = data.email.toLowerCase();
@@ -68,7 +66,6 @@ io.sockets.on('connection', function (socket) {
     });
 
 
-
     socket.on('validatePass', function (data){
         var isValid = true;
         if (data.password.length < 6 || data.password.length > 32)
@@ -77,8 +74,6 @@ io.sockets.on('connection', function (socket) {
         data.isValid = isValid;
         socket.emit('validationResult', data);
     });
-
-
 
 
     socket.on('validateConfPass', function (data){

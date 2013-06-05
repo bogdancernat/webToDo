@@ -1,20 +1,19 @@
 extends layout
 
 block content
-    div#contents
-        div#noToDos
-            span
-                | +
-            p
-                | Add a ToDo item
-        div#addToDo
-            ul
-                li
-                    div#addPriority.lowPriority
-                        |   low
-                li
-                    input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifield.hpBorder
-                li
-                    input(placeholder='yyyy-mm-dd',type='date').ifield#addToDoDueDate
-                li
-                    input(placeholder='hh:mm',type='time').ifield#addToDoHour
+    div#noToDos
+        span
+            | +
+        p
+            | Add a ToDo item
+    div#addToDo
+        ul
+            li
+                div#addPriority.lowPriority
+                    |   low
+            li
+                input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifield.hpBorder
+            li
+                input(placeholder='yyyy-mm-dd',type='date').ifield#addToDoDueDate
+            li
+                input(placeholder='hh:mm',type='time').ifield#addToDoHour

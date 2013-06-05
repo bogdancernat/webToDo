@@ -1,0 +1,56 @@
+extends layout
+
+block content
+    div#contents
+        div#todosContainer
+            div.todoItem
+                div.todoItemXPand.highPriority
+                    span 
+                        | &rang;
+                div.toDoContent
+                    p
+                        | Buy Milk and pick kids from park
+                div.toDoDateTime
+                    p
+                        | 21/12/2012
+                    p
+                        | 17:05
+                div.progress.highPriority
+                    | 60
+            div.todoItem
+                div.todoItemXPand.mediumPriority
+                    span 
+                        | &rang;
+                div.toDoContent
+                    p
+                        | Finish TW PROJECT
+                div.progress.mediumPriority
+                    | 90
+            div.todoItem
+                div.todoItemXPand.lowPriority
+                    span 
+                        | &rang;
+                div.toDoContent
+                    p
+                        | ENJOY SUMMER
+                div.progress.lowPriority
+                    | 25
+            div.todoItem
+                div.todoItemXPand.todoDone
+                    span 
+                        | &rang;
+                div.progress
+    div#addtoDos
+        span
+            | +
+    div#addToDo
+        ul
+            li
+                div#addPriority.lowPriority
+                    |   low
+            li
+                input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifieldAddToDo
+            li
+                input(placeholder='yyyy-mm-dd',type='date').ifieldAddToDo#addToDoDueDate
+            li
+                input(placeholder='hh:mm',type='time').ifieldAddToDo#addToDoHour

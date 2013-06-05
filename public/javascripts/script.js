@@ -3,8 +3,8 @@ $(document).ready(function() {
         , displayingSubmenu = false
         , socket = io.connect('http://localhost:3000')
         , isValidRegisterData = { '#passReg': false, '#confPassReg': false, '#emailReg': false};
-
-
+    // $('#todosContainer').sortable();
+    // $('#todosContainer').disableSelection();
     // fade in!
     $('#loginButton').click(function(){
         $('#grayarea').css("display","block");
@@ -17,9 +17,6 @@ $(document).ready(function() {
         if (!loginSection){
             switchAuthForms();
     }});
-
-
-
     // fade out!
     $('#grayarea').click(function(){
         $('#authWrapper').animate({
@@ -33,47 +30,45 @@ $(document).ready(function() {
         });
     });
 
-
-
     $('#authWrapper').click(function(e){
         e.stopPropagation();
     });
-
-
 
     if (!$('#rightSideNav').length){
         $('#contents').css("width","100%");
     }
 
-
-
     var noHeaderHeight = window.innerHeight - $('#header').innerHeight();
-    $('#rightSideNav').css("height",noHeaderHeight+'px');
+    $('#rightSideNav').css("height",((noHeaderHeight<500)?500:noHeaderHeight)+'px');
+    $('#contents').css("height",((noHeaderHeight<500)?500:noHeaderHeight)-65+'px');
+    var topHeightCircleAdd = noHeaderHeight - $('#addtoDos > span').width()-20;
+    $('#todosContainer').css("height",topHeightCircleAdd-30+'px');
+    $('#addtoDos').css("top",topHeightCircleAdd+'px');
 
-    var topHeightCircleAdd = noHeaderHeight/2 - $('#noToDos > span').width()/2;
-    $('#noToDos').css("top",topHeightCircleAdd);
+    var addToDoLeft = $("#contents").width()/2 - $('#addtoDos').width()/2;
+    $('#addtoDos').css("left",addToDoLeft);
 
-    var ntdLeft = $("#contents").width()/2 - $('#noToDos').width()/2;
-    $('#noToDos').css("left",ntdLeft);
-
-    var addToDoLeft = $("#contents").width()/2 - $('#addToDo').width()/2;
+    var addToDoLeft = $("#contents").width()/2 - $('#addToDo').width()/2 -10;
     $('#addToDo').css("left",addToDoLeft);
 
     $(window).resize(function(){
         noHeaderHeight = window.innerHeight - $('#header').innerHeight();
-        $('#rightSideNav').css("height",noHeaderHeight+'px');
+        $('#rightSideNav').css("height",((noHeaderHeight<500)?500:noHeaderHeight)+'px');
+        $('#contents').css("height",((noHeaderHeight<500)?500:noHeaderHeight)-65+'px');
+        topHeightCircleAdd = noHeaderHeight - $('#addtoDos > span').width()-20;
+        $('#todosContainer').css("height",topHeightCircleAdd-30+'px');
+        $('#addtoDos').css("top",topHeightCircleAdd+'px');
 
-        topHeightCircleAdd = noHeaderHeight/2 - $('#noToDos > span').width()/2;
-        $('#noToDos').css("top",topHeightCircleAdd);
-
-        ntdLeft = $("#contents").width()/2 - $('#noToDos').width()/2;
-        $('#noToDos').css("left",ntdLeft);
+        addToDoLeft = $("#contents").width()/2 - $('#addtoDos').width()/2;
+        $('#addtoDos').css("left",addToDoLeft);
         
-        addToDoLeft = $("#contents").width()/2 - $('#addToDo').width()/2;
+        addToDoLeft = $("#contents").width()/2 - $('#addToDo').width()/2 -10;
         $('#addToDo').css("left",addToDoLeft);
     });
 
-
+    $('#addtoDos').click(function(){
+        $('#addToDo').toggle();
+    });
     
     $('#userButton').click(function(){
         if (displayingSubmenu){
@@ -169,6 +164,14 @@ $(document).ready(function() {
                     priority: priority
                 }
                 socket.emit('addToDo', { data: todoItem });
+                $('#addToDo').toggle();
+                iElem.val('');
+                dateElem.val('');
+                timeElem.val('');
+                priorityElem.removeClass();
+                priorityElem.addClass('lowPriority');
+                priorityElem.val('low');
+
             }
         }
     });

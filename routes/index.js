@@ -9,7 +9,7 @@ exports.index = function(req, res){
   if(typeof req.signedCookies['todo_logged_in'] != undefined){
     info = req.signedCookies['todo_logged_in'];
   }
-  res.render('index', { title: 'WebToDo++ - Manage your time effectively!',
+  res.render('content_anon', { title: 'WebToDo++ - Manage your time effectively!',
                         user: info
                       });
 };

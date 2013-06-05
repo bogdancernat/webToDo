@@ -7,7 +7,14 @@ body
     width:100%
     height:100%
     overflow-y: hidden;
+    color:rgba(86,87,94, 1)
     background-image: url('../images/groovepaper.png')
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
     // background: rgba(220, 224, 230, 1)
 
 linkcolor= rgba(86,143,240, 1)
@@ -179,10 +186,6 @@ gr_stop = #568ff0
                 -webkit-transform: rotate(90deg);
                 -moz-transform: rotate(90deg);  // FF3.5+ 
                 -o-transform: rotate(90deg);  // Opera 10.5 
-                // background-image: url('../images/arrow-down.png')
-                // background-repeat: no-repeat
-                // background-size: 15px auto
-                // background-position: center 60%
                 span
                     padding-left:5px
         #userButton:hover
@@ -211,7 +214,6 @@ rSNwidth = 200
     color:#fefefe
     float:right
     width:rSNwidth px
-    min-height:800px
     background:#d6e6f6
     box-shadow:inset 1px 1px 3px hColor
     .sideNavGroup
@@ -243,18 +245,12 @@ axW = rSNwidth px
     width: -moz-calc(100% \- axW)
     width: -webkit-calc(100% \- axW)
     position: relative
-
+    overflow: scroll
+    overflow-y: hidden;
+    overflow-x: hidden;
 /*Big add TODO circle*/
-ntdSize= 100
-/*@keyframes noinset
-    from{box-shadow:inset 1px 1px 5px #767881}
-    to{box-shadow:inset 0px 0px 0px #767881}
-
-@-webkit-keyframes noinset
-    from{box-shadow:inset 1px 1px 5px #767881}
-    to{box-shadow:inset 0px 0px 0px #767881}
- */
-#noToDos
+ntdSize= 50
+#addtoDos
     -webkit-touch-callout: none
     -webkit-user-select: none
     -khtml-user-select: none
@@ -262,8 +258,7 @@ ntdSize= 100
     -ms-user-select: none
     user-select: none
     position:absolute
-    top: 300px
-    color:rgba(154,155,162,0.6)
+    color:rgba(154,155,162,1)
     span /* le circle */
         margin:0 auto
         -webkit-transition: all 1s ease
@@ -282,24 +277,12 @@ ntdSize= 100
         box-shadow:inset 1px 1px 5px #767881
         line-height:(ntdSize - 2) px
         text-align:center
-        font-size:(ntdSize - 30)px
+        font-size:(ntdSize - 20)px
         font-weight: 200
         cursor:pointer
     span:hover
         box-shadow:inset 1px 1px 5px #000
-        font-size:(ntdSize - 34)px
-    p
-        // color: rgba(154,155,162,0.6)
-        background-color: rgba(154,155,162,0.6)
-        -webkit-background-clip: text
-        -moz-background-clip: text
-        background-clip: text
-        color:transparent
-        margin-top:20px
-        font-size:40px
-        font-weight:300
-        text-shadow: 2px 2px 3px rgba(255,255,255,0.5)
-        // box-shadow:1px 1px 5px #767881
+        color:rgba(154,155,162,0.5)
 
 ihts= 40 // input fields height
 sBw= 380 // search box width
@@ -307,14 +290,17 @@ sBcolor= #F7F9FE // submit buttons color
 sBcolorH= #BED2D9 // on hover
 ipad = 10
 afw = 300 // auth form width
-
+iaddH = 35
 #addToDo
     position:absolute
-    top: 140px
+    bottom: 100px
     box-shadow: 1px 1px 3px #000
     padding:10px
+    border-radius: 5px
+    background:white
+    display:none
     ul
-        width:380px
+        width:350px
         li
             display:block
             float:left
@@ -329,10 +315,21 @@ afw = 300 // auth form width
             width:70px
             position:relative
 #addToDoDueDate
-    width: (230 - ipad*2)px
+    width: (200 - ipad*2)px
 #addToDoHour
-    width: (137 - ipad*2)px
-
+    width: (117 - ipad*2)px
+#addToDoInput
+    width: 252px
+.ifieldAddToDo
+    height: iaddH px 
+    border: 1px solid rgba(145, 145, 145, 1)
+    padding: 0 (ipad px)
+    border-radius: 5px
+.ifieldAddToDo:focus
+    outline: none
+    border: 1px solid rgba(86, 126, 187, 1)
+    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);   
 #addPriority
     border-radius: 5px
     width:100%
@@ -483,4 +480,123 @@ userMenuBorder=rgba(39, 39, 39, 0.3)
                 text-shadow:0px 0px 3px #E2E2E2
             a:hover
                 text-decoration: underline
+
+tdd_start=#cbfea1
+tdd_stop=#affe6e
+// start:poz7 , end: poz10 pe 0to255.com
+.todoDone
+    background-image: -moz-linear-gradient(top, tdd_start, tdd_stop)
+    background-image: -ms-linear-gradient(top, tdd_start, tdd_stop)
+    background-image: -o-linear-gradient(top, tdd_start, tdd_stop)
+    background-image: -webkit-linear-gradient(top, tdd_start, tdd_stop)
+    background-image: linear-gradient(top, tdd_start, tdd_stop)
+
+todo_w=350
+todo_h=70
+todo_b_radius=5
+#todosContainer
+    width:todo_w px
+    margin:0 auto
+    padding-top:20px
+    overflow:scroll
+    overflow-y:hidden
+    overflow-x:hidden
+    background:white
+.todoItem
+    width:todo_w px
+    height:todo_h px
+    background: #fefefe
+    border-radius: todo_b_radius px
+    box-shadow:1px 1px 3px #000
+    position:relative
+.todoItem:not(:first-child)
+    margin-top:10px
+.todoItemXPand
+    float:left
+    width:30px
+    height:todo_h px
+    border-top-left-radius:todo_b_radius px
+    border-bottom-left-radius:todo_b_radius px
+    cursor:pointer
+    position:relative
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    span        
+        margin:0
+        height:30px
+        width:20px
+        line-height:28px
+        color:rgba(86,87,94, 1)
+        bottom:0
+        right:5px
+        font-weight: 100
+        position:absolute
+        font-size:18px
+        text-align:center
+        text-shadow: 1px 0px #434343
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);  
+        -o-transform: rotate(90deg);  
+.todoItemXPand:hover span
+    color:rgba(86,87,94, 0.3)
+    text-shadow: 1px 0px #434343
+.toDoContent
+    width:220px
+    height:52px
+    float:left
+    margin-left:15px
+    margin-top:9px
+    // background:red
+    p
+        width:220px
+        font-weight:200
+        text-shadow: #6e7079 1px 0px, #6e7079 1px 0px
+        font-size:17px
+        text-align:justify
+        height:52px
+        overflow: hidden;
+p_h= 12
+.toDoDateTime
+    float:left
+    width:85px
+    height: todo_h px
+    position:relative
+    p
+        font-size:10px
+        height:p_h px
+        text-align:right
+        line-height:p_h px
+        right:10px
+        font-weight:200
+        position:absolute
+        text-shadow: #000 1px 0px, #000 1px 0px
+    p:first-child
+        bottom:(5+p_h) px
+    p:last-child
+        bottom:5px
+progBubbl= 23
+.progress
+    width:progBubbl px
+    height:progBubbl px
+    border-radius:50%
+    position:absolute
+    right:5px
+    top:5px
+    line-height:(progBubbl+3) px
+    text-align:center
+    font-size:10px
+    font-weight:300
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    cursor:default
+    // box-shadow:0px 0px 1px #000
+
 

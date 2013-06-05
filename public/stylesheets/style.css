@@ -5,7 +5,14 @@ body {
   width: 100%;
   height: 100%;
   overflow-y: hidden;
+  color: #56575e;
   background-image: url("../images/groovepaper.png");
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 #grayarea {
   -webkit-transition: all 1s ease;
@@ -200,7 +207,6 @@ body {
   color: #fefefe;
   float: right;
   width: 200px;
-  min-height: 800px;
   background: #d6e6f6;
   box-shadow: inset 1px 1px 3px #56575e;
 }
@@ -233,17 +239,12 @@ body {
   width: -moz-calc(100% - 200px);
   width: -webkit-calc(100% - 200px);
   position: relative;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 /*Big add TODO circle*/
-/*@keyframes noinset
-    from{box-shadow:inset 1px 1px 5px #767881}
-    to{box-shadow:inset 0px 0px 0px #767881}
-
-@-webkit-keyframes noinset
-    from{box-shadow:inset 1px 1px 5px #767881}
-    to{box-shadow:inset 0px 0px 0px #767881}
- */
-#noToDos {
+#addtoDos {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -251,10 +252,9 @@ body {
   -ms-user-select: none;
   user-select: none;
   position: absolute;
-  top: 300px;
-  color: rgba(154,155,162,0.6);
+  color: #9a9ba2;
 }
-#noToDos span /* le circle */ {
+#addtoDos span /* le circle */ {
   margin: 0 auto;
   -webkit-transition: all 1s ease;
   -o-transition: all 1s ease;
@@ -264,40 +264,32 @@ body {
   transition: all 1s ease;
   text-shadow: 0px 0px 3px #a2a3aa;
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   background: #fff;
   border-radius: 50%;
   box-shadow: inset 1px 1px 5px #767881;
-  line-height: 98px;
+  line-height: 48px;
   text-align: center;
-  font-size: 70px;
+  font-size: 30px;
   font-weight: 200;
   cursor: pointer;
 }
-#noToDos span:hover {
+#addtoDos span:hover {
   box-shadow: inset 1px 1px 5px #000;
-  font-size: 66px;
-}
-#noToDos p {
-  background-color: rgba(154,155,162,0.6);
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-top: 20px;
-  font-size: 40px;
-  font-weight: 300;
-  text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+  color: rgba(154,155,162,0.5);
 }
 #addToDo {
   position: absolute;
-  top: 140px;
+  bottom: 100px;
   box-shadow: 1px 1px 3px #000;
   padding: 10px;
+  border-radius: 5px;
+  background: #fff;
+  display: none;
 }
 #addToDo ul {
-  width: 380px;
+  width: 350px;
 }
 #addToDo ul li {
   display: block;
@@ -318,10 +310,25 @@ body {
   position: relative;
 }
 #addToDoDueDate {
-  width: 210px;
+  width: 180px;
 }
 #addToDoHour {
-  width: 117px;
+  width: 97px;
+}
+#addToDoInput {
+  width: 252px;
+}
+.ifieldAddToDo {
+  height: 35px;
+  border: 1px solid #919191;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+.ifieldAddToDo:focus {
+  outline: none;
+  border: 1px solid #567ebb;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
 }
 #addPriority {
   border-radius: 5px;
@@ -477,4 +484,124 @@ body {
 }
 #userMenu ul li a:hover {
   text-decoration: underline;
+}
+.todoDone {
+  background-image: -moz-linear-gradient(top, #cbfea1, #affe6e);
+  background-image: -ms-linear-gradient(top, #cbfea1, #affe6e);
+  background-image: -o-linear-gradient(top, #cbfea1, #affe6e);
+  background-image: -webkit-linear-gradient(top, #cbfea1, #affe6e);
+  background-image: linear-gradient(top, #cbfea1, #affe6e);
+}
+#todosContainer {
+  width: 350px;
+  margin: 0 auto;
+  padding-top: 20px;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background: #fff;
+}
+.todoItem {
+  width: 350px;
+  height: 70px;
+  background: #fefefe;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px #000;
+  position: relative;
+}
+.todoItem:not(:first-child) {
+  margin-top: 10px;
+}
+.todoItemXPand {
+  float: left;
+  width: 30px;
+  height: 70px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  cursor: pointer;
+  position: relative;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.todoItemXPand span {
+  margin: 0;
+  height: 30px;
+  width: 20px;
+  line-height: 28px;
+  color: #56575e;
+  bottom: 0;
+  right: 5px;
+  font-weight: 100;
+  position: absolute;
+  font-size: 18px;
+  text-align: center;
+  text-shadow: 1px 0px #434343;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+}
+.todoItemXPand:hover span {
+  color: rgba(86,87,94,0.3);
+  text-shadow: 1px 0px #434343;
+}
+.toDoContent {
+  width: 220px;
+  height: 52px;
+  float: left;
+  margin-left: 15px;
+  margin-top: 9px;
+}
+.toDoContent p {
+  width: 220px;
+  font-weight: 200;
+  text-shadow: #6e7079 1px 0px, #6e7079 1px 0px;
+  font-size: 17px;
+  text-align: justify;
+  height: 52px;
+  overflow: hidden;
+}
+.toDoDateTime {
+  float: left;
+  width: 85px;
+  height: 70px;
+  position: relative;
+}
+.toDoDateTime p {
+  font-size: 10px;
+  height: 12px;
+  text-align: right;
+  line-height: 12px;
+  right: 10px;
+  font-weight: 200;
+  position: absolute;
+  text-shadow: #000 1px 0px, #000 1px 0px;
+}
+.toDoDateTime p:first-child {
+  bottom: 17px;
+}
+.toDoDateTime p:last-child {
+  bottom: 5px;
+}
+.progress {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  line-height: 26px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 300;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
 }
