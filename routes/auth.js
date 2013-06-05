@@ -143,7 +143,7 @@ exports.loginWithTwitter = function (req, res, next) {
         if (user) {
             res.cookie("todo_logged_in",{
                 "user": user.key,
-                "_id": req.id
+                "_id": user.id
             }, {
                 expires: new Date(Date.now()+99999999),
                 signed: true

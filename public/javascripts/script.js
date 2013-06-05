@@ -263,14 +263,7 @@ $(document).ready(function() {
         if (isValidRegisterData['#confPassReg'] == false)
             e.preventDefault(); 
     });
-    // $('.datepicker').datepicker({
-    //     inline: true,
-    //     nextText: '&rarr;',
-    //     prevText: '&larr;',
-    //     showOtherMonths: true,
-    //     dateFormat: 'dd MM yy',
-    //     dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    // });
+
 
     
     var submited = true;

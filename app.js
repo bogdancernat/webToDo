@@ -43,10 +43,8 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/users', user.list);
-app.get('/login', auth.loginPage);
 app.get('/loginGoogle', auth.loginWithGoogle);
 app.get('/loginTwitter', auth.loginWithTwitter);
-app.get('/register', auth.registerPage);
 app.get('/logout',auth.logout);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
