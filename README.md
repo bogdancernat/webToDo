@@ -5,8 +5,9 @@
 #### Bogdan-Ștefan Cernat, Adrian Gheorghe Schipor
 
 ####Facultatea de Informatică, Universitatea Alexandru Ioan Cuza, Iași
-[bogdan.cernat@info.uaic.ro](bogdan.cernat@info.uaic.ro)
-[adrian.schipor@info.uaic.ro](adrian.schipor@info.uaic.ro)
+[bogdan.cernat@info.uaic.ro]()
+
+[adrian.schipor@info.uaic.ro]()
 
 
 
