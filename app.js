@@ -52,7 +52,7 @@ app.post('/register', auth.register);
 
 
 io.sockets.on('connection', function (socket) {
-
+    
     socket.on('validateEmail', function (data){
         data.email = data.email.replace(/\s/g,'');
         data.email = data.email.toLowerCase();

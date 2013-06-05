@@ -37,21 +37,21 @@ function pushViews(){
             'get_users':{
                 'map': function (doc) {
                     if (doc.type=='user'){
-                        emit(doc.email,doc);
+                        emit(doc.email, doc);
                     }
                 }
             },
             'get_todos':{
                 'map': function (doc) {
                     if (doc.type=='todo_item'){
-                        emit(doc.todo,doc);
+                        emit(doc.user._id, doc);
                     }
                 }
             },
             'get_users_twitter':{
                 'map': function (doc) {
                     if (doc.type=='twitterUser')
-                        emit(doc.username,doc);              
+                        emit(doc.username, doc);              
                 }
             }
         }
@@ -94,7 +94,7 @@ exports.insert = function (obj, callback){
 
 exports.getUser = function (email, callback){
     activeDb.view('web_to_do_views','get_users',{key: email}, function (err,body){
-        if (!err){
+        if (!err){console.log(body);
             callback(body.rows[0]);
         }
     });
@@ -141,11 +141,7 @@ exports.uniqueTwitterUser = function (username, callback){
 exports.getToDosById = function (id, callback){
     activeDb.view('web_to_do_views','get_todos', {key: id}, function (err, body){
         if (!err){
-            if (body.rows[0]){
-                callback(false);
-            } else {
-                callback(true);
-            }
+            callback(body.rows);
         }
     });
 }
