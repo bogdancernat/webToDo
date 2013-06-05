@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var loginSection = true
         , displayingSubmenu = false
-        , socket = io.connect('http://localhost:3000')
+        , socket = io.connect('http://localhost:3000/shared')
         , isValidRegisterData = { '#passReg': false, '#confPassReg': false, '#emailReg': false};
     // $('#todosContainer').sortable();
     // $('#todosContainer').disableSelection();

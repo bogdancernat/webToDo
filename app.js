@@ -50,7 +50,9 @@ app.post('/login', auth.login );
 app.post('/register', auth.register);
 
 
-io.sockets.on('connection', function (socket) {
+
+io.of('/shared').on('connection', function (socket) {
+
     socket.on('validateEmail', function (data){
         data.email = data.email.replace(/\s/g,'');
         data.email = data.email.toLowerCase();
@@ -66,6 +68,7 @@ io.sockets.on('connection', function (socket) {
     });
 
 
+
     socket.on('validatePass', function (data){
         var isValid = true;
         if (data.password.length < 6 || data.password.length > 32)
@@ -74,6 +77,8 @@ io.sockets.on('connection', function (socket) {
         data.isValid = isValid;
         socket.emit('validationResult', data);
     });
+
+
 
 
     socket.on('validateConfPass', function (data){
@@ -95,15 +100,21 @@ io.sockets.on('connection', function (socket) {
         var date, today;
         var todayMinutes, todayHours;
 
-        if (item.todo === '')
+        if (item.todo === '') {
+            socket.emit('addToDoError', {error: 'no to do item'});
             return;
+        }
 
-        if (item.dueTime != null && hourRe.exec(item.dueTime) == null)
+        if (item.dueTime != null && hourRe.exec(item.dueTime) == null){
+            socket.emit('addToDoError', {error: 'invalid due time'});
             return;
+        }
 
         if (item.dueDate != null) {
-            if (!Date.parse(item.dueDate))
+            if (!Date.parse(item.dueDate)){
+                socket.emit('addToDoError', {error: 'invalid date format'});
                 return;
+            }
 
             date = new Date(item.dueDate);
 
@@ -117,23 +128,30 @@ io.sockets.on('connection', function (socket) {
             date.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
 
-            if (today > date)
+            if (today > date){
+                socket.emit('addToDoError', {error: 'invalid due date'});
                 return;
-            else if (today.getTime() == date.getTime()) { //daca dueDate = ziua curenta atunci compar ora si minutele
+            } else if (today.getTime() == date.getTime()) { //daca dueDate = ziua curenta atunci compar ora si minutele
                 if (item.dueTime != null) {
                     var tokens = item.dueTime.split(':');
                     var hours = parseInt(tokens[0]);
                     var minutes = parseInt(tokens[1]);
 
-                    if (todayHours > hours)
+                    if (todayHours > hours){
+                        socket.emit('addToDoError', {error: 'invalid due time'});
                         return;
+                    }
                     else if (todayHours == hours) {
-                        if (todayMinutes >= minutes)
+                        if (todayMinutes >= minutes){
+                            socket.emit('addToDoError', {error: 'invalid due time'});
                             return;
+                        }
                     }
 
-                } else 
-                    return //daca dueDate = ziua curenta si ora nu este setata, nu putem adauga to-do-ul deoarece nu stim ora la care trebuie sa il notificam
+                } else {
+                    socket.emit('addToDoError', {error: 'please provide the due time'});
+                    return;
+                } //daca dueDate = ziua curenta si ora nu este setata, nu putem adauga to-do-ul deoarece nu stim ora la care trebuie sa il notificam
             }
         } else if (item.dueTime != null) { //daca nu este setata data si este setat timpul, dueDate va fi data curenta(ziua curenta); daca a trecut ora respectiva atunci va primi eroare
             var tokens = item.dueTime.split(':');
@@ -145,12 +163,14 @@ io.sockets.on('connection', function (socket) {
             todayMinutes = today.getMinutes();
             todayHours = today.getHours();
 
-            if (todayHours > hours)
+            if (todayHours > hours){
+                socket.emit('addToDoError', {error: 'invalid due time'});
                 return;
-            else if (todayHours == hours) {
-                if (todayMinutes >= minutes)
+            } else if (todayHours == hours) {
+                if (todayMinutes >= minutes){
+                    socket.emit('addToDoError', {error: 'invalid due time'});
                     return;
-                else
+                } else
                     item.dueDate = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getUTCDate();
             } else {
                 item.dueDate = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getUTCDate();
@@ -165,7 +185,8 @@ io.sockets.on('connection', function (socket) {
             'todo' : item.todo,
             'duedate': item.dueDate,
             'duetime': item.dueTime,
-            'priority' : item.priority
+            'priority' : item.priority,
+            'loggedIn' : item.loggedIn
         }
 
         db.insert(todo,function(){
@@ -188,6 +209,20 @@ io.sockets.on('connection', function (socket) {
                 });
             } else {
                 socket.emit('loginValidationResult', {result: 'invalid_email'});
+            }
+        });
+    });
+});
+
+
+
+io.of('/toDos').on('connection', function (socket){
+    var id;
+
+    socket.on('giveMeToDos', function (data){
+        db.getToDosById(data._id, function (resp){
+            if(resp){
+                socket.emit('takeToDos', { toDos: resp});                
             }
         });
     });
