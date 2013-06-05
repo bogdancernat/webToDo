@@ -126,6 +126,18 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('addToDo', function (data){
         var item = data.data;
+        var dateRe = /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/;
+        var hourRe = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
+
+        if (item.todo == "")
+            return;
+
+        if (item.dueDate != null && dateRe.exec(item.dueDate) == null)
+            return;
+
+        if (item.dueDate != null && hourRe.exec(item.hourRe) == null)
+            return;
+
         var todo = {
             'type' : 'todo_item',
             'user' : {
