@@ -44,43 +44,13 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/login', auth.loginPage);
+app.get('/loginGoogle', auth.loginWithGoogle);
+app.get('/loginTwitter', auth.loginWithTwitter);
 app.get('/register', auth.registerPage);
 app.get('/logout',auth.logout);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
 
-app.get('/loginTwitter', function (req, res, next) {
-  auth.passport.authenticate('twitter', function (err, user, info) {
-    if (user) {
-        res.cookie("todo_logged_in",{
-            "user": user.displayName,
-            "_id": req.sessionID
-        }, {
-            expires: new Date(Date.now()+99999999),
-            signed: true
-        });
-    }
-
-    res.redirect('/'); 
-  })(req, res, next);
-});
-
-
-app.get('/loginGoogle', function (req, res, next) {
-  auth.passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }, function(err, user, info) {
-    if (user) {
-        res.cookie("todo_logged_in",{
-            "user": user.displayName,
-            "_id": req.sessionID
-        }, {
-            expires: new Date(Date.now()+99999999),
-            signed: true
-        });
-    }
-
-    res.redirect('/'); 
-  })(req, res, next);
-});
 
 
 io.sockets.on('connection', function (socket) {
@@ -207,6 +177,25 @@ io.sockets.on('connection', function (socket) {
 
         db.insert(todo,function(){
             // callback
+        });
+    });
+
+
+    
+    socket.on('validateLoginData', function (data){
+        console.log(data);
+        db.getUser(data['email'], function (resp){
+            if(resp){
+                auth.getHash(data, function(user){
+                    if (resp.value['password'] == data['password']) {
+                        socket.emit('loginValidationResult', {result: 'ok'});    
+                    } else {
+                        socket.emit('loginValidationResult', {result: 'invalid_password'});           
+                    }
+                });
+            } else {
+                socket.emit('loginValidationResult', {result: 'invalid_email'});
+            }
         });
     });
 });
