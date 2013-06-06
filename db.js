@@ -48,6 +48,13 @@ function pushViews(){
                     }
                 }
             },
+            'get_todos_by_id':{
+                'map': function (doc) {
+                    if (doc.type=='todo_item'){
+                        emit(doc.uniqueId, doc);
+                    }
+                }
+            },
             'get_users_twitter':{
                 'map': function (doc) {
                     if (doc.type=='twitterUser')
@@ -140,6 +147,14 @@ exports.uniqueTwitterUser = function (username, callback){
 
 exports.getToDosById = function (id, callback){
     activeDb.view('web_to_do_views','get_todos', {key: id}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        }
+    });
+}
+
+exports.getToDosByUniqueId = function (id, callback){
+    activeDb.view('web_to_do_views', 'get_todos_by_id', {key: id}, function (err, body){
         if (!err){
             callback(body.rows);
         }

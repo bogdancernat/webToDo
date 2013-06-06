@@ -171,7 +171,7 @@ $(document).ready(function() {
                 timeElem.val('');
                 priorityElem.removeClass();
                 priorityElem.addClass('lowPriority');
-                priorityElem.val('low');
+                priorityElem.text('low');
             }
         }
     });

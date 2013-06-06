@@ -177,6 +177,8 @@ io.of('/shared').on('connection', function (socket) {
             }           
         }
 
+
+        var id = (new Date()).getTime().toString(16);
         var todo = {
             'type' : 'todo_item',
             'user' : {
@@ -188,7 +190,7 @@ io.of('/shared').on('connection', function (socket) {
             'priority': item.priority,
             'loggedIn': item.loggedIn,
             'percentage': 0,
-            'uniqueId': (new Date()).getTime().toString(16)
+            'uniqueId': id
         }
 
         db.insert(todo,function(){
