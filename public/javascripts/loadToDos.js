@@ -3,8 +3,7 @@ $(document).ready(function() {
     
 
     function getId() {
-        var cookJson = getCookie('todo_id_in');
-        var id;
+        var cookJson = getCookie('todo_logged_in');
 
         if (!cookJson) {
             cookJson = getCookie('todo_memory');
@@ -18,6 +17,7 @@ $(document).ready(function() {
         return (cookJson?cookJson._id:null);    
     }
     
+
 
 
     socket.emit('giveMeToDos', { _id: getId() });
