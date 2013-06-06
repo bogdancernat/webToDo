@@ -33,16 +33,17 @@ $(document).ready(function() {
     $('#authWrapper').click(function(e){
         e.stopPropagation();
     });
-
+    console.log($('#rightSideNav').length);
     if (!$('#rightSideNav').length){
         $('#contents').css("width","100%");
     }
 
     var noHeaderHeight = window.innerHeight - $('#header').innerHeight();
-    $('#rightSideNav').css("height",((noHeaderHeight<500)?500:noHeaderHeight)+'px');
-    $('#contents').css("height",((noHeaderHeight<500)?500:noHeaderHeight)-65+'px');
+    var blueStripsHeight = (noHeaderHeight<500)?500:noHeaderHeight;
+    $('#rightSideNav').css("height",blueStripsHeight+'px');
+    $('#contents').css("height",blueStripsHeight+'px');
     var topHeightCircleAdd = noHeaderHeight - $('#addtoDos > span').width()-20;
-    $('#todosContainer').css("height",topHeightCircleAdd-30+'px');
+    $('#todosContainer').css("height",blueStripsHeight+'px');
     $('#addtoDos').css("top",topHeightCircleAdd+'px');
 
     var addToDoLeft = $("#contents").width()/2 - $('#addtoDos').width()/2;
@@ -53,10 +54,11 @@ $(document).ready(function() {
 
     $(window).resize(function(){
         noHeaderHeight = window.innerHeight - $('#header').innerHeight();
-        $('#rightSideNav').css("height",((noHeaderHeight<500)?500:noHeaderHeight)+'px');
-        $('#contents').css("height",((noHeaderHeight<500)?500:noHeaderHeight)-65+'px');
+        blueStripsHeight = (noHeaderHeight<500)?500:noHeaderHeight;
+        $('#rightSideNav').css("height",blueStripsHeight+'px');
+        $('#contents').css("height",blueStripsHeight+'px');
         topHeightCircleAdd = noHeaderHeight - $('#addtoDos > span').width()-20;
-        $('#todosContainer').css("height",topHeightCircleAdd-30+'px');
+        $('#todosContainer').css("height",blueStripsHeight+'px');
         $('#addtoDos').css("top",topHeightCircleAdd+'px');
 
         addToDoLeft = $("#contents").width()/2 - $('#addtoDos').width()/2;
