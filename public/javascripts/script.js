@@ -314,6 +314,63 @@ $(document).ready(function() {
     socket.on('addToDoError', function(data){
         console.log(data);
     });
+
+
+
+    socket.on('validToDo', function(data){
+        var todoitemDiv = $('<div>', {class: 'todoItem'});
+        var todoItemXPandDiv;
+        var todoContentDiv = $('<div>', {class: 'toDoContent'});
+        var todoDateTimeDiv = $('<div>', {class: 'toDoDateTime'});
+        var progressDiv = $('<div>', {class: 'progress highPriority'});
+        var contentPar = $('<p>');
+        var dueDatePar = $('<p>');
+        var dueTimePar = $('<p>');
+        var span = $('<span>');
+
+        contentPar.text(data.todo);
+
+        if (data.duedate != null)
+            dueDatePar.text(data.duedate);
+        else
+            dueDatePar.text('nu due date');
+        if (data.duetime != null)
+            dueTimePar.text(data.duetime);
+        else
+            dueTimePar.text('nu due time');
+        
+        switch (data.priority) {
+            case 'low':
+                todoItemXPandDiv = $('<div>', {class: 'lowPriority todoItemXPand'});
+                break;
+            case 'medium':
+                todoItemXPandDiv = $('<div>', {class: 'mediumPriority todoItemXPand'});
+                break;
+            case 'high':
+                todoItemXPandDiv = $('<div>', {class: 'highPriority todoItemXPand'});
+                break;
+            case 'done':
+                todoItemXPandDiv = $('<div>', {class: 'toDoDone todoItemXPand'});
+        }
+
+        span.html('&rang;');
+
+        todoItemXPandDiv.append(span);
+
+        todoContentDiv.append(contentPar);
+
+        todoDateTimeDiv.append(dueDatePar);
+        todoDateTimeDiv.append(dueTimePar);
+
+        progressDiv.text(data.percentage);
+
+        todoitemDiv.append(todoItemXPandDiv);
+        todoitemDiv.append(todoContentDiv);
+        todoitemDiv.append(todoDateTimeDiv);
+        todoitemDiv.append(progressDiv);
+
+        $('#todosContainer').append(todoitemDiv);    
+    });
 });
 
 function getCookie(cookieName) {

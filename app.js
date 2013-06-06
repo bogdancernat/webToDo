@@ -185,12 +185,14 @@ io.of('/shared').on('connection', function (socket) {
             'todo' : item.todo,
             'duedate': item.dueDate,
             'duetime': item.dueTime,
-            'priority' : item.priority,
-            'loggedIn' : item.loggedIn
+            'priority': item.priority,
+            'loggedIn': item.loggedIn,
+            'percentage': 0,
+            'uniqueId': (new Date()).toString(36)
         }
 
         db.insert(todo,function(){
-            // callback
+            socket.emit('validToDo', todo);            
         });
     });
 
