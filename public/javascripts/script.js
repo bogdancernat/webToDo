@@ -377,6 +377,8 @@ $(document).ready(function() {
         var dueTimePar = $('<p>');
         var advancedOpt = $('<div>', {class: 'toDoAdvancedOpt'});
         var span = $('<span>');
+        todoItemXPandDiv = $('<div>', {class: 'todoItemXPand'});
+        progressDiv = $('<div>', {class: 'progress'});
 
         contentPar.text(data.todo);
 
@@ -390,21 +392,15 @@ $(document).ready(function() {
             dueTimePar.text('nu due time');
         
         switch (data.priority) {
-            case 'low':
-                todoItemXPandDiv = $('<div>', {class: 'lowPriority todoItemXPand'});
-                progressDiv = $('<div>', {class: 'progress lowPriority'});
-                break;
-            case 'medium':
-                todoItemXPandDiv = $('<div>', {class: 'mediumPriority todoItemXPand'});
-                progressDiv = $('<div>', {class: 'progress mediumPriority'});
-                break;
-            case 'high':
-                todoItemXPandDiv = $('<div>', {class: 'highPriority todoItemXPand'});
-                progressDiv = $('<div>', {class: 'progress highPriority'});
-                break;
-            case 'done':
-                todoItemXPandDiv = $('<div>', {class: 'toDoDone todoItemXPand'});
-        }
+                case 'low':
+                    priority = 'lowPriority';
+                    break;
+                case 'medium':
+                    priority = 'mediumPriority';
+                    break;
+                case 'high':
+                    priority = 'highPriority';
+            }
 
         span.html('&rang;');
 
@@ -425,14 +421,24 @@ $(document).ready(function() {
         todoItemWrapper.append(advancedOpt);
         advancedOpt.append('<span class="todoDelete todoDeleteLocked"></span>'
                 +'<div class="todoOptions">'
+                    +'<span class="changePriority"></span>'
+                    +'<span class="markDone todoDone">done</span>'
+                    +'<input class="todoProgress" type="range" min="0" max="100" step="25" value="0"/>'
                 +'</div>'
                 +'<div class="todoNotesWrapper">'
+                    +'<input type="text" class="addToDoNoteInput"/>'
+                    +'<ul>'
+                        +'<li class="todoNote">Get themthemthemthemthemthemthem by noon</li>'
+                        +'<li class="todoNote">Another Note</li>'
+                        +'<li class="todoNote">Note, note</li>'
+                    +'</ul>'
                 +'</div>'
                 );
         todoItemWrapper.append(todoitemDiv);
         todoItemWrapper.append(advancedOpt);
 
         $('#todosContainer').prepend(todoItemWrapper); 
+        changePriorityToDo(data.uniqueId,priority);
     });
 });
 function markToDoDone(elemId,from){

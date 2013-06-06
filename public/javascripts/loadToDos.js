@@ -29,11 +29,11 @@ $(document).ready(function() {
             if (data.toDos[counter].value.duedate != null)
                 dueDatePar.text(data.toDos[counter].value.duedate);
             else
-                dueDatePar.text('nu due date');
+                dueDatePar.text('no due date');
             if (data.toDos[counter].value.duetime != null)
                 dueTimePar.text(data.toDos[counter].value.duetime);
             else
-                dueTimePar.text('nu due time');
+                dueTimePar.text('no due time');
             switch (data.toDos[counter].value.priority) {
                 case 'low':
                     priority = 'lowPriority';
