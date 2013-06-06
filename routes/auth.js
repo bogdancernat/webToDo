@@ -29,21 +29,22 @@ passport.use (new TwitterStrategy({
     function (token, tokenSecret, profile, done) {
             process.nextTick(function () {
             var user = {
-                'type': 'twitterUser',
-                'username': profile.username
+                'type': 'user',
+                'email': profile.username
             }
 
-            db.uniqueTwitterUser(user['username'], function (itIs) {
+
+            db.uniqueUser(user['email'], function (itIs) {
                 if (itIs) {
                     db.insert(user, function() {
-                        db.getTwitterUser(user['username'], function (resp){
+                        db.getUser(user['email'], function (resp){
                             if(resp){
                                 done(null, resp);
                             } 
                         });   
                     });
                 } else {
-                    db.getTwitterUser(user['username'], function (resp){
+                    db.getUser(user['email'], function (resp){
                         if(resp){
                             done(null, resp);
                         } 

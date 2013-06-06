@@ -55,10 +55,11 @@ function pushViews(){
                     }
                 }
             },
-            'get_users_twitter':{
+            'get_todos_by_date':{
                 'map': function (doc) {
-                    if (doc.type=='twitterUser')
-                        emit(doc.username, doc);              
+                    if (doc.type=='todo_item'){
+                        emit(doc.duedate, doc);
+                    }
                 }
             }
         }
@@ -77,9 +78,6 @@ function pushViews(){
             });
         }
     });
-        // activeDb.view('web_to_do_views','get_users',{key:'cernat.bogdan.stefan@gmail.com'},function (err, body){
-        //   console.log(body);
-        // });
 }
 
 
@@ -107,32 +105,10 @@ exports.getUser = function (email, callback){
     });
 }
 
-exports.getTwitterUser = function (username, callback){
-    activeDb.view('web_to_do_views','get_users_twitter',{key: username}, function (err,body){
-        if (!err){
-            callback(body.rows[0]);
-        }
-    });   
-}
 
 
-
-exports.uniqueUser = function (email,callback){
+exports.uniqueUser = function (email, callback){
     activeDb.view('web_to_do_views','get_users',{key: email}, function (err,body){
-        if (!err){
-            if (body.rows[0]){
-                callback(false);
-            } else {
-                callback(true);
-            }
-        }
-    });
-}
-
-
-
-exports.uniqueTwitterUser = function (username, callback){
-    activeDb.view('web_to_do_views','get_users_twitter', {key: username}, function (err, body){
         if (!err){
             if (body.rows[0]){
                 callback(false);
@@ -153,10 +129,31 @@ exports.getToDosById = function (id, callback){
     });
 }
 
+
+
 exports.getToDosByUniqueId = function (id, callback){
     activeDb.view('web_to_do_views', 'get_todos_by_id', {key: id}, function (err, body){
         if (!err){
             callback(body.rows);
         }
+    });
+}
+
+
+
+exports.searchUsers = function (email, callback){
+    activeDb.view('web_to_do_views', 'get_users', {startkey: email, endkey: email + '\u9999'}, function (err, body){
+        if (!err)
+            callback(body.rows);
+    });
+}
+
+
+exports.getToDosByDate = function (duedate, callback){
+    activeDb.view('web_to_do_views', 'get_todos_by_date', {key: duedate}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        } else 
+            console.log(err);
     });
 }

@@ -440,6 +440,18 @@ $(document).ready(function() {
         $('#todosContainer').prepend(todoItemWrapper); 
         changePriorityToDo(data.uniqueId,priority);
     });
+
+
+
+    $('#searchUser').keyup(function (){
+        socket.emit('findUsers', {email: $('#searchUser').val()});
+    });
+
+
+
+    socket.on('takeUsers', function (data){
+        console.log(data);
+    });
 });
 function markToDoDone(elemId,from){
     var elem = $('#'+elemId);
