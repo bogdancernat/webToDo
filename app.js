@@ -188,7 +188,7 @@ io.of('/shared').on('connection', function (socket) {
             'priority': item.priority,
             'loggedIn': item.loggedIn,
             'percentage': 0,
-            'uniqueId': (new Date()).toString(36)
+            'uniqueId': (new Date()).getTime().toString(16)
         }
 
         db.insert(todo,function(){

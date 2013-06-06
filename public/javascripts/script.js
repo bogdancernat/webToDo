@@ -342,12 +342,15 @@ $(document).ready(function() {
         switch (data.priority) {
             case 'low':
                 todoItemXPandDiv = $('<div>', {class: 'lowPriority todoItemXPand'});
+                progressDiv = $('<div>', {class: 'progress lowPriority'});
                 break;
             case 'medium':
                 todoItemXPandDiv = $('<div>', {class: 'mediumPriority todoItemXPand'});
+                progressDiv = $('<div>', {class: 'progress mediumPriority'});
                 break;
             case 'high':
                 todoItemXPandDiv = $('<div>', {class: 'highPriority todoItemXPand'});
+                progressDiv = $('<div>', {class: 'progress highPriority'});
                 break;
             case 'done':
                 todoItemXPandDiv = $('<div>', {class: 'toDoDone todoItemXPand'});
