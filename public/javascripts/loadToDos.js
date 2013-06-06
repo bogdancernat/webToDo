@@ -7,6 +7,8 @@ $(document).ready(function() {
         var length = data.toDos.length;
 
         for (var counter = 0; counter < length; counter++) {
+            var priority;
+            var todoItemWrapper = $('<div>', {class: 'todoItemWrapper', id: data.toDos[counter].value.uniqueId});
             var todoitemDiv = $('<div>', {class: 'todoItem'});
             var todoItemXPandDiv;
             var todoContentDiv = $('<div>', {class: 'toDoContent'});
@@ -15,7 +17,11 @@ $(document).ready(function() {
             var contentPar = $('<p>');
             var dueDatePar = $('<p>');
             var dueTimePar = $('<p>');
+            var advancedOpt = $('<div>', {class: 'toDoAdvancedOpt'});
             var span = $('<span>');
+            var todoDone;
+            todoItemXPandDiv = $('<div>', {class: 'todoItemXPand'});
+            progressDiv = $('<div>', {class: 'progress'});
 
             
             contentPar.text(data.toDos[counter].value.todo);
@@ -23,26 +29,23 @@ $(document).ready(function() {
             if (data.toDos[counter].value.duedate != null)
                 dueDatePar.text(data.toDos[counter].value.duedate);
             else
-                dueDatePar.text('nu due date');
+                dueDatePar.text('no due date');
             if (data.toDos[counter].value.duetime != null)
                 dueTimePar.text(data.toDos[counter].value.duetime);
             else
-                dueTimePar.text('nu due time');
-            
+                dueTimePar.text('no due time');
             switch (data.toDos[counter].value.priority) {
                 case 'low':
-                    todoItemXPandDiv = $('<div>', {class: 'lowPriority todoItemXPand'});
-                    progressDiv = $('<div>', {class: 'progress lowPriority'});
+                    priority = 'lowPriority';
                     break;
                 case 'medium':
-                    todoItemXPandDiv = $('<div>', {class: 'mediumPriority todoItemXPand'});
-                    progressDiv = $('<div>', {class: 'progress mediumPriority'});
+                    priority = 'mediumPriority';
                     break;
                 case 'high':
-                    todoItemXPandDiv = $('<div>', {class: 'highPriority todoItemXPand'});
-                    progressDiv = $('<div>', {class: 'progress highPriority'});
+                    priority = 'highPriority';
                     break;
                 case 'done':
+                    todoDone = 'todoDone'; 
                     todoItemXPandDiv = $('<div>', {class: 'toDoDone todoItemXPand'});
             }
 
@@ -61,12 +64,29 @@ $(document).ready(function() {
             todoitemDiv.append(todoContentDiv);
             todoitemDiv.append(todoDateTimeDiv);
             todoitemDiv.append(progressDiv);
-
-            toDosArray[todoitemDiv] = data.toDos[counter];
-
-            $('#todosContainer').append(todoitemDiv);    
-
-        } console.log(toDosArray);
+            advancedOpt.append('<span class="todoDelete todoDeleteLocked"></span>'
+                +'<div class="todoOptions">'
+                    +'<span class="changePriority"></span>'
+                    +'<span class="markDone todoDone">done</span>'
+                    +'<input class="todoProgress" type="range" min="0" max="100" step="25" value="0"/>'
+                +'</div>'
+                +'<div class="todoNotesWrapper">'
+                    +'<input type="text" class="addToDoNoteInput"/>'
+                    +'<ul>'
+                        +'<li class="todoNote">Get themthemthemthemthemthemthem by noon</li>'
+                        +'<li class="todoNote">Another Note</li>'
+                        +'<li class="todoNote">Note, note</li>'
+                    +'</ul>'
+                +'</div>'
+                );
+            todoItemWrapper.append(todoitemDiv);
+            todoItemWrapper.append(advancedOpt);
+            $('#todosContainer').prepend(todoItemWrapper);
+            changePriorityToDo(data.toDos[counter].value.uniqueId,priority);
+            if(todoDone){
+                markDone(data.toDos[counter].value.uniqueId);
+            }
+        };
     });
 
 
