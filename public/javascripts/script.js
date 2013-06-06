@@ -362,6 +362,18 @@ $(document).ready(function() {
 
         $('#todosContainer').append(todoitemDiv);    
     });
+
+
+
+    $('#searchUser').keyup(function (){
+        socket.emit('findUsers', {email: $('#searchUser').val()});
+    });
+
+
+
+    socket.on('takeUsers', function (data){
+        console.log(data);
+    });
 });
 
 

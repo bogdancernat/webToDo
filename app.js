@@ -12,9 +12,30 @@ var express = require('express')
     , path = require('path')
     , db = require('./db')
     , io = require('socket.io').listen(server) 
-    , cookie = require('cookie');
+    , cookie = require('cookie')
+    , nodemailer = require("nodemailer")
+    , cronJob = require('cron').CronJob
+    , Twit = require('twit')
+    , twitterClient = new Twit({
+                            consumer_key:         's6wF0QuG4mRhwaZCWswA'
+                          , consumer_secret:      'TfLKblLHtYe6sAr5iOy2deSdbSdwQVYTjuGoBsgu9A'
+                          , access_token:         '1104145118-zLyqFVjLMIjCQRIWTQDNDOfkB9qVkwycZrLTbYk'
+                          , access_token_secret:  'fc8AxQ9TCcg2vDfTQf1L2IyzDvXVh3mVphDQxREOw'
+                        })
+
     ;
   
+
+
+var smtpTransport = nodemailer.createTransport("SMTP",{
+    service: "Gmail",
+    auth: {
+        user: "webtodopp@gmail.com",
+        pass: "localhost"
+    }
+});
+
+
 
 // all environments
 app.configure(function(){
@@ -51,6 +72,60 @@ app.get('/loginTwitter', auth.loginWithTwitter);
 app.get('/logout',auth.logout);
 app.post('/login', auth.login );
 app.post('/register', auth.register);
+
+
+
+
+var job = new cronJob('58 1 * * *', function(){
+    var today = new Date();                
+    var todayString;
+
+    todayString = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getDate();
+
+    db.getToDosByDate(todayString ,function (resp){
+        if (resp) {
+
+            var length = resp.length;
+
+            for (var counter = 0; counter < length; counter++){
+                
+                if (resp[counter].value.loggedIn === '#notLogged#')    
+                    continue;
+
+                if (resp[counter].value.loggedIn.indexOf('@') != -1) {
+                    
+                    var mailOptions = {
+                        from: "WebToDo++ ✔ <webtodopp@gmail.com>", // sender address
+                        to: resp[counter].value.loggedIn, // list of receivers
+                        subject: "WebToDo++ notification", // Subject line
+                        text: 'Hello, ' + '\n' + 'Your to do is due today: ' + resp[counter].value.todo // plaintext body
+                    };
+
+                    smtpTransport.sendMail(mailOptions, function(error, response){
+                        if(error){
+                            console.log(error);
+                        } else {
+                            console.log("Mail sent: " + response.message);
+                        }
+                    });
+                } else {
+                    var pm = 'Hi, your to do is due today: ' + resp[counter].value.todo;  
+                    twitterClient.post('direct_messages/new', {'screen_name': resp[counter].value.loggedIn, 'text': pm}, function(err, reply) {
+                            if (!err) {
+                                console.log('Direct message sent...');
+                            } else {
+                                console.log(err);
+                            }
+                    });
+                }
+            }
+        }
+    });
+  }, function () {
+    console.log('Finished sending mails...')
+  }, 
+  true /* Start the job right now */
+);
 
 
 
@@ -99,17 +174,12 @@ io.of('/shared').on('connection', function (socket) {
     //return == notifica utilizatorul; schimbam;
     socket.on('addToDo', function (data){
         var item = data.data;
-        var hourRe = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/;
+
         var date, today;
-        var todayMinutes, todayHours;
+
 
         if (item.todo === '') {
             socket.emit('addToDoError', {error: 'no to do item'});
-            return;
-        }
-
-        if (item.dueTime != null && hourRe.exec(item.dueTime) == null){
-            socket.emit('addToDoError', {error: 'invalid due time'});
             return;
         }
 
@@ -121,12 +191,9 @@ io.of('/shared').on('connection', function (socket) {
 
             date = new Date(item.dueDate);
 
-            item.dueDate = date.getUTCFullYear() + "/" + (date.getUTCMonth() + 1) + "/" + date.getUTCDate();
+            item.dueDate = date.getUTCFullYear() + "/" + (date.getUTCMonth() + 1) + "/" + date.getDate();
 
             today = new Date();
-
-            todayMinutes = today.getMinutes();
-            todayHours = today.getHours();
 
             date.setHours(0, 0, 0, 0);
             today.setHours(0, 0, 0, 0);
@@ -134,51 +201,8 @@ io.of('/shared').on('connection', function (socket) {
             if (today > date){
                 socket.emit('addToDoError', {error: 'invalid due date'});
                 return;
-            } else if (today.getTime() == date.getTime()) { //daca dueDate = ziua curenta atunci compar ora si minutele
-                if (item.dueTime != null) {
-                    var tokens = item.dueTime.split(':');
-                    var hours = parseInt(tokens[0]);
-                    var minutes = parseInt(tokens[1]);
-
-                    if (todayHours > hours){
-                        socket.emit('addToDoError', {error: 'invalid due time'});
-                        return;
-                    }
-                    else if (todayHours == hours) {
-                        if (todayMinutes >= minutes){
-                            socket.emit('addToDoError', {error: 'invalid due time'});
-                            return;
-                        }
-                    }
-
-                } else {
-                    socket.emit('addToDoError', {error: 'please provide the due time'});
-                    return;
-                } //daca dueDate = ziua curenta si ora nu este setata, nu putem adauga to-do-ul deoarece nu stim ora la care trebuie sa il notificam
             }
-        } else if (item.dueTime != null) { //daca nu este setata data si este setat timpul, dueDate va fi data curenta(ziua curenta); daca a trecut ora respectiva atunci va primi eroare
-            var tokens = item.dueTime.split(':');
-            var hours = parseInt(tokens[0]);
-            var minutes = parseInt(tokens[1]);
-
-            today = new Date();
-
-            todayMinutes = today.getMinutes();
-            todayHours = today.getHours();
-
-            if (todayHours > hours){
-                socket.emit('addToDoError', {error: 'invalid due time'});
-                return;
-            } else if (todayHours == hours) {
-                if (todayMinutes >= minutes){
-                    socket.emit('addToDoError', {error: 'invalid due time'});
-                    return;
-                } else
-                    item.dueDate = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getUTCDate();
-            } else {
-                item.dueDate = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getUTCDate();
-            }           
-        }
+        } 
 
 
         var id = (new Date()).getTime().toString(16);
@@ -196,37 +220,35 @@ io.of('/shared').on('connection', function (socket) {
 
 
         getCookie(cookieString, function (cookJson){
-            var user;
+            var user, email;
 
             if (loggedIn == true) {
                 user = cookJson.user;
             } else 
-                user = 'notLogged';
+                user = '#notLogged#';
 
             var todo = {
                 'type' : 'todo_item',
                 'user' : {
-                    '_id'  : cookJson._id,
+                    '_id'  : cookJson._id
                  },
                 'todo' : item.todo,
                 'duedate': item.dueDate,
-                'duetime': item.dueTime,
                 'priority': item.priority,
                 'loggedIn': user,
                 'percentage': 0,
                 'uniqueId': id
-            }
+            };
 
             db.insert(todo,function(){
                 socket.emit('validToDo', todo);            
-            });    
+            });
         });
     });
     
 
     
     socket.on('validateLoginData', function (data){
-        console.log(data);
         db.getUser(data['email'], function (resp){
             if(resp){
                 auth.getHash(data, function(user){
@@ -238,6 +260,16 @@ io.of('/shared').on('connection', function (socket) {
                 });
             } else {
                 socket.emit('loginValidationResult', {result: 'invalid_email'});
+            }
+        });
+    });
+
+
+
+    socket.on('findUsers', function (data){
+        db.searchUsers(data.email, function (resp){
+            if (resp){
+                socket.emit('takeUsers', {users: resp});
             }
         });
     });
