@@ -1,26 +1,7 @@
 $(document).ready(function() {
     var socket = io.connect('http://localhost:3000/toDos');
-    
 
-    function getId() {
-        var cookJson = getCookie('todo_logged_in');
-
-        if (!cookJson) {
-            cookJson = getCookie('todo_memory');
-
-            if (!cookJson)
-                return null;
-
-            return (cookJson?cookJson._id:null);    
-        }
-         
-        return (cookJson?cookJson._id:null);    
-    }
-    
-
-
-
-    socket.emit('giveMeToDos', { _id: getId() });
+    socket.emit('giveMeToDos', {});
 
     socket.on('takeToDos', function (data){
         var length = data.toDos.length;
@@ -81,8 +62,11 @@ $(document).ready(function() {
             todoitemDiv.append(todoDateTimeDiv);
             todoitemDiv.append(progressDiv);
 
+            toDosArray[todoitemDiv] = data.toDos[counter];
+
             $('#todosContainer').append(todoitemDiv);    
-        }
+
+        } console.log(toDosArray);
     });
 
 

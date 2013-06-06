@@ -139,29 +139,13 @@ $(document).ready(function() {
 
             });
 
-            if (iElem.val().length != 0){
-                var cookJson = getCookie('todo_logged_in');
-                var logged;
-
-                if (!cookJson) {
-                    cookJson = getCookie('todo_memory');
-
-                    logged = 'notLogged';
-
-                    if (!cookJson)
-                        return;
-                } else {
-                    logged = cookJson?cookJson.user:null;
-                }
-                    
+            if (iElem.val().length != 0){                  
 
                 var todoItem = {
-                    _id: cookJson?cookJson._id:null,
                     todo: iElem.val(),
                     dueDate: dateElem.val()?dateElem.val():null,
                     dueTime: timeElem.val()?timeElem.val():null,
                     priority: priority,
-                    loggedIn: logged
                 }
 
                 socket.emit('addToDo', { data: todoItem });
@@ -372,28 +356,14 @@ $(document).ready(function() {
         todoitemDiv.append(todoDateTimeDiv);
         todoitemDiv.append(progressDiv);
 
+        toDosArray[todoitemDiv] = data.value;
+
+        console.log(toDosArray);
+
         $('#todosContainer').append(todoitemDiv);    
     });
 });
 
-function getCookie(cookieName) {
-    var cook = null;
-    var cookJson = null;
-    cook = $.cookie(cookieName);
 
-    if (cook){
-        var startPos = cook.indexOf('{');
-        var stopPos = 0;
 
-        for (var i = cook.length - 1; i >= 0; i--) {
-            if (cook[i] == '}'){
-                stopPos = i+1;
-                break;
-            }
-        }
-
-        cookJson = $.parseJSON(cook.substring(startPos,stopPos));
-    }
-
-    return cookJson;
-}
+var toDosArray = {};

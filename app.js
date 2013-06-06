@@ -12,6 +12,7 @@ var express = require('express')
     , path = require('path')
     , db = require('./db')
     , io = require('socket.io').listen(server) 
+    , cookie = require('cookie');
     ;
   
 
@@ -35,10 +36,12 @@ app.configure(function(){
 });
 
 
+
 // development only
 app.configure('development', function(){
     app.use(express.errorHandler());
 });
+
 
 
 app.get('/', routes.index);
@@ -179,25 +182,47 @@ io.of('/shared').on('connection', function (socket) {
 
 
         var id = (new Date()).getTime().toString(16);
-        var todo = {
-            'type' : 'todo_item',
-            'user' : {
-                '_id'  : item._id
-             },
-            'todo' : item.todo,
-            'duedate': item.dueDate,
-            'duetime': item.dueTime,
-            'priority': item.priority,
-            'loggedIn': item.loggedIn,
-            'percentage': 0,
-            'uniqueId': id
-        }
 
-        db.insert(todo,function(){
-            socket.emit('validToDo', todo);            
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString, loggedIn = false;
+
+        if (cookies.todo_logged_in != null) {
+            cookieString = cookies.todo_logged_in;
+            loggedIn = true;
+        } else  if (cookies.todo_memory != null)
+            cookieString = cookies.todo_memory;
+                else
+                    return;
+
+
+        getCookie(cookieString, function (cookJson){
+            var user;
+
+            if (loggedIn == true) {
+                user = cookJson.user;
+            } else 
+                user = 'notLogged';
+
+            var todo = {
+                'type' : 'todo_item',
+                'user' : {
+                    '_id'  : cookJson._id,
+                 },
+                'todo' : item.todo,
+                'duedate': item.dueDate,
+                'duetime': item.dueTime,
+                'priority': item.priority,
+                'loggedIn': user,
+                'percentage': 0,
+                'uniqueId': id
+            }
+
+            db.insert(todo,function(){
+                socket.emit('validToDo', todo);            
+            });    
         });
     });
-
+    
 
     
     socket.on('validateLoginData', function (data){
@@ -224,11 +249,25 @@ io.of('/toDos').on('connection', function (socket){
     var id;
 
     socket.on('giveMeToDos', function (data){
-        db.getToDosById(data._id, function (resp){
-            if(resp){
-                socket.emit('takeToDos', { toDos: resp});                
-            }
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString;
+
+        if (cookies.todo_logged_in != null) 
+            cookieString = cookies.todo_logged_in;
+        else if (cookies.todo_memory != null)
+            cookieString = cookies.todo_memory;
+        else
+            return;
+
+        getCookie(cookieString, function (cookJson){
+
+            db.getToDosById(cookJson._id, function (resp){
+                if(resp){
+                    socket.emit('takeToDos', { toDos: resp});                
+                }
+            });
         });
+
     });
 });
 
@@ -237,3 +276,25 @@ io.of('/toDos').on('connection', function (socket){
 server.listen(app.get('port'), function (){
   console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+
+function getCookie(cookie, callback) {
+    var cookJson = null;
+
+    if (cookie){
+        var startPos = cookie.indexOf('{');
+        var stopPos = 0;
+
+        for (var i = cookie.length - 1; i >= 0; i--) {
+            if (cookie[i] == '}'){
+                stopPos = i+1;
+                break;
+            }
+        }
+
+        cookJson = JSON.parse(cookie.substring(startPos,stopPos));
+    }
+
+    callback(cookJson);
+}
