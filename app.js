@@ -187,7 +187,7 @@ io.of('/shared').on('connection', function (socket) {
             'duetime': item.dueTime,
             'priority' : item.priority,
             'loggedIn' : item.loggedIn
-        }
+        };
 
         db.insert(todo,function(){
             // callback
