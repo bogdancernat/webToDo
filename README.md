@@ -43,3 +43,9 @@ Nivelul *model* este reprezentat prin baza de date **NoSQL** *CouchDB*. Deoarece
 
 ###Detalii de implementare
 --------------------------
+
+Atunci când un utilizator își creează un nou cont de utilizator, serverul validează datele. Adresa de email este verificată folosind o expresie regulată. Parola trebuie să conțină cel putin 6 caractere și cel mult 30 de caractere, doar litere și numere. Deasemnea, atunci când utilizatorul confirmă parola, severul verifică dacă parolele coincid. În cazul unei erori, serverul notifică clientul iar acesta nu este lăsat să trimită formularul către server. Toate aceste validări sunt realizate în timp real, asincron. 
+La autentificare, serverul verifică datele atunci când butonul *login* este apăsat. Dacă datele nu sunt valide, serverul semnalează erorile. Dacă datele sunt valide, este setat un cookie ce conține email-ul utilizatorului sau numele de cont(în cazul utilizatorilor autentificați folosind contul de *Twitter*). Pagina principală este formată dintr-un *layout* ce contine proiectele utilizatorului, un *layout* ce conține sarcinile proiectului selectat și un layout pentru notificări. --img--here-- 
+Atunci când utilizatorul creează o sarcină sau un proiect, datele sunt transmise către client folosind un socket. Atunci când utilizatorul apasă butonul pentru a trimite datele către server, este trimis un semnal(specific fiecărei acțiuni) către server împreună cu datele ce necesită validae. În server, atunci când apare un semnal, acesta efectuează validările și emite un semnal împreună cu un mesaj de eroare(dacă datele nu sunt valide) sau cu datele validate, dacă datele sunt valide. --img--here--
+
+La crearea sarcinilor, utilizatorii pot să introducă un memento(sau dată la care expiră sarcina). Deoarece la deschiderea serverului este 
