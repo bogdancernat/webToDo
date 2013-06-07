@@ -30,7 +30,6 @@ couchDbServer.db.get(dbName, function (err){
 });
 
 
-
 function pushViews(){
     design_doc = {
         'views':{
@@ -84,13 +83,12 @@ function pushViews(){
 
 exports.insert = function (obj, callback){
     activeDb.insert(obj,function (err, body, header){
-        console.log('inserted');
-        console.log(obj);
-
         if (err){
             throw (err);
+        } else {
+            console.log('inserted');
+            console.log(obj);
         }
-
         callback();
     });
 }
@@ -134,7 +132,7 @@ exports.getToDosById = function (id, callback){
 exports.getToDosByUniqueId = function (id, callback){
     activeDb.view('web_to_do_views', 'get_todos_by_id', {key: id}, function (err, body){
         if (!err){
-            callback(body.rows);
+            callback(body.rows[0]);
         }
     });
 }
@@ -156,4 +154,58 @@ exports.getToDosByDate = function (duedate, callback){
         } else 
             console.log(err);
     });
+}
+
+
+
+exports.updateToDo = function (field, value, key){
+    this.getToDosByUniqueId(key, function (resp) {
+        if(!resp) {
+          return console.log("I failed");
+        }
+
+        switch(field){
+            case 'percentage':
+                if (value == '100')
+                    resp.value.priority = 'done';
+                break;
+            case 'priority':
+                if (resp.value.priority == 'done')
+                    resp.value.percentage = 0;
+                if (value == 'done')
+                    resp.value.percentage = 100;
+                break;
+        }
+
+        if (field != 'notes')
+            resp.value[field] = value;
+        else
+            resp.value[field][resp.value[field].length] = value;
+
+        activeDb.insert(resp.value, resp.value._id, function (error, response) {
+            if(!error) {
+                console.log("it worked");
+            } else {
+                console.log(error);
+            }
+        });
+    });
+}
+
+
+
+exports.removeToDo = function(key, callback){
+    this.getToDosByUniqueId(key, function (resp) {
+        if(!resp) {
+          return console.log("I failed");
+        }
+
+        activeDb.destroy(resp.value._id, resp.value._rev, function (error, body) {
+            if(!error) {
+                callback(body);
+            } else {
+                console.log(error);
+            }
+        });
+    });    
 }

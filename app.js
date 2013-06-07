@@ -76,7 +76,7 @@ app.post('/register', auth.register);
 
 
 
-var job = new cronJob('58 1 * * *', function(){
+var job = new cronJob('42 2 * * *', function(){
     var today = new Date();                
     var todayString;
 
@@ -130,6 +130,7 @@ var job = new cronJob('58 1 * * *', function(){
 
 
 io.of('/shared').on('connection', function (socket) {
+
 
     socket.on('validateEmail', function (data){
         data.email = data.email.replace(/\s/g,'');
@@ -237,7 +238,8 @@ io.of('/shared').on('connection', function (socket) {
                 'priority': item.priority,
                 'loggedIn': user,
                 'percentage': 0,
-                'uniqueId': id
+                'uniqueId': id,
+                'notes': []
             };
 
             db.insert(todo,function(){
@@ -272,6 +274,33 @@ io.of('/shared').on('connection', function (socket) {
                 socket.emit('takeUsers', {users: resp});
             }
         });
+    });
+
+
+    socket.on('changeProgress', function(data){
+        console.log(data);
+        db.updateToDo('percentage', data.value, data.uniqueId);
+    });
+
+
+    socket.on('changePriority', function(data){
+        console.log(data);
+        db.updateToDo('priority', data.value, data.uniqueId);
+    });
+
+    socket.on('markDone', function(data){
+        console.log(data);
+        db.updateToDo('priority', 'done', data.uniqueId);
+    });
+
+    socket.on('deleteToDo', function(data){
+        db.removeToDo(data.uniqueId, function(resp){
+            console.log(resp);
+        });
+    });
+
+    socket.on('addToDoNote', function(data){
+        db.updateToDo('notes', data.value, data.uniqueId);
     });
 });
 

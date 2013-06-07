@@ -16,10 +16,9 @@ $(document).ready(function() {
             var progressDiv;
             var contentPar = $('<p>');
             var dueDatePar = $('<p>');
-            var dueTimePar = $('<p>');
             var advancedOpt = $('<div>', {class: 'toDoAdvancedOpt'});
             var span = $('<span>');
-            var todoDone;
+            var todoDone = 'notDone';
             todoItemXPandDiv = $('<div>', {class: 'todoItemXPand'});
             progressDiv = $('<div>', {class: 'progress'});
 
@@ -30,10 +29,7 @@ $(document).ready(function() {
                 dueDatePar.text(data.toDos[counter].value.duedate);
             else
                 dueDatePar.text('no due date');
-            if (data.toDos[counter].value.duetime != null)
-                dueTimePar.text(data.toDos[counter].value.duetime);
-            else
-                dueTimePar.text('no due time');
+
             switch (data.toDos[counter].value.priority) {
                 case 'low':
                     priority = 'lowPriority';
@@ -56,7 +52,6 @@ $(document).ready(function() {
             todoContentDiv.append(contentPar);
 
             todoDateTimeDiv.append(dueDatePar);
-            // todoDateTimeDiv.append(dueTimePar);
 
             progressDiv.text(data.toDos[counter].value.percentage);
 
@@ -68,25 +63,31 @@ $(document).ready(function() {
                 +'<div class="todoOptions">'
                     +'<span class="changePriority"></span>'
                     +'<span class="markDone todoDone">done</span>'
-                    +'<input class="todoProgress" type="range" min="0" max="100" step="25" value="0"/>'
+                    +'<input class="todoProgress" type="range" min="0" max="100" step="25" value="' + data.toDos[counter].value.percentage + '"/>'
                 +'</div>'
                 +'<div class="todoNotesWrapper">'
                     +'<input type="text" class="addToDoNoteInput"/>'
                     +'<ul>'
                         +'<li class="todoNote"><span class="deleteToDoNote">x</span>Get themthemthemthemthemthemthem by noon</li>'
-                        +'<li class="todoNote"><span class="deleteToDoNote deleteToDoNoteActive">x</span>Another Note</li>'
+                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Another Note</li>'
                         +'<li class="todoNote"><span class="deleteToDoNote">x</span>Note, note</li>'
                     +'</ul>'
                 +'</div>'
                 );
             todoItemWrapper.append(todoitemDiv);
             todoItemWrapper.append(advancedOpt);
+
             $('#todosContainer').prepend(todoItemWrapper);
-            changePriorityToDo(data.toDos[counter].value.uniqueId,priority);
-            if(todoDone){
-                markDone(data.toDos[counter].value.uniqueId);
+
+            if (todoDone === 'todoDone')
+                priority = 'no priority';
+
+            changePriorityToDo(data.toDos[counter].value.uniqueId, priority);
+
+            if(todoDone === 'todoDone'){
+                markToDoDone(data.toDos[counter].value.uniqueId);
             }
-        };
+        }
     });
 
 
