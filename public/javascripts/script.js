@@ -1,7 +1,8 @@
+var socket = io.connect('http://localhost:3000/shared');
+
 $(document).ready(function() {
     var loginSection = true
         , displayingSubmenu = false
-        , socket = io.connect('http://localhost:3000/shared')
         , isValidRegisterData = { '#passReg': false, '#confPassReg': false, '#emailReg': false};
     // $('#todosContainer').sortable();
     // $('#todosContainer').disableSelection();
@@ -404,20 +405,6 @@ $(document).ready(function() {
         }
     });
 
-   
-
-    $('#projectsId').keypress(function (e){
-        if (e.which == 13) {
-            //validari
-
-            var project = {
-                name: $('#projectsId').val()
-            };
-
-            socket.emit('addProject', project);
-        }
-    });
-
 
     socket.on('loginValidationResult', function (data){
         console.log(data);
@@ -533,10 +520,6 @@ $(document).ready(function() {
         console.log(data);
     });
 
-
-    socket.on('validProject', function (data){
-        //inserez proiectul, li + id
-    });
 });
 function markToDoDone(elemId,from){
     var elem = $('#'+elemId);

@@ -24,11 +24,36 @@ $(document).ready(function(){
             addProject($(this));
         }
     });
+
+    socket.on('validProject', function (data){
+         var elem = '<li class="listProjectItem" id="' + data.uniqueId + '">' + data.name + '<span class="deleteProjectItem">x</span></li>';
+         $('.listItemsNavGroup > ul').prepend(elem);
+    });
 });
 
 function addProject(elem){
     console.log(elem.val());
+    
+    var matches = elem.val().match('^[a-z0-9]+$');
 
+    if (matches == null || matches.length != 1) {
+        elem.css({'background': '#fbb1b1'});
+        return;
+    }
+
+
+    if (elem.val().length > 20){
+        elem.css({'background': '#fbb1b1'});
+        return;
+    }
+
+    var project = {
+        name: elem.val()
+    };
+
+    elem.css({'background': '#accded'});
+
+    socket.emit('addProject', project);
 
     elem.val("");
 }
