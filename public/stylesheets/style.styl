@@ -512,6 +512,14 @@ tdd_stop=#affe6e
     background-image: -webkit-linear-gradient(top, tdd_start, tdd_stop)
     background-image: linear-gradient(top, tdd_start, tdd_stop)
 
+all_start=#fff
+all_stop=#f2f7fc
+.allItems
+    background-image: -moz-linear-gradient(top, all_start, all_stop)
+    background-image: -ms-linear-gradient(top, all_start, all_stop)
+    background-image: -o-linear-gradient(top, all_start, all_stop)
+    background-image: -webkit-linear-gradient(top, all_start, all_stop)
+    background-image: linear-gradient(top, all_start, all_stop)
 todo_w=350
 todo_h=70
 todo_b_radius=5
@@ -526,7 +534,36 @@ todo_b_radius=5
     overflow-x:hidden
     background:#d6e6f6
     box-shadow:inset 0px 1px 5px hColor
-
+    w=50
+    .filterOptions
+        position:absolute
+        width:(w)px
+        margin-left:-(w+15)px
+        padding-top:20px
+        padding-bottom:20px
+        top:0px
+        background:#d6e6f6
+        box-shadow:inset 1px 1px 3px hColor
+        .filterOption
+            -webkit-touch-callout: none
+            -webkit-user-select: none
+            -khtml-user-select: none
+            -moz-user-select: none
+            -ms-user-select: none
+            user-select: none
+            margin-top:5px
+            margin-left:10px
+            height:25px
+            width:30px
+            line-height:25px
+            text-align:center
+            font-size:13px
+            color:hColor
+            border-radius:3px
+            box-shadow:1px 1px 3px hColor
+            cursor:pointer
+        .filterOptionSelected
+            box-shadow:0px 0px 5px hColor inset
 .spaceToDoContainer
     width:todo_w px
     height:120px
