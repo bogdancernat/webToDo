@@ -1,0 +1,116 @@
+#rightSideNav {
+  color: #fefefe;
+  float: right;
+  width: 250px;
+  background: #d6e6f6;
+  box-shadow: inset 1px 1px 3px #56575e;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+#rightSideNav .sideNavGroup {
+  margin-top: 10px;
+}
+#rightSideNav .sideNavGroup h1 {
+  width: 220px;
+  background: #fff;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  box-shadow: 1px 1px 3px #56575e;
+  height: 25px;
+  float: right;
+  cursor: pointer;
+}
+#rightSideNav .sideNavGroup h1 p {
+  color: #56575e;
+  padding-left: 10px;
+  line-height: 25px;
+  font-size: 15px;
+  font-weight: 200;
+  text-shadow: 0px 0px 1px #232323;
+}
+#rightSideNav .sideNavGroup:not(:first-child) h1 {
+  margin-top: 20px;
+}
+#rightSideNav .listItemsNavGroup {
+  float: right;
+}
+#rightSideNav .listItemsNavGroup .newProject {
+  width: 200px;
+  height: 28px;
+  margin-top: 5px;
+  margin-right: 20px;
+  line-height: 26px;
+  float: right;
+  background: #accded;
+}
+#rightSideNav .listItemsNavGroup .newProject .addProject {
+  display: block;
+  float: left;
+  height: 28px;
+  background: #9ec4ea;
+  width: 28px;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+  cursor: pointer;
+  color: rgba(255,255,255,0.7);
+}
+#rightSideNav .listItemsNavGroup .newProject .addProject:hover {
+  color: #fff;
+  background: #9ec4ea;
+}
+#rightSideNav .listItemsNavGroup .newProject input {
+  width: 167px;
+  padding-left: 5px;
+  color: #fff;
+  background: #accded;
+  float: left;
+  border: 0;
+  height: 28px;
+}
+#rightSideNav .listItemsNavGroup .newProject input::-webkit-input-placeholder {
+  color: rgba(255,255,255,0.4);
+}
+#rightSideNav .listItemsNavGroup .newProject input:-moz-placeholder {
+  color: rgba(255,255,255,0.4);
+}
+#rightSideNav .listItemsNavGroup ul {
+  display: block;
+  width: 200px;
+  float: right;
+  margin-right: 20px;
+}
+#rightSideNav .listItemsNavGroup ul .listProjectItem {
+  background: #f2f7fc;
+  width: 192px;
+  margin-top: 3px;
+  padding: 3px 3px 3px 5px;
+  color: #56575e;
+  position: relative;
+}
+.deleteProjectItem {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  height: 17px;
+  width: 17px;
+  font-size: 10px;
+  line-height: 17px;
+  border-radius: 50%;
+  text-indent: 0px;
+  text-align: center;
+  background: #d6e6f6;
+}
+.deleteProjectItem:hover {
+  box-shadow: 0px 0px 3px #fff inset;
+  background: #fbb1b1;
+  color: #fff;
+}

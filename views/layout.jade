@@ -9,6 +9,9 @@ html
         script(src='/javascripts/jquery.mousewheel.js')
         script(src='/socket.io/socket.io.js')  
         script(src='/javascripts/script.js', defer='defer')
+        if (user != null)
+            script(src='/javascripts/script-projects.js', defer='defer')
+            link(rel='stylesheet',href='/stylesheets/sidenavStyle.css')
     body
         section#appWrapper
             header#header
@@ -41,19 +44,26 @@ html
                     nav#rightSideNav
                         div.sideNavGroup
                             h1
-                                p 
-                                    | TEAMS
-                            div.listItemsNavGroup
-                        div.sideNavGroup
-                            h1
                                 p
                                     | PROJECTS
                                 input(type='text', id='projectsId')
                             div.listItemsNavGroup
+                                div.newProject
+                                    span.addProject
+                                        | +
+                                    input(type='text',placeholder='project name')
+                                ul
+                                    li.listProjectItem
+                                        | project 1
+                                        span.deleteProjectItem
+                                            |   +
+                                    li.listProjectItem
+                                        | project 2
+                                    li.listProjectItem
+                                        | project 3
                         div.sideNavGroup
                             h1
                             div.listItemsNavGroup 
-                  
                 block content
             footer#footer
 
