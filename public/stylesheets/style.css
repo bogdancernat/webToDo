@@ -645,8 +645,7 @@ body {
   cursor: -moz-grab;
   cursor: -webkit-grab;
 }
-.toDoAdvancedOpt .todoOptions .todoProgress::-webkit-slider-thumb,
-.toDoAdvancedOpt .todoOptions .todoProgress::-moz-slider-thumb {
+.toDoAdvancedOpt .todoOptions .todoProgress::-webkit-slider-thumb {
   -webkit-appearance: none;
   -moz-appearance: none;
   position: relative;
