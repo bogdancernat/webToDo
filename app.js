@@ -179,7 +179,7 @@ io.of('/shared').on('connection', function (socket) {
         var date, today;
 
 
-        if (item.todo === '') {
+        if (item.todo === '' || item.todo.length > 30) {
             socket.emit('addToDoError', {error: 'no to do item'});
             return;
         }
