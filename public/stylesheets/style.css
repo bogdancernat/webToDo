@@ -240,41 +240,10 @@ body {
   min-width: 1000px;
   position: relative;
 }
-#rightSideNav {
-  color: #fefefe;
-  float: right;
-  width: 200px;
-  background: #d6e6f6;
-  box-shadow: inset 1px 1px 3px #56575e;
-}
-#rightSideNav .sideNavGroup {
-  margin-top: 10px;
-}
-#rightSideNav .sideNavGroup h1 {
-  width: 170px;
-  background: #fff;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-  box-shadow: 1px 1px 3px #56575e;
-  height: 25px;
-  float: right;
-  cursor: pointer;
-}
-#rightSideNav .sideNavGroup h1 p {
-  color: #56575e;
-  padding-left: 10px;
-  line-height: 25px;
-  font-size: 15px;
-  font-weight: 200;
-  text-shadow: 0px 0px 1px #232323;
-}
-#rightSideNav .sideNavGroup:not(:first-child) h1 {
-  margin-top: 20px;
-}
 #contents {
-  width: calc(100% - 200px);
-  width: -moz-calc(100% - 200px);
-  width: -webkit-calc(100% - 200px);
+  width: calc(100% - rSNwidth px);
+  width: -moz-calc(100% - rSNwidth px);
+  width: -webkit-calc(100% - rSNwidth px);
   position: relative;
   overflow: scroll;
   overflow-y: hidden;

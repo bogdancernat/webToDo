@@ -1,9 +1,7 @@
+var socketToDos = io.connect('http://localhost:3000/toDos');
 $(document).ready(function() {
-    var socket = io.connect('http://localhost:3000/toDos');
-
-    socket.emit('giveMeToDos', {});
-
-    socket.on('takeToDos', function (data){
+    socketToDos.emit('giveMeToDos', {});
+    socketToDos.on('takeToDos', function (data){
         var length = data.toDos.length;
 
         for (var counter = 0; counter < length; counter++) {
