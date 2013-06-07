@@ -147,3 +147,5 @@ Pentru împărțirea sarcinilor și dezvolatarea armonioasă a proiectului s-a f
 
 ###Concluzii
 --------------------------
+
+În concluzie, **(web to do)++** este o aplicație foarte utilă pentru organizarea timpului și a sarcinilor datorită sistemului de notificări, a simplității creării de sarcini și gestionării acestora.
