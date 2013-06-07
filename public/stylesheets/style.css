@@ -7,12 +7,6 @@ body {
   overflow-y: hidden;
   color: #56575e;
   background-image: url("../images/groovepaper.png");
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 #grayarea {
   -webkit-transition: all 1s ease;
@@ -43,7 +37,7 @@ body {
 #authWrapper header {
   height: 45px;
   width: 100%;
-  background: #56575e;
+  background: #9ec4ea;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   box-shadow: 0px 1px 1px #000;
@@ -75,6 +69,49 @@ body {
   width: 360px;
   height: 275px;
   position: relative;
+}
+#authWrapper header #authleft .verticalLine {
+  position: absolute;
+  width: 1px;
+  height: 205px;
+  box-shadow: 1px 0px 1px #000;
+  top: 35px;
+  left: 350px;
+}
+#authWrapper header #authleft #twitterForm input,
+#authWrapper header #authleft #googleForm input {
+  border: 0;
+  width: 195px;
+  height: 36px;
+  cursor: pointer;
+  box-shadow: 1px 1px 3px #000;
+  border-radius: 5px;
+}
+#authWrapper header #authleft #twitterForm {
+  margin-top: 90px;
+  margin-left: 80px;
+  float: left;
+}
+#authWrapper header #authleft #twitterForm input {
+  background: url("../images/twitter.png") 0 0 no-repeat;
+  -webkit-background-size: 195px auto;
+  background-size: 195px auto;
+}
+#authWrapper header #authleft #twitterForm input:hover {
+  opacity: 0.9;
+}
+#authWrapper header #authleft #googleForm {
+  margin-top: 20px;
+  margin-left: 80px;
+  float: left;
+}
+#authWrapper header #authleft #googleForm input {
+  background: url("../images/google.png") 0 0 no-repeat;
+  -webkit-background-size: 195px auto;
+  background-size: 195px auto;
+}
+#authWrapper header #authleft #googleForm input:hover {
+  opacity: 0.9;
 }
 #authWrapper header #authright {
   float: left;
@@ -287,7 +324,6 @@ body {
   padding: 10px;
   border-radius: 5px;
   background: #fff;
-  display: none;
   z-index: 10;
 }
 #addToDo ul {
@@ -547,6 +583,7 @@ body {
   box-shadow: 0px 1px 1px #000;
   position: relative;
   z-index: 0;
+  display: none;
 }
 .toDoAdvancedOpt .todoDelete {
   position: absolute;
@@ -571,17 +608,23 @@ body {
 }
 .toDoAdvancedOpt .todoOptions .changePriority,
 .toDoAdvancedOpt .todoOptions .markDone {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   height: 16px;
   line-height: 18px;
   margin-top: 5px;
   float: left;
   display: block;
-  border-radius: 3px;
   margin-left: 5px;
   font-size: 10px;
   text-align: center;
   cursor: pointer;
-  box-shadow: 0px 0px 1px #000;
+  color: #767676;
+  box-shadow: 0px 1px 1px #969696;
 }
 .toDoAdvancedOpt .todoOptions .changePriority {
   width: 60px;
@@ -589,24 +632,105 @@ body {
 .toDoAdvancedOpt .todoOptions .markDone {
   width: 50px;
 }
+.toDoAdvancedOpt .todoOptions .todoProgress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #969696;
+  height: 1px;
+  width: 120px;
+  float: left;
+  margin-top: 13px;
+  margin-left: 5px;
+  box-shadow: 0px 0px 1px #969696;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+}
+.toDoAdvancedOpt .todoOptions .todoProgress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  top: -1px;
+  z-index: 1;
+  width: 12px;
+  height: 12px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background: #56575e;
+  box-shadow: 0px 0px 3px #969696;
+}
 .toDoAdvancedOpt .todoNotesWrapper {
   width: todo_w-35 px;
+  padding-bottom: 10px;
 }
 .toDoAdvancedOpt .todoNotesWrapper .addToDoNoteInput {
   border: 0px;
   border-radius: 3px;
-  box-shadow: 0px 0px 3px #000;
-  width: 210px;
+  box-shadow: 0px 1px 3px #969696 inset;
+  width: 245px;
   height: 20px;
   padding: 2px 7px;
-  margin-left: 49.00000000000001px;
+  margin-left: 26.25px;
+  margin-bottom: 10px;
+  margin-top: 10px;
   font-size: 14px;
   color: #56575e;
 }
 .toDoAdvancedOpt .todoNotesWrapper .todoNote {
-  background: #a0a0a0;
-  width: todo_w-35 px;
-  margin-top: 2px;
+  background: #f2f7fc;
+  width: 260px;
+  margin-top: 5px;
+  margin-left: 17px;
+  padding: 10px;
+  display: block;
+  box-shadow: 0px 1px 1px #969696;
+  font-size: 14px;
+  text-indent: 20px;
+}
+.toDoAdvancedOpt .todoNotesWrapper .todoNote .deleteToDoNote {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: pointer;
+  position: absolute;
+  margin-left: -27px;
+  margin-top: -6px;
+  height: 17px;
+  width: 17px;
+  font-size: 10px;
+  line-height: 17px;
+  border-radius: 50%;
+  text-indent: 0px;
+  text-align: center;
+  background: #d6e6f6;
+}
+.toDoAdvancedOpt .todoNotesWrapper .todoNote .deleteToDoNoteActive {
+  box-shadow: 0px 0px 3px #fff inset;
+  background: #fbb1b1;
+  color: #fff;
+}
+.progress {
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 300;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
 }
 .todoItemXPand {
   float: left;
@@ -667,37 +791,17 @@ body {
   position: relative;
 }
 .toDoDateTime p {
-  font-size: 10px;
+  font-size: 12px;
   height: 12px;
   text-align: right;
   line-height: 12px;
   right: 10px;
-  font-weight: 200;
+  font-weight: 300;
   position: absolute;
-  text-shadow: #000 1px 0px, #000 1px 0px;
 }
 .toDoDateTime p:first-child {
   bottom: 17px;
 }
 .toDoDateTime p:last-child {
   bottom: 5px;
-}
-.progress {
-  width: 23px;
-  height: 23px;
-  border-radius: 50%;
-  position: absolute;
-  right: 5px;
-  top: 5px;
-  line-height: 26px;
-  text-align: center;
-  font-size: 10px;
-  font-weight: 300;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  cursor: default;
 }
