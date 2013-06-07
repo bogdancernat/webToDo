@@ -2,7 +2,7 @@
 // setup e-mail data with unicode symbols
 var mailOptions = {
     from: "Continental Corporation Iași ✔ <foo@blurdybloop.com>", // sender address
-    to: "adrian.schipor@info.uaic.ro", // list of receivers
+    to: "emil.grigore@info.uaic.ro", // list of receivers
     subject: "Stagiu Continental Iași", // Subject line
     text: "Bună seara," + '\n' + "în urma interviului am ajuns la concluzia că nu sunteți potrivit pentru nici unul dintre stagiile oferite de compania noastră." + '\n' + "O seară bună," + '\n' +"SRL Continental Corporation Iași", // plaintext body
 }

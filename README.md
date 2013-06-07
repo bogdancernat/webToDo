@@ -45,13 +45,24 @@ Nivelul *model* este reprezentat prin baza de date **NoSQL** *CouchDB*. Deoarece
 --------------------------
 
 Atunci când un utilizator își creează un nou cont de utilizator, serverul validează datele. Adresa de email este verificată folosind o expresie regulată. Parola trebuie să conțină cel putin 6 caractere și cel mult 30 de caractere, doar litere și numere. Deasemnea, atunci când utilizatorul confirmă parola, severul verifică dacă parolele coincid. În cazul unei erori, serverul notifică clientul iar acesta nu este lăsat să trimită formularul către server. Toate aceste validări sunt realizate în timp real, asincron. 
+```javascript
+socket.on('validatePass', function (data){
+        var isValid = true;
+        if (data.password.length < 6 || data.password.length > 32)
+            isValid = false;
+
+        data.isValid = isValid;
+        socket.emit('validationResult', data);
+    });
+```
 La autentificare, serverul verifică datele atunci când butonul *login* este apăsat. Dacă datele nu sunt valide, serverul semnalează erorile. Dacă datele sunt valide, este setat un cookie ce conține email-ul utilizatorului sau numele de cont(în cazul utilizatorilor autentificați folosind contul de *Twitter*). Pagina principală este formată dintr-un *layout* ce contine proiectele utilizatorului, un *layout* ce conține sarcinile proiectului selectat și un layout pentru notificări. --img--here-- 
-Atunci când utilizatorul creează o sarcină sau un proiect, datele sunt transmise către client folosind un socket. Atunci când utilizatorul apasă butonul pentru a trimite datele către server, este trimis un semnal(specific fiecărei acțiuni) către server împreună cu datele ce necesită validate. În server, atunci când apare un semnal, acesta efectuează validările și emite un semnal împreună cu un mesaj de eroare(dacă datele nu sunt valide) sau cu datele, dacă datele sunt valide. --img--here--
+Atunci când utilizatorul creează o sarcină sau un proiect, datele sunt transmise către client folosind un socket. Atunci când utilizatorul apasă butonul pentru a trimite datele către server, este trimis un semnal(specific fiecărei acțiuni) către server împreună cu datele ce necesită validate. În server, atunci când apare un semnal, acesta efectuează validările și emite un semnal împreună cu un mesaj de eroare(dacă datele nu sunt valide) sau cu datele, dacă datele sunt valide:
+
 
 La crearea sarcinilor, utilizatorii pot să introducă un memento(sau dată la care expiră sarcina). Atunci când serverul este pornit, este executată o funcție care în fiecare zi, la ora 0:00 notifică clienții ce au de realizat sarcini la data respectivă:
 
 ```javascript
-var job = new cronJob('42 2 * * *', function(){
+var job = new cronJob('0 0 * * *', function(){
     var today = new Date();                
     var todayString;
 
