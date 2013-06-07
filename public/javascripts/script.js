@@ -161,12 +161,16 @@ $(document).ready(function() {
                 }
             }
         }
+
+        socket.emit('changePriority', {uniqueId: id, value: (priority.split('P')[0])});
+
         changePriorityToDo(id,priority);
     });
     $(document).on('click','.markDone',function(e){
         var parent = $(this).parents('.todoItemWrapper');
         var id = parent.attr('id');
         markToDoDone(id);
+        socket.emit('markDone', {uniqueId: id});
     });
     $(document).on('keypress','.addToDoNoteInput',function(e){
         if(e.which == 13){

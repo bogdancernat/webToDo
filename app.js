@@ -280,6 +280,17 @@ io.of('/shared').on('connection', function (socket) {
         console.log(data);
         db.updateToDo('percentage', data.value, data.uniqueId);
     });
+
+
+    socket.on('changePriority', function(data){
+        console.log(data);
+        db.updateToDo('priority', data.value, data.uniqueId);
+    });
+
+    socket.on('markDone', function(data){
+        console.log(data);
+        db.updateToDo('priority', 'done', data.uniqueId);
+    });
 });
 
 
