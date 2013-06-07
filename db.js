@@ -164,7 +164,23 @@ exports.updateToDo = function (field, value, key){
           return console.log("I failed");
         }
 
-        resp.value[field] = value;
+        switch(field){
+            case 'percentage':
+                if (value == '100')
+                    resp.value.priority = 'done';
+                break;
+            case 'priority':
+                if (resp.value.priority == 'done')
+                    resp.value.percentage = 0;
+                if (value == 'done')
+                    resp.value.percentage = 100;
+                break;
+        }
+
+        if (field != 'notes')
+            resp.value[field] = value;
+        else
+            resp.value[field][resp.value[field].length] = value;
 
         activeDb.insert(resp.value, resp.value._id, function (error, response) {
             if(!error) {
@@ -176,3 +192,20 @@ exports.updateToDo = function (field, value, key){
     });
 }
 
+
+
+exports.removeToDo = function(key, callback){
+    this.getToDosByUniqueId(key, function (resp) {
+        if(!resp) {
+          return console.log("I failed");
+        }
+
+        activeDb.destroy(resp.value._id, resp.value._rev, function (error, body) {
+            if(!error) {
+                callback(body);
+            } else {
+                console.log(error);
+            }
+        });
+    });    
+}

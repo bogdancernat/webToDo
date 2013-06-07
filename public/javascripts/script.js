@@ -132,9 +132,7 @@ $(document).ready(function() {
         if(elem.hasClass('todoDeleteUnlocked')){
             var idToDelete = elem.parents('.todoItemWrapper').attr('id');
             
-            /*
-                websockets aici!
-            */
+            socket.emit('deleteToDo', {uniqueId: idToDelete});
 
             elem.parents('.todoItemWrapper').remove();
         } else {
@@ -150,6 +148,7 @@ $(document).ready(function() {
         var parent = $(this).parents('.todoItemWrapper');
         var id = parent.attr('id');
         var priority;
+
         if($(this).hasClass("lowPriority")){
             priority="mediumPriority";
         } else {
@@ -158,7 +157,9 @@ $(document).ready(function() {
             } else {
                 if($(this).hasClass("highPriority")){
                     priority="lowPriority";
-                }
+                } else 
+                    if ($(this).text() == 'no priority')
+                        priority='lowPriority';
             }
         }
 
@@ -170,6 +171,16 @@ $(document).ready(function() {
         var parent = $(this).parents('.todoItemWrapper');
         var id = parent.attr('id');
         markToDoDone(id);
+
+        var priorityElem = parent.find('.changePriority');
+
+        changePriorityToDo(id, 'no priority');
+
+
+        parent.find('.todoProgress').val(100);
+        parent.find('.todoProgress').attr('disabled', 'disabled');
+
+        console.log($('.todoProgress'));
         socket.emit('markDone', {uniqueId: id});
     });
     $(document).on('keypress','.addToDoNoteInput',function(e){
@@ -177,6 +188,13 @@ $(document).ready(function() {
             var parent = $(this).parents('.todoItemWrapper');
             var id = parent.attr('id');
             var text = $(this).val();
+
+            $(this).val('');
+            parent.find('.todoNotesWrapper ul').prepend(
+                '<li class="todoNote">' + text + '</li>'
+                );
+
+            socket.emit('addToDoNote', {uniqueId: id, value: text});
             console.log(id+' '+text);
         }
     });
@@ -194,7 +212,12 @@ $(document).ready(function() {
         var parent = $(this).parents('.todoItemWrapper');
         var id = parent.attr('id');
         var val = $(this).val();
-        
+
+        if (val == '100'){
+            markToDoDone(id);
+            changePriorityToDo(id, 'no priority');
+        }
+
         socket.emit('changeProgress', {uniqueId: id, value: val});
     });
     $('#addToDo').keypress(function (e){
@@ -223,7 +246,6 @@ $(document).ready(function() {
                 var todoItem = {
                     todo: iElem.val(),
                     dueDate: dateElem.val()?dateElem.val():null,
-                    dueTime: timeElem.val()?timeElem.val():null,
                     priority: priority,
                 }
 
@@ -379,7 +401,6 @@ $(document).ready(function() {
         var progressDiv = $('<div>', {class: 'progress highPriority'});
         var contentPar = $('<p>');
         var dueDatePar = $('<p>');
-        var dueTimePar = $('<p>');
         var advancedOpt = $('<div>', {class: 'toDoAdvancedOpt'});
         var span = $('<span>');
         todoItemXPandDiv = $('<div>', {class: 'todoItemXPand'});
@@ -391,10 +412,6 @@ $(document).ready(function() {
             dueDatePar.text(data.duedate);
         else
             dueDatePar.text('nu due date');
-        if (data.duetime != null)
-            dueTimePar.text(data.duetime);
-        else
-            dueTimePar.text('nu due time');
         
         switch (data.priority) {
                 case 'low':
@@ -414,7 +431,6 @@ $(document).ready(function() {
         todoContentDiv.append(contentPar);
 
         todoDateTimeDiv.append(dueDatePar);
-        todoDateTimeDiv.append(dueTimePar);
 
         progressDiv.text(data.percentage);
 
@@ -462,11 +478,12 @@ function markToDoDone(elemId,from){
     elem.find('.todoItemXPand').addClass('todoDone');
     elem.find('.progress').addClass('todoDone');
     elem.find('.progress').text('100');
+    elem.find('.todoProgress').attr('disabled', 'disabled');
 }
 
 function changePriorityToDo (elemId, priority){
     var elem = $('#'+elemId);
-    var remClass;
+    var remClass = "";
     var text;
     if(priority == "lowPriority"){
         text = "low";
@@ -479,17 +496,36 @@ function changePriorityToDo (elemId, priority){
             if(priority == "highPriority"){
                 text = "high";
                 remClass = "mediumPriority";
-            }
+            } 
         }
     }
+    
+    if (priority == 'no priority'){
+        var priorityElem = elem.find('.changePriority');
+        
+        priorityElem.text('no priority');
 
-    elem.find('.todoItemXPand').removeClass('todoDone');
-    elem.find('.todoItemXPand').removeClass(remClass);
-    elem.find('.todoItemXPand').addClass(priority);
-    elem.find('.progress').removeClass(remClass);
-    elem.find('.progress').removeClass('todoDone');
-    elem.find('.progress').addClass(priority);
-    elem.find('.changePriority').removeClass(remClass);
-    elem.find('.changePriority').addClass(priority);
-    elem.find('.changePriority').text(text);
+        if (priorityElem.hasClass('lowPriority'))
+                priorityElem.removeClass('lowPriority');
+            else if (priorityElem.hasClass('mediumPriority'))
+                    priorityElem.removeClass('mediumPriority');
+                else if (priorityElem.hasClass('highPriority'))
+                       priorityElem.removeClass('highPriority');
+        
+    } else {
+        elem.find('.todoItemXPand').removeClass('todoDone');
+        elem.find('.todoItemXPand').removeClass(remClass);
+        elem.find('.todoItemXPand').addClass(priority);
+        elem.find('.progress').removeClass(remClass);
+        elem.find('.progress').removeClass('todoDone');
+        elem.find('.progress').addClass(priority);
+        elem.find('.changePriority').removeClass(remClass);
+        elem.find('.changePriority').addClass(priority);
+        elem.find('.changePriority').text(text);
+        if (elem.find('.todoProgress').attr('disabled') == 'disabled'){
+            elem.find('.todoProgress').val('0');
+            elem.find('.progress').text('0');
+            elem.find('.todoProgress').removeAttr('disabled');
+        }
+    }
 }

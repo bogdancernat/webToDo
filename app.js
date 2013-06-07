@@ -238,7 +238,8 @@ io.of('/shared').on('connection', function (socket) {
                 'priority': item.priority,
                 'loggedIn': user,
                 'percentage': 0,
-                'uniqueId': id
+                'uniqueId': id,
+                'notes': []
             };
 
             db.insert(todo,function(){
@@ -290,6 +291,16 @@ io.of('/shared').on('connection', function (socket) {
     socket.on('markDone', function(data){
         console.log(data);
         db.updateToDo('priority', 'done', data.uniqueId);
+    });
+
+    socket.on('deleteToDo', function(data){
+        db.removeToDo(data.uniqueId, function(resp){
+            console.log(resp);
+        });
+    });
+
+    socket.on('addToDoNote', function(data){
+        db.updateToDo('notes', data.value, data.uniqueId);
     });
 });
 
