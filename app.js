@@ -330,7 +330,14 @@ io.of('/shared').on('connection', function (socket) {
                     socket.emit('takeProjects', { projects: resp});                
                 }
             });
-        });1    
+        });    
+    });
+
+    socket.on('removeProject', function (data){
+console.log('deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllllleeeeeeeeeeeeettttttttte');
+        db.removeProject(data.uniqueId, function(resp){
+            console.log(resp);
+        });
     });
 
     socket.on('addProject', function(data){

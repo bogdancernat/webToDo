@@ -243,11 +243,27 @@ exports.removeToDo = function(key, callback){
 }
 
 
+exports.removeProject = function(key, callback){
+    this.getProjectsById(key, function (resp) {
+        if(!resp) {
+          return console.log("I failed");
+        }
+
+        activeDb.destroy(resp.value._id, resp.value._rev, function (error, body) {
+            if(!error) {
+                callback(body);
+            } else {
+                console.log(error);
+            }
+        });
+    });    
+}
+
 
 exports.getProjectsById = function (id, callback){
     activeDb.view('web_to_do_views', 'get_projects_by_id', {key: id}, function (err, body){
         if (!err){
-            callback(body.rows);
+            callback(body.rows[0]);
         } else 
             console.log(err);
     });

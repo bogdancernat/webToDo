@@ -8,14 +8,9 @@ $(document).ready(function(){
     });
     $(document).on('click',".deleteProjectItem",function(){
         var id = $(this).parent().attr('id');
-        /* 
+        
+        socket.emit('removeProject', {uniqueId: id});
 
-
-        websockets here
-
-
-
-        */
         $(this).parent().remove();
     });
     $(document).on('click','.addProject',function(){
