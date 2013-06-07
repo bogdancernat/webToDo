@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    socket.emit('giveMeProjects', {});
+
     $("#rightSideNav").bind("mousewheel",function(ev, delta) {
         var scrollTop = $(this).scrollTop();
         // console.log(scrollTop);
@@ -6,14 +8,9 @@ $(document).ready(function(){
     });
     $(document).on('click',".deleteProjectItem",function(){
         var id = $(this).parent().attr('id');
-        /* 
+        
+        socket.emit('removeProject', {uniqueId: id});
 
-
-        websockets here
-
-
-
-        */
         $(this).parent().remove();
     });
     $(document).on('click','.addProject',function(){
@@ -29,6 +26,19 @@ $(document).ready(function(){
          var elem = '<li class="listProjectItem" id="' + data.uniqueId + '">' + data.name + '<span class="deleteProjectItem">x</span></li>';
          $('.listItemsNavGroup > ul').prepend(elem);
     });
+
+
+    socket.on('takeProjects', function (data){
+        var length = data.projects.length;
+
+        for (var counter = 0; counter < length; counter++){
+            var elem = '<li class="listProjectItem" id="' + data.projects[counter].value.uniqueId + '">' + data.projects[counter].value.name + '<span class="deleteProjectItem">x</span></li>';
+            $('.listItemsNavGroup > ul').prepend(elem);    
+        }
+
+        
+    });
+
 });
 
 function addProject(elem){

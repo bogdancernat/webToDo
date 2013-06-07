@@ -312,6 +312,33 @@ io.of('/shared').on('connection', function (socket) {
         db.updateToDo('notes_delete', data.index, data.uniqueId);
     });
 
+    socket.on('giveMeProjects', function(data){
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString;
+
+        if (cookies.todo_logged_in != null) 
+            cookieString = cookies.todo_logged_in;
+        else if (cookies.todo_memory != null)
+            cookieString = cookies.todo_memory;
+        else
+            return;
+
+        getCookie(cookieString, function (cookJson){
+
+            db.getProjectsByUserId(cookJson._id, function (resp){
+                if(resp){
+                    socket.emit('takeProjects', { projects: resp});                
+                }
+            });
+        });    
+    });
+
+    socket.on('removeProject', function (data){
+console.log('deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllllleeeeeeeeeeeeettttttttte');
+        db.removeProject(data.uniqueId, function(resp){
+            console.log(resp);
+        });
+    });
 
     socket.on('addProject', function(data){
         var id = (new Date()).getTime().toString(16);
