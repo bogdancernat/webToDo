@@ -490,9 +490,6 @@ $(document).ready(function() {
                 +'<div class="todoNotesWrapper">'
                     +'<input type="text" class="addToDoNoteInput"/>'
                     +'<ul>'
-                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Get themthemthemthemthemthemthem by noon</li>'
-                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Another Note</li>'
-                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Note, note</li>'
                     +'</ul>'
                 +'</div>'
                 );
