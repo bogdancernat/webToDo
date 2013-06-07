@@ -62,10 +62,11 @@ html
                     p 
                         | Welcome to (web to do)++
                     section#authleft
-                        form(method='GET', action='/loginTwitter')
-                            input(type='submit', value='login twitter')
-                        form(method='GET', action='/loginGoogle')
-                            input(type='submit', value='login google')
+                        span.verticalLine
+                        form(method='GET', action='/loginTwitter')#twitterForm
+                            input(type='submit', value='')
+                        form(method='GET', action='/loginGoogle')#googleForm
+                            input(type='submit', value='')
                     section#authright
                             p#loginMessage
                                 | New to (web to do)++? Why not 

@@ -56,7 +56,7 @@ $(document).ready(function() {
             todoContentDiv.append(contentPar);
 
             todoDateTimeDiv.append(dueDatePar);
-            todoDateTimeDiv.append(dueTimePar);
+            // todoDateTimeDiv.append(dueTimePar);
 
             progressDiv.text(data.toDos[counter].value.percentage);
 
@@ -73,9 +73,9 @@ $(document).ready(function() {
                 +'<div class="todoNotesWrapper">'
                     +'<input type="text" class="addToDoNoteInput"/>'
                     +'<ul>'
-                        +'<li class="todoNote">Get themthemthemthemthemthemthem by noon</li>'
-                        +'<li class="todoNote">Another Note</li>'
-                        +'<li class="todoNote">Note, note</li>'
+                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Get themthemthemthemthemthemthem by noon</li>'
+                        +'<li class="todoNote"><span class="deleteToDoNote deleteToDoNoteActive">x</span>Another Note</li>'
+                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Note, note</li>'
                     +'</ul>'
                 +'</div>'
                 );

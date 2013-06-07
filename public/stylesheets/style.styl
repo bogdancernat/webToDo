@@ -9,12 +9,6 @@ body
     overflow-y: hidden;
     color:rgba(86,87,94, 1)
     background-image: url('../images/groovepaper.png')
-    -webkit-touch-callout: none
-    -webkit-user-select: none
-    -khtml-user-select: none
-    -moz-user-select: none
-    -ms-user-select: none
-    user-select: none
     // background: rgba(220, 224, 230, 1)
 
 linkcolor= rgba(86,143,240, 1)
@@ -46,7 +40,7 @@ hColor=rgba(86,87,94, 1)
     header
         height: 45px
         width: 100%
-        background: hColor
+        background: #9ec4ea
         border-top-left-radius: 10px
         border-top-right-radius: 10px
         box-shadow: 0px 1px 1px rgba(0, 0, 0, 1)
@@ -55,6 +49,7 @@ hColor=rgba(86,87,94, 1)
             font-weight: 300
             font-size: 20px
             color: rgba(255,255,255, 1)
+            // color: hColor
             text-align: center
         section
             p
@@ -73,6 +68,41 @@ hColor=rgba(86,87,94, 1)
             width:360px
             height:275px
             position:relative
+            .verticalLine
+                position:absolute
+                width:1px
+                height:205px
+                box-shadow: 1px 0px 1px #000
+                top: 35px
+                left:350px
+            #twitterForm,#googleForm
+                input
+                    border:0
+                    width:195px
+                    height:36px
+                    cursor:pointer
+                    box-shadow:1px 1px 3px #000
+                    border-radius:5px
+            #twitterForm
+                margin-top:90px
+                margin-left:80px
+                float:left
+                input
+                    background: url('../images/twitter.png') 0 0 no-repeat
+                    -webkit-background-size: 195px auto
+                    background-size: 195px auto
+                input:hover
+                    opacity:0.9
+            #googleForm
+                margin-top:20px
+                margin-left:80px
+                float:left
+                input
+                    background: url('../images/google.png') 0 0 no-repeat
+                    -webkit-background-size: 195px auto
+                    background-size: 195px auto
+                input:hover
+                    opacity:0.9
         #authright
             float:left
             width:360px  
@@ -299,7 +329,7 @@ iaddH = 35
     padding:10px
     border-radius: 5px
     background:white
-    display:none
+    // display:none
     z-index:10
     ul
         width:350px
@@ -569,37 +599,124 @@ todo_b_radius=5
         float:left
         statesH=16
         .changePriority,.markDone
+            -webkit-touch-callout: none
+            -webkit-user-select: none
+            -khtml-user-select: none
+            -moz-user-select: none
+            -ms-user-select: none
+            user-select: none
             height:statesH px
             line-height:statesH+2 px
             margin-top:5px
             float:left
             display:block
-            border-radius:3px
+            // border-radius:3px
             margin-left:5px
             font-size:10px
             text-align:center
             cursor:pointer
-            box-shadow:0px 0px 1px #000
+            color:#767676
+            box-shadow:0px 1px 1px #969696
         .changePriority
             width:60px
         .markDone
             width:50px
+        .todoProgress
+            -webkit-appearance: none
+            -moz-appearance: none
+            background-color: #969696
+            height: 1px
+            width:120px
+            float:left
+            margin-top:13px
+            margin-left:5px
+            box-shadow:0px 0px 1px #969696
+            cursor:grab
+            cursor:-moz-grab
+            cursor:-webkit-grab
+        .todoProgress::-webkit-slider-thumb,.todoProgress::-moz-slider-thumb  
+            -webkit-appearance: none
+            -moz-appearance: none
+            position: relative
+            top: -1px
+            z-index: 1
+            width: 12px
+            height: 12px
+            -webkit-border-radius: 50%
+            -moz-border-radius: 50%
+            border-radius: 50%
+            background:hColor
+            box-shadow:0px 0px 3px #969696
     .todoNotesWrapper
         width: (todo_w-35) px
+        padding-bottom:10px
         .addToDoNoteInput
             border:0px
             border-radius:3px
-            box-shadow:0px 0px 3px #000
-            width:(todo_w * 70/100 - 35) px
+            box-shadow:0px 1px 3px #969696 inset
+            width:(todo_w * 70/100) px
             height:20px
             padding:2px 7px
-            margin-left:(todo_w*(14/100)) px
+            margin-left:(todo_w*(7.5/100)) px
+            margin-bottom:10px
+            margin-top:10px
             font-size:14px
             color:hColor
         .todoNote
-            background:#a0a0a0
-            width: (todo_w-35) px
-            margin-top:2px
+            background:#f2f7fc
+            width: (todo_w - 90) px
+            margin-top:5px
+            margin-left:17px
+            padding:10px
+            display:block
+            box-shadow:0px 1px 1px #969696
+            font-size:14px
+            text-indent:20px
+            .deleteToDoNote
+                -webkit-touch-callout: none
+                -webkit-user-select: none
+                -khtml-user-select: none
+                -moz-user-select: none
+                -ms-user-select: none
+                user-select: none
+                cursor:pointer 
+                position:absolute
+                margin-left:-27px
+                margin-top:-6px
+                height:17px
+                width:17px
+                font-size:10px
+                line-height:17px
+                border-radius:50%
+                text-indent:0px
+                text-align:center
+                background:#d6e6f6
+            .deleteToDoNoteActive
+                background:#fbb1b1
+                color:#fff
+
+progBubbl= 23
+.progress
+    width:progBubbl px
+    height:progBubbl px
+    border-radius:50%
+    position:absolute
+    // box-shadow:0px 0px 1px hColor inset
+    right:5px
+    top:5px
+    line-height:(progBubbl + 2) px
+    text-align:center
+    font-size:10px
+    font-weight:300
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    cursor:default
+    // box-shadow:0px 0px 1px #000
+
     // display:none;
 .todoItemXPand
     float:left
@@ -656,37 +773,17 @@ p_h= 12
     height: todo_h px
     position:relative
     p
-        font-size:10px
+        font-size:12px
         height:p_h px
         text-align:right
         line-height:p_h px
         right:10px
-        font-weight:200
+        font-weight:300
         position:absolute
-        text-shadow: #000 1px 0px, #000 1px 0px
+        // text-shadow: #000 1px 0px, #000 1px 0px
     p:first-child
-        bottom:(5+p_h) px
+        bottom:(5 + p_h) px
     p:last-child
         bottom:5px
-progBubbl= 23
-.progress
-    width:progBubbl px
-    height:progBubbl px
-    border-radius:50%
-    position:absolute
-    right:5px
-    top:5px
-    line-height:(progBubbl+3) px
-    text-align:center
-    font-size:10px
-    font-weight:300
-    -webkit-touch-callout: none
-    -webkit-user-select: none
-    -khtml-user-select: none
-    -moz-user-select: none
-    -ms-user-select: none
-    user-select: none
-    cursor:default
-    // box-shadow:0px 0px 1px #000
 
 

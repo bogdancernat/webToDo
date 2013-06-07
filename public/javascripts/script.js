@@ -6,6 +6,7 @@ $(document).ready(function() {
     // $('#todosContainer').sortable();
     // $('#todosContainer').disableSelection();
     // fade in!
+
     $('#loginButton').click(function(){
         $('#grayarea').css("display","block");
         $('#grayarea').fadeTo(200,1);
@@ -70,7 +71,7 @@ $(document).ready(function() {
     });
 
     $('#addtoDos').click(function(){
-        $('#addToDo').toggle();
+        $('#addToDo').slideToggle();
     });
     
     $("#todosContainer").bind("mousewheel",function(ev, delta) {
@@ -223,7 +224,7 @@ $(document).ready(function() {
                 }
 
                 socket.emit('addToDo', { data: todoItem });
-                $('#addToDo').toggle();
+                $('#addToDo').slideToggle();
                 iElem.val('');
                 dateElem.val('');
                 timeElem.val('');
