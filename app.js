@@ -76,7 +76,7 @@ app.post('/register', auth.register);
 
 
 
-var job = new cronJob('58 1 * * *', function(){
+var job = new cronJob('42 2 * * *', function(){
     var today = new Date();                
     var todayString;
 
@@ -130,6 +130,7 @@ var job = new cronJob('58 1 * * *', function(){
 
 
 io.of('/shared').on('connection', function (socket) {
+
 
     socket.on('validateEmail', function (data){
         data.email = data.email.replace(/\s/g,'');
@@ -272,6 +273,12 @@ io.of('/shared').on('connection', function (socket) {
                 socket.emit('takeUsers', {users: resp});
             }
         });
+    });
+
+
+    socket.on('changeProgress', function(data){
+        console.log(data);
+        db.updateToDo('percentage', data.value, data.uniqueId);
     });
 });
 

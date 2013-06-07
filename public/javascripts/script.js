@@ -189,8 +189,9 @@ $(document).ready(function() {
         */
         var parent = $(this).parents('.todoItemWrapper');
         var id = parent.attr('id');
-        var value = $(this).val();
-        console.log(id+' '+value);
+        var val = $(this).val();
+        
+        socket.emit('changeProgress', {uniqueId: id, value: val});
     });
     $('#addToDo').keypress(function (e){
         if (e.which == 13){
