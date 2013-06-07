@@ -4,6 +4,8 @@ html
         title= title
         link(rel='stylesheet',href="/stylesheets/reset.css")
         link(rel='stylesheet', href='/stylesheets/style.css')
+        if (user != null)
+            link(rel='stylesheet',href='/stylesheets/sidenavStyle.css')
         script(src='/javascripts/jquery-1.9.1.min.js')
         script(src='/javascripts/jquery-ui.js')
         script(src='/javascripts/jquery.mousewheel.js')
@@ -11,7 +13,6 @@ html
         script(src='/javascripts/script.js', defer='defer')
         if (user != null)
             script(src='/javascripts/script-projects.js', defer='defer')
-            link(rel='stylesheet',href='/stylesheets/sidenavStyle.css')
     body
         section#appWrapper
             header#header
@@ -59,46 +60,47 @@ html
             footer#footer
 
         div#grayarea
-            div#authWrapper
-                header 
-                    p 
-                        | Welcome to (web to do)++
-                    section#authleft
-                        span.verticalLine
-                        form(method='GET', action='/loginTwitter')#twitterForm
-                            input(type='submit', value='')
-                        form(method='GET', action='/loginGoogle')#googleForm
-                            input(type='submit', value='')
-                    section#authright
-                            p#loginMessage
-                                | New to (web to do)++? Why not 
-                                a(href='#register').authswitch 
-                                    | sign up
-                                |  ?
-                            div.authForm#loginForm
-                                form(method='post', action='/login', id='loginFormId')
-                                    ul
-                                        li
-                                            input(type='text', placeholder='Your email', name='email', id='emailLog').ifield
-                                        li
-                                            input(type='password', placeholder='******', name='password', id='passLog').ifield
-                                        li
-                                            input(type='submit', value='login').button
-                            p#lostPass
-                                a(href='#lostPass')
-                                    | Lost password?
-                            p#registerMessage
-                                | Already have an account? 
-                                a(href='#register').authswitch 
-                                    | login here
-                            div.authForm#registerForm
-                                form(method='post', action='/register',id="registerFormId")
-                                    ul
-                                        li
-                                            input(type='e-mail', placeholder='A valid email address', name='email', id="emailReg").ifield 
-                                        li
-                                            input(type='password', placeholder='Your password', name='password', id="passReg").ifield
-                                        li
-                                            input(type='password', placeholder='Retype your password', name='password2', id="confPassReg").ifield
-                                        li
-                                            input(type='submit', value='register').button
+            if (user == null)
+                div#authWrapper
+                    header 
+                        p 
+                            | Welcome to (web to do)++
+                        section#authleft
+                            span.verticalLine
+                            form(method='GET', action='/loginTwitter')#twitterForm
+                                input(type='submit', value='')
+                            form(method='GET', action='/loginGoogle')#googleForm
+                                input(type='submit', value='')
+                        section#authright
+                                p#loginMessage
+                                    | New to (web to do)++? Why not 
+                                    a(href='#register').authswitch 
+                                        | sign up
+                                    |  ?
+                                div.authForm#loginForm
+                                    form(method='post', action='/login', id='loginFormId')
+                                        ul
+                                            li
+                                                input(type='text', placeholder='Your email', name='email', id='emailLog').ifield
+                                            li
+                                                input(type='password', placeholder='******', name='password', id='passLog').ifield
+                                            li
+                                                input(type='submit', value='login').button
+                                p#lostPass
+                                    a(href='#lostPass')
+                                        | Lost password?
+                                p#registerMessage
+                                    | Already have an account? 
+                                    a(href='#register').authswitch 
+                                        | login here
+                                div.authForm#registerForm
+                                    form(method='post', action='/register',id="registerFormId")
+                                        ul
+                                            li
+                                                input(type='e-mail', placeholder='A valid email address', name='email', id="emailReg").ifield 
+                                            li
+                                                input(type='password', placeholder='Your password', name='password', id="passReg").ifield
+                                            li
+                                                input(type='password', placeholder='Retype your password', name='password2', id="confPassReg").ifield
+                                            li
+                                                input(type='submit', value='register').button

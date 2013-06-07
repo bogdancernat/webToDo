@@ -80,6 +80,12 @@ function pushViews(){
                     if (doc.type=='project')
                         emit([doc.user._id, doc.name], doc)
                 }
+            },
+            'get_projects_by_user_id':{
+                'map': function (doc) {
+                    if (doc.type=='project')
+                        emit(doc.user._id, doc);
+                }
             }
         }
     };
@@ -267,3 +273,13 @@ exports.getToDosByProjectAndUser = function (projectName, userID, callback){
     });    
 }
 
+
+
+exports.getProjectsByUserId = function (userID, callback){
+    activeDb.view('web_to_do_views', 'get_projects_by_user_id', {key: userID}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        } else 
+            console.log(err);
+    });
+}
