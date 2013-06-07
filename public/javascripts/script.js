@@ -187,6 +187,9 @@ $(document).ready(function() {
             var id = parent.attr('id');
             var text = $(this).val();
 
+            if (text.length == 0)
+                return;
+
             $(this).val('');
             parent.find('.todoNotesWrapper ul').prepend(
                 '<li class="todoNote"><span class="deleteToDoNote">x</span>' + text + '</li>'
@@ -246,11 +249,12 @@ $(document).ready(function() {
         }
     });
     $(document).on('click','.deleteToDoNote',function(){
-        var index = $(this).parent().index();
+        var todoIndex = $(this).parent().index();
         var todoId = $(this).parents('.todoItemWrapper').attr('id');
         
         $(this).parent().remove();
-        console.log(index);
+        
+        socket.emit('deleteToDoNote', {uniqueId: todoId, index: todoIndex});
     });
 
     function addToDoItem(){
@@ -274,10 +278,13 @@ $(document).ready(function() {
         var d = new Date();
         if (iElem.val().length < 35 && iElem.val().length > 0){ 
             if(date.length == 0){
+                var projectName = '#untitled';
+
                 var todoItem = {
                     todo: iElem.val(),
                     dueDate: null,
                     priority: priority,
+                    project: projectName
                 }
                 socket.emit('addToDo', { data: todoItem });
                 $('#addToDo').remove();
@@ -286,10 +293,13 @@ $(document).ready(function() {
                     date.split('-')[1]>d.getMonth() &&
                     date.split('-')[2]>=d.getDate()){
 
+                    var projectName = '#untitled';
+
                     var todoItem = {
                         todo: iElem.val(),
                         dueDate: dateElem.val(),
                         priority: priority,
+                        project: projectName
                     }
 
                     socket.emit('addToDo', { data: todoItem });
@@ -395,6 +405,18 @@ $(document).ready(function() {
     });
 
    
+
+    $('#projectsId').keypress(function (e){
+        if (e.which == 13) {
+            //validari
+
+            var project = {
+                name: $('#projectsId').val()
+            };
+
+            socket.emit('addProject', project);
+        }
+    });
 
 
     socket.on('loginValidationResult', function (data){
@@ -509,6 +531,11 @@ $(document).ready(function() {
 
     socket.on('takeUsers', function (data){
         console.log(data);
+    });
+
+
+    socket.on('validProject', function (data){
+        //inserez proiectul, li + id
     });
 });
 function markToDoDone(elemId,from){

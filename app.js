@@ -76,7 +76,7 @@ app.post('/register', auth.register);
 
 
 
-var job = new cronJob('42 2 * * *', function(){
+var job = new cronJob('0 0 * * *', function(){
     var today = new Date();                
     var todayString;
 
@@ -179,7 +179,7 @@ io.of('/shared').on('connection', function (socket) {
         var date, today;
 
 
-        if (item.todo === '') {
+        if (item.todo === '' || item.todo.length > 35) {
             socket.emit('addToDoError', {error: 'no to do item'});
             return;
         }
@@ -239,7 +239,8 @@ io.of('/shared').on('connection', function (socket) {
                 'loggedIn': user,
                 'percentage': 0,
                 'uniqueId': id,
-                'notes': []
+                'notes': [],
+                'project': item.project
             };
 
             db.insert(todo,function(){
@@ -300,7 +301,52 @@ io.of('/shared').on('connection', function (socket) {
     });
 
     socket.on('addToDoNote', function(data){
+        if (data.value.length == 0)
+            return;
+
         db.updateToDo('notes', data.value, data.uniqueId);
+    });
+
+
+    socket.on('deleteToDoNote', function(data){
+        db.updateToDo('notes_delete', data.index, data.uniqueId);
+    });
+
+
+    socket.on('addProject', function(data){
+        var id = (new Date()).getTime().toString(16);
+
+        var matches = data.name.match('^[a-z0-9]+$');
+
+        if (matches == null || matches.length != 1) 
+            return;
+
+        if (data.name.length > 20)
+            return;
+
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString, loggedIn = false;
+
+        if (cookies.todo_logged_in != null) {
+            cookieString = cookies.todo_logged_in;
+            loggedIn = true;
+        } 
+
+        getCookie(cookieString, function (cookJson){
+            var project = {
+                type: 'project',
+                user: {
+                    _id: cookJson._id
+                },
+                name: data.name,
+                uniqueId: id,
+            }
+
+
+            db.insert(project, function (){
+                socket.emit('validProject', project);
+            });
+        });
     });
 });
 
@@ -322,13 +368,12 @@ io.of('/toDos').on('connection', function (socket){
 
         getCookie(cookieString, function (cookJson){
 
-            db.getToDosById(cookJson._id, function (resp){
+            db.getToDosByProjectAndUser('#untitled', cookJson._id, function (resp){
                 if(resp){
                     socket.emit('takeToDos', { toDos: resp});                
                 }
             });
         });
-
     });
 });
 
