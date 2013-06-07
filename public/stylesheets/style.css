@@ -684,7 +684,7 @@ body {
   text-align: center;
   background: #d6e6f6;
 }
-.toDoAdvancedOpt .todoNotesWrapper .todoNote .deleteToDoNoteActive {
+.toDoAdvancedOpt .todoNotesWrapper .todoNote .deleteToDoNote:hover {
   box-shadow: 0px 0px 3px #fff inset;
   background: #fbb1b1;
   color: #fff;

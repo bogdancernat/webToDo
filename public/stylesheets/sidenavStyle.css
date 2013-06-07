@@ -88,6 +88,10 @@
   padding: 3px 3px 3px 5px;
   color: #56575e;
   position: relative;
+  cursor: pointer;
+}
+#rightSideNav .listItemsNavGroup ul .listProjectItemSelected {
+  background: #fff;
 }
 .deleteProjectItem {
   -webkit-touch-callout: none;
