@@ -60,6 +60,26 @@ function pushViews(){
                         emit(doc.duedate, doc);
                     }
                 }
+            },
+            'get_projects_by_id':{
+                'map': function (doc) {
+                    if (doc.type=='project'){
+                        emit(doc.uniqueId, doc);
+                    }
+                }
+            },
+            'get_todos_by_project_id':{
+                'map': function (doc) {
+                    if (doc.type=='todo_item'){
+                        emit([doc.project, doc.user._id], doc);
+                    }
+                }
+            },
+            'get_projects_by_user_name':{
+                'map': function (doc) {
+                    if (doc.type=='project')
+                        emit([doc.user._id, doc.name], doc)
+                }
             }
         }
     };
@@ -177,9 +197,15 @@ exports.updateToDo = function (field, value, key){
                 break;
         }
 
-        if (field != 'notes')
+
+        if (field == 'notes_delete') {
+            console.log(resp.value['notes'].length - parseInt(value));
+            resp.value['notes'].splice(resp.value['notes'].length - parseInt(value) - 1, 1);
+        }
+
+        if (field != 'notes') {
             resp.value[field] = value;
-        else
+        } else
             resp.value[field][resp.value[field].length] = value;
 
         activeDb.insert(resp.value, resp.value._id, function (error, response) {
@@ -209,3 +235,35 @@ exports.removeToDo = function(key, callback){
         });
     });    
 }
+
+
+
+exports.getProjectsById = function (id, callback){
+    activeDb.view('web_to_do_views', 'get_projects_by_id', {key: id}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        } else 
+            console.log(err);
+    });
+}
+
+
+exports.getProjectsByUserAndName = function (userID, name, callback){
+    activeDb.view('web_to_do_views', 'get_projects_by_user_name', {key: [userID, name]}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        } else 
+            console.log(err);
+    });   
+}
+
+
+exports.getToDosByProjectAndUser = function (projectName, userID, callback){
+    activeDb.view('web_to_do_views', 'get_todos_by_project_id', {key: [projectName, userID]}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        } else 
+            console.log(err);
+    });    
+}
+
