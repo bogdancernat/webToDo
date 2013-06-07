@@ -19,6 +19,9 @@ $(document).ready(function(){
         addProject($(this).next());
     });
     $(document).on('click','.listProjectItem',function(){
+        $('.filterOption').each(function (index,value){
+            $(this).removeClass('filterOptionSelected');
+        });
         selectedProject = $(this).attr('id');
         $('.listItemsNavGroup').find('.listProjectItem').each(function(index,value){
             $(value).removeClass('listProjectItemSelected');

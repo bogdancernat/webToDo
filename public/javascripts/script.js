@@ -69,7 +69,14 @@ $(document).ready(function() {
         addToDoLeft = $("#contents").width()/2 - $('#addToDo').width()/2 -10;
         $('#addToDo').css("left",addToDoLeft);
     });
-
+    $('.filterOption').click(function(){
+        if($(this).hasClass('filterOptionSelected')){
+            $(this).removeClass('filterOptionSelected');
+        } else {
+            $(this).addClass('filterOptionSelected');
+        }
+        filterToDos();
+    });
     $('#addtoDos').click(function(){
         if($('#todosContainer').find('#addToDo').length>0){
             console.log('found');
@@ -518,6 +525,28 @@ $(document).ready(function() {
     });
 
 });
+function filterToDos(){
+    var filters = [];
+    $('.filterOption').each(function (index,value){
+        if($(value).attr('class').split(/\s+/)[2]){
+            filters.push($(value).attr('class').split(/\s+/)[1])
+        }
+    });
+    if(filters.length == 0){
+        $('.todoItemWrapper').each(function (index,value){
+            $(value).css({"display":"block"});
+        });
+    } else {
+        $('.todoItemWrapper').each(function (index,value){
+            if(filters.indexOf($(value).find('.todoItemXPand').attr('class').split(/\s+/)[2])!=-1 
+                || filters.indexOf($(value).find('.todoItemXPand').attr('class').split(/\s+/)[1])!=-1){
+                $(value).css({"display":"block"});
+            } else {
+                $(value).css({"display":"none"});
+            }
+        });
+    }
+}
 function markToDoDone(elemId,from){
     var elem = $('#'+elemId);
     elem.find('.todoItemXPand').addClass('todoDone');
