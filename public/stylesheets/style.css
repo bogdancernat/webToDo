@@ -709,6 +709,7 @@ body {
   background: #d6e6f6;
 }
 .toDoAdvancedOpt .todoNotesWrapper .todoNote .deleteToDoNoteActive {
+  box-shadow: 0px 0px 3px #fff inset;
   background: #fbb1b1;
   color: #fff;
 }
