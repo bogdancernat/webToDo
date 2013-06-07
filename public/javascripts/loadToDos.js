@@ -1,5 +1,5 @@
-var socketToDos = io.connect('http://localhost:3000/toDos')
-  , selectedProject = "#untitled";
+var socketToDos = io.connect('http://localhost:3000/toDos');
+
 $(document).ready(function() {
     socketToDos.emit('giveMeToDos', {});
     socketToDos.on('takeToDos', function (data){

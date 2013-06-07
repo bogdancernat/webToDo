@@ -1,4 +1,5 @@
-var socket = io.connect('http://localhost:3000/shared');
+var socket = io.connect('http://localhost:3000/shared')
+  , selectedProject = "#untitled";
 
 $(document).ready(function() {
     var loginSection = true

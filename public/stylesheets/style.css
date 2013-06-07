@@ -513,6 +513,13 @@ body {
   background-image: -webkit-linear-gradient(top, #cbfea1, #affe6e);
   background-image: linear-gradient(top, #cbfea1, #affe6e);
 }
+.allItems {
+  background-image: -moz-linear-gradient(top, #fff, #f2f7fc);
+  background-image: -ms-linear-gradient(top, #fff, #f2f7fc);
+  background-image: -o-linear-gradient(top, #fff, #f2f7fc);
+  background-image: -webkit-linear-gradient(top, #fff, #f2f7fc);
+  background-image: linear-gradient(top, #fff, #f2f7fc);
+}
 #todosContainer {
   width: 350px;
   margin: 0 auto;
@@ -524,6 +531,38 @@ body {
   overflow-x: hidden;
   background: #d6e6f6;
   box-shadow: inset 0px 1px 5px #56575e;
+}
+#todosContainer .filterOptions {
+  position: absolute;
+  width: 50px;
+  margin-left: -65px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  top: 0px;
+  background: #d6e6f6;
+  box-shadow: inset 1px 1px 3px #56575e;
+}
+#todosContainer .filterOptions .filterOption {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-top: 5px;
+  margin-left: 10px;
+  height: 25px;
+  width: 30px;
+  line-height: 25px;
+  text-align: center;
+  font-size: 13px;
+  color: #56575e;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px #56575e;
+  cursor: pointer;
+}
+#todosContainer .filterOptions .filterOptionSelected {
+  box-shadow: 0px 0px 5px #56575e inset;
 }
 .spaceToDoContainer {
   width: 350px;
