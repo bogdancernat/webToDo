@@ -24,6 +24,8 @@ $(document).ready(function(){
             $(value).removeClass('listProjectItemSelected');
         })
         $(this).addClass('listProjectItemSelected');
+
+        socketToDos.emit('giveMeToDosByProjectID', {uniqueId: selectedProject});
     });
     $(document).on('keypress','.newProject > input',function(e){
         if(e.which == 13){
@@ -38,13 +40,11 @@ $(document).ready(function(){
     socket.on('takeProjects', function (data){
         var length = data.projects.length;
 
+
         for (var counter = 0; counter < length; counter++){
             var elem = '<li class="listProjectItem" id="' + data.projects[counter].value.uniqueId + '">' + data.projects[counter].value.name + '<span class="deleteProjectItem">x</span></li>';
             $('.listItemsNavGroup > ul > li').first().after(elem);    
         }
-
-
-        
     });
 
 });

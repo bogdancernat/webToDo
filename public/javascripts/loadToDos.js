@@ -1,9 +1,13 @@
-var socketToDos = io.connect('http://localhost:3000/toDos')
-  , selectedProject = "#untitled";
+var socketToDos = io.connect('http://localhost:3000/toDos');
+
 $(document).ready(function() {
     socketToDos.emit('giveMeToDos', {});
     socketToDos.on('takeToDos', function (data){
         var length = data.toDos.length;
+
+        $('.todoItemWrapper').each(function (index, value){
+            $(value).remove();
+        });
 
         for (var counter = 0; counter < length; counter++) {
             var priority;

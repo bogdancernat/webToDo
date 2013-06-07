@@ -1,4 +1,5 @@
-var socket = io.connect('http://localhost:3000/shared');
+var socket = io.connect('http://localhost:3000/shared')
+  , selectedProject = "#untitled";
 
 $(document).ready(function() {
     var loginSection = true
@@ -279,13 +280,11 @@ $(document).ready(function() {
         var d = new Date();
         if (iElem.val().length < 35 && iElem.val().length > 0){ 
             if(date.length == 0){
-                var projectName = '#untitled';
-
                 var todoItem = {
                     todo: iElem.val(),
                     dueDate: null,
                     priority: priority,
-                    project: projectName
+                    project: selectedProject
                 }
                 socket.emit('addToDo', { data: todoItem });
                 $('#addToDo').remove();
@@ -294,13 +293,11 @@ $(document).ready(function() {
                     date.split('-')[1]>d.getMonth() &&
                     date.split('-')[2]>=d.getDate()){
 
-                    var projectName = '#untitled';
-
                     var todoItem = {
                         todo: iElem.val(),
                         dueDate: dateElem.val(),
                         priority: priority,
-                        project: projectName
+                        project: selectedProject
                     }
 
                     socket.emit('addToDo', { data: todoItem });

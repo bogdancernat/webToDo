@@ -334,7 +334,7 @@ io.of('/shared').on('connection', function (socket) {
     });
 
     socket.on('removeProject', function (data){
-console.log('deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllllleeeeeeeeeeeeettttttttte');
+
         db.removeProject(data.uniqueId, function(resp){
             console.log(resp);
         });
@@ -375,6 +375,7 @@ console.log('deeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeellllllllllllllle
             });
         });
     });
+
 });
 
 
@@ -401,6 +402,27 @@ io.of('/toDos').on('connection', function (socket){
                 }
             });
         });
+    });
+
+    socket.on('giveMeToDosByProjectID', function(data){
+    var cookies = cookie.parse(socket.handshake.headers.cookie);
+    var cookieString;
+
+    if (cookies.todo_logged_in != null) 
+        cookieString = cookies.todo_logged_in;
+    else if (cookies.todo_memory != null)
+        cookieString = cookies.todo_memory;
+    else
+        return;
+
+    getCookie(cookieString, function (cookJson){
+
+        db.getToDosByProjectAndUser(data.uniqueId, cookJson._id, function (resp){
+            if(resp){
+                socket.emit('takeToDos', { toDos: resp});                
+            }
+        });
+    });
     });
 });
 
