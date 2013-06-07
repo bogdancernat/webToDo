@@ -59,6 +59,12 @@ $(document).ready(function() {
             todoitemDiv.append(todoContentDiv);
             todoitemDiv.append(todoDateTimeDiv);
             todoitemDiv.append(progressDiv);
+            console.log(data.toDos[counter].value.notes);
+            var notesElements = '';
+            for (var i = data.toDos[counter].value.notes.length - 1; i >= 0; i--) {
+                notesElements += '<li class="todoNote"><span class="deleteToDoNote">x</span>'+ data.toDos[counter].value.notes[i]+'</li>';
+            };
+            
             advancedOpt.append('<span class="todoDelete todoDeleteLocked"></span>'
                 +'<div class="todoOptions">'
                     +'<span class="changePriority"></span>'
@@ -68,9 +74,7 @@ $(document).ready(function() {
                 +'<div class="todoNotesWrapper">'
                     +'<input type="text" class="addToDoNoteInput"/>'
                     +'<ul>'
-                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Get themthemthemthemthemthemthem by noon</li>'
-                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Another Note</li>'
-                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Note, note</li>'
+                        + notesElements
                     +'</ul>'
                 +'</div>'
                 );

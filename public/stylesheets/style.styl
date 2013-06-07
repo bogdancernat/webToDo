@@ -323,55 +323,53 @@ ipad = 10
 afw = 300 // auth form width
 iaddH = 35
 #addToDo
-    position:absolute
-    bottom: 100px
+    -webkit-transition: all 1s ease
+    -o-transition: all 1s ease
+    -moz-transition: all 1s ease
+    -ms-transition: all 1s ease
+    -kthtml-transition: all 1s ease
+    transition: all 1s ease
     box-shadow: 1px 1px 3px #000
-    padding:10px
     border-radius: 5px
     background:white
-    // display:none
-    z-index:10
+    width:350px
+    height:85px
+    margin-bottom:10px
     ul
         width:350px
         li
             display:block
             float:left
-        li:nth-child(2n)
-            margin-left:5px
-        li:nth-child(3)
             margin-top:5px
-        li:nth-child(4)
-            margin-top:5px
+            width:270px
         li:first-child
-            height:ihts px
             width:70px
-            position:relative
+            margin:5px 0 0 5px
 #addToDoDueDate
     width: (200 - ipad*2)px
-#addToDoHour
-    width: (117 - ipad*2)px
+    margin-top:5px
+    margin-left: 5px
 #addToDoInput
-    width: 252px
-.ifieldAddToDo
-    height: iaddH px 
-    border: 1px solid rgba(145, 145, 145, 1)
-    padding: 0 (ipad px)
-    border-radius: 5px
-.ifieldAddToDo:focus
-    outline: none
-    border: 1px solid rgba(86, 126, 187, 1)
-    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);
-    box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);   
+    width: 242px
+    margin-left: 5px
+.submitToDo
+    height:40px
+    line-height:38px
+    width:60px
+    float:left
+    margin-left: 1px
+    margin-top: 5px
 #addPriority
     border-radius: 5px
     width:100%
-    height:ihts px
+    height:27px
     border:1px solid rgba(145, 145, 145, 1)
     float:left
-    line-height: ihts px
+    line-height: 27px
     color:rgba(145, 145, 145, 1)
-    text-shadow: 1px 0px 1px #232323
+    text-shadow: 0px 0px 1px #969696
     text-align: center
+    font-size:14px
     cursor:pointer
     -webkit-touch-callout: none
     -webkit-user-select: none
@@ -379,6 +377,18 @@ iaddH = 35
     -moz-user-select: none
     -ms-user-select: none
     user-select: none
+    
+.ifieldAddToDo
+    height: (iaddH - 2) px 
+    border: 1px solid rgba(145, 145, 145, 1)
+    padding: 0 (ipad px)
+    border-radius: 5px
+    color: hColor
+.ifieldAddToDo:focus
+    outline: none
+    border: 1px solid rgba(86, 126, 187, 1)
+    -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.05),0 0 8px rgba(82, 168, 236,.6);   
 
 hp_start=#fea29d
 hp_stop=#fe726a
@@ -537,7 +547,7 @@ todo_b_radius=5
 #todosContainer
     width:todo_w px
     margin:0 auto
-    padding-top:20px
+    padding-top:80px
     padding-left:10px
     padding-right:10px
     overflow:scroll

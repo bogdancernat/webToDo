@@ -7,13 +7,4 @@ block content
     div#addtoDos
         span
             | +
-    div#addToDo
-        ul
-            li
-                div#addPriority.lowPriority
-                    |   low
-            li
-                input(placeholder='Place your todo here', name='todoText')#addToDoInput.ifieldAddToDo
-            li
-                input(placeholder='yyyy-mm-dd',type='date').ifieldAddToDo#addToDoDueDate
     script(src='/javascripts/loadToDos.js', defer='defer')

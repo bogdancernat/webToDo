@@ -45,7 +45,7 @@ $(document).ready(function() {
     $('#contents').css("height",blueStripsHeight+'px');
     var topHeightCircleAdd = noHeaderHeight - $('#addtoDos > span').width()-20;
     $('#todosContainer').css("height",blueStripsHeight+'px');
-    $('#addtoDos').css("top",topHeightCircleAdd+'px');
+    $('#addtoDos').css("top",10+'px');
 
     var addToDoLeft = $("#contents").width()/2 - $('#addtoDos').width()/2;
     $('#addtoDos').css("left",addToDoLeft);
@@ -60,7 +60,6 @@ $(document).ready(function() {
         $('#contents').css("height",blueStripsHeight+'px');
         topHeightCircleAdd = noHeaderHeight - $('#addtoDos > span').width()-20;
         $('#todosContainer').css("height",blueStripsHeight+'px');
-        $('#addtoDos').css("top",topHeightCircleAdd+'px');
 
         addToDoLeft = $("#contents").width()/2 - $('#addtoDos').width()/2;
         $('#addtoDos').css("left",addToDoLeft);
@@ -70,7 +69,25 @@ $(document).ready(function() {
     });
 
     $('#addtoDos').click(function(){
-        $('#addToDo').toggle();
+        if($('#todosContainer').find('#addToDo').length>0){
+            console.log('found');
+            $('#todosContainer').find('#addToDo').remove();
+        } else{
+            console.log('add');
+            $('#todosContainer').prepend('<div id="addToDo">'
+                +'<ul>'
+                +'<li>'
+                    +'<div id="addPriority" class="lowPriority">  low</div>'
+                    +'<div class="submitToDo button">  add</div>'
+                +'</li>'
+                +'<li>'
+                    +'<input placeholder="Place your todo here" name="todoText" id="addToDoInput" class="ifieldAddToDo">'
+                    +'<input placeholder="yyyy-mm-dd" type="date" id="addToDoDueDate" class="ifieldAddToDo">'
+                +'</li>'
+                +'</ul>'
+                +'</div>'
+               );        
+        }
     });
     
     $("#todosContainer").bind("mousewheel",function(ev, delta) {
@@ -103,25 +120,6 @@ $(document).ready(function() {
     });
 
 
-    $('#addPriority').click(function(){
-        if($(this).hasClass("lowPriority")){
-            $(this).removeClass();
-            $(this).text("medium");
-            $(this).addClass("mediumPriority");
-        } else {
-            if($(this).hasClass("mediumPriority")){
-                $(this).removeClass();
-                $(this).text("high");
-                $(this).addClass("highPriority");
-            } else {
-                if($(this).hasClass("highPriority")){
-                    $(this).removeClass();
-                    $(this).text("low");
-                    $(this).addClass("lowPriority");
-                }
-            }
-        }
-    });
 
     $(document).on('click','.todoItemXPand',function(e){
        $(this).parent().next().slideToggle();
@@ -191,7 +189,7 @@ $(document).ready(function() {
 
             $(this).val('');
             parent.find('.todoNotesWrapper ul').prepend(
-                '<li class="todoNote">' + text + '</li>'
+                '<li class="todoNote"><span class="deleteToDoNote">x</span>' + text + '</li>'
                 );
 
             socket.emit('addToDoNote', {uniqueId: id, value: text});
@@ -220,47 +218,90 @@ $(document).ready(function() {
 
         socket.emit('changeProgress', {uniqueId: id, value: val});
     });
-    $('#addToDo').keypress(function (e){
+    $('#todosContainer').on('click','.submitToDo',function(){
+        addToDoItem();
+    });
+    $(document).on('keypress','.ifieldAddToDo',function (e){
         if (e.which == 13){
+            addToDoItem();
+        }
+    });
+    $(document).on('click','#addPriority',function(){
+        if($(this).hasClass("lowPriority")){
+            $(this).removeClass();
+            $(this).text("medium");
+            $(this).addClass("mediumPriority");
+        } else {
+            if($(this).hasClass("mediumPriority")){
+                $(this).removeClass();
+                $(this).text("high");
+                $(this).addClass("highPriority");
+            } else {
+                if($(this).hasClass("highPriority")){
+                    $(this).removeClass();
+                    $(this).text("low");
+                    $(this).addClass("lowPriority");
+                }
+            }
+        }
+    });
+    $(document).on('click','.deleteToDoNote',function(){
+        var index = $(this).parent().index();
+        var todoId = $(this).parents('.todoItemWrapper').attr('id');
+        
+        $(this).parent().remove();
+        console.log(index);
+    });
 
-            var iElem = $('#addToDoInput')
+    function addToDoItem(){
+        var iElem = $('#addToDoInput')
                 , dateElem = $('#addToDoDueDate')
-                , timeElem = $('#addToDoHour')
                 , priorityElem =$('#addPriority')
                 , priority
                 ;
 
-            $.each(priorityElem.attr('class').split(/\s+/), function (index, item){
-                if (item=='highPriority'){
-                    priority = 'high';
-                } else if (item=='mediumPriority'){
-                    priority = 'medium';
-                } else if (item=='lowPriority'){
-                    priority = 'low';
-                }
+        $.each(priorityElem.attr('class').split(/\s+/), function (index, item){
+            if (item=='highPriority'){
+                priority = 'high';
+            } else if (item=='mediumPriority'){
+                priority = 'medium';
+            } else if (item=='lowPriority'){
+                priority = 'low';
+            }
 
-            });
-
-            if (iElem.val().length != 0){                  
-
+        });
+        var date = dateElem.val();
+        var d = new Date();
+        if (iElem.val().length < 35 && iElem.val().length > 0){ 
+            if(date.length == 0){
                 var todoItem = {
                     todo: iElem.val(),
-                    dueDate: dateElem.val()?dateElem.val():null,
+                    dueDate: null,
                     priority: priority,
                 }
-
                 socket.emit('addToDo', { data: todoItem });
-                $('#addToDo').toggle();
-                iElem.val('');
-                dateElem.val('');
-                timeElem.val('');
-                priorityElem.removeClass();
-                priorityElem.addClass('lowPriority');
-                priorityElem.text('low');
-            }
-        }
-    });
+                $('#addToDo').remove();
+            }  else {
+                if(date.split('-')[0]>=d.getYear() && 
+                    date.split('-')[1]>d.getMonth() &&
+                    date.split('-')[2]>=d.getDate()){
 
+                    var todoItem = {
+                        todo: iElem.val(),
+                        dueDate: dateElem.val(),
+                        priority: priority,
+                    }
+
+                    socket.emit('addToDo', { data: todoItem });
+                    $('#addToDo').remove();
+                } else {
+                    dateElem.css({'border':'1px solid red'});
+                }
+            }               
+        } else {
+            iElem.css({'border':'1px solid red'});
+        }
+    }
 
 
     function switchAuthForms(){
@@ -449,9 +490,9 @@ $(document).ready(function() {
                 +'<div class="todoNotesWrapper">'
                     +'<input type="text" class="addToDoNoteInput"/>'
                     +'<ul>'
-                        +'<li class="todoNote">Get themthemthemthemthemthemthem by noon</li>'
-                        +'<li class="todoNote">Another Note</li>'
-                        +'<li class="todoNote">Note, note</li>'
+                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Get themthemthemthemthemthemthem by noon</li>'
+                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Another Note</li>'
+                        +'<li class="todoNote"><span class="deleteToDoNote">x</span>Note, note</li>'
                     +'</ul>'
                 +'</div>'
                 );

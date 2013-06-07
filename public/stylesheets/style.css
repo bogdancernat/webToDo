@@ -318,13 +318,18 @@ body {
   color: rgba(154,155,162,0.5);
 }
 #addToDo {
-  position: absolute;
-  bottom: 100px;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -kthtml-transition: all 1s ease;
+  transition: all 1s ease;
   box-shadow: 1px 1px 3px #000;
-  padding: 10px;
   border-radius: 5px;
   background: #fff;
-  z-index: 10;
+  width: 350px;
+  height: 85px;
+  margin-bottom: 10px;
 }
 #addToDo ul {
   width: 350px;
@@ -332,52 +337,41 @@ body {
 #addToDo ul li {
   display: block;
   float: left;
-}
-#addToDo ul li:nth-child(2n) {
-  margin-left: 5px;
-}
-#addToDo ul li:nth-child(3) {
   margin-top: 5px;
-}
-#addToDo ul li:nth-child(4) {
-  margin-top: 5px;
+  width: 270px;
 }
 #addToDo ul li:first-child {
-  height: 40px;
   width: 70px;
-  position: relative;
+  margin: 5px 0 0 5px;
 }
 #addToDoDueDate {
   width: 180px;
-}
-#addToDoHour {
-  width: 97px;
+  margin-top: 5px;
+  margin-left: 5px;
 }
 #addToDoInput {
-  width: 252px;
+  width: 242px;
+  margin-left: 5px;
 }
-.ifieldAddToDo {
-  height: 35px;
-  border: 1px solid #919191;
-  padding: 0 10px;
-  border-radius: 5px;
-}
-.ifieldAddToDo:focus {
-  outline: none;
-  border: 1px solid #567ebb;
-  -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
-  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
+.submitToDo {
+  height: 40px;
+  line-height: 38px;
+  width: 60px;
+  float: left;
+  margin-left: 1px;
+  margin-top: 5px;
 }
 #addPriority {
   border-radius: 5px;
   width: 100%;
-  height: 40px;
+  height: 27px;
   border: 1px solid #919191;
   float: left;
-  line-height: 40px;
+  line-height: 27px;
   color: #919191;
-  text-shadow: 1px 0px 1px #232323;
+  text-shadow: 0px 0px 1px #969696;
   text-align: center;
+  font-size: 14px;
   cursor: pointer;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -385,6 +379,19 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.ifieldAddToDo {
+  height: 33px;
+  border: 1px solid #919191;
+  padding: 0 10px;
+  border-radius: 5px;
+  color: #56575e;
+}
+.ifieldAddToDo:focus {
+  outline: none;
+  border: 1px solid #567ebb;
+  -webkit-box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05), 0 0 8px rgba(82,168,236,0.6);
 }
 .highPriority {
   background-image: -moz-linear-gradient(top, #fea29d, #fe726a);
@@ -540,7 +547,7 @@ body {
 #todosContainer {
   width: 350px;
   margin: 0 auto;
-  padding-top: 20px;
+  padding-top: 80px;
   padding-left: 10px;
   padding-right: 10px;
   overflow: scroll;
