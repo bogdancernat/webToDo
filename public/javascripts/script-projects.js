@@ -32,17 +32,17 @@ $(document).ready(function(){
     });
     socket.on('validProject', function (data){
          var elem = '<li class="listProjectItem" id="' + data.uniqueId + '">' + data.name + '<span class="deleteProjectItem">x</span></li>';
-         $('.listItemsNavGroup > ul').prepend(elem);
+         $('.listItemsNavGroup > ul > li').first().after(elem);
     });
-
 
     socket.on('takeProjects', function (data){
         var length = data.projects.length;
 
         for (var counter = 0; counter < length; counter++){
             var elem = '<li class="listProjectItem" id="' + data.projects[counter].value.uniqueId + '">' + data.projects[counter].value.name + '<span class="deleteProjectItem">x</span></li>';
-            $('.listItemsNavGroup > ul').prepend(elem);    
+            $('.listItemsNavGroup > ul > li').first().after(elem);    
         }
+
 
         
     });
