@@ -12,6 +12,10 @@ $(document).ready(function(){
         
         socket.emit('removeProject', {uniqueId: id});
 
+        socketToDos.emit('giveMeToDosByProjectID', {uniqueId: '#untitled'});
+
+        //$('.listItemsNavGroup').find('.listProjectItem').first().addClass('listProjectItemSelected');
+
         $(this).parent().remove();
     });
 
@@ -55,7 +59,7 @@ $(document).ready(function(){
 function addProject(elem){
     console.log(elem.val());
     
-    var matches = elem.val().match('^[a-z0-9]+$');
+    var matches = elem.val().match('^[ a-zA-Z0-9]+$');
 
     if (matches == null || matches.length != 1) {
         elem.css({'background': '#fbb1b1'});

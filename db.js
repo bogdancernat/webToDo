@@ -125,6 +125,13 @@ exports.getToDosByUserWithDuedate = function(user, callback){
     });    
 }
 
+exports.getAllUsers = function(callback){
+    activeDb.view('web_to_do_views', 'get_users', function (err, body){
+        if (!err)
+            callback(body.rows);
+    });    
+}
+
 
 exports.getTodosByUserAndDate = function(user, duedate, callback){
     activeDb.view('web_to_do_views','get_todos_by_user_and_date', {key: [user, duedate]}, function (err, body){
@@ -212,7 +219,7 @@ exports.getToDosByDate = function (duedate, callback){
 
 
 
-exports.updateToDo = function (field, value, key){
+exports.updateToDo = function (field, value, key, callback){
     this.getToDosByUniqueId(key, function (resp) {
         if(!resp) {
           return console.log("I failed");
@@ -245,6 +252,7 @@ exports.updateToDo = function (field, value, key){
         activeDb.insert(resp.value, resp.value._id, function (error, response) {
             if(!error) {
                 console.log("it worked");
+                callback();
             } else {
                 console.log(error);
             }

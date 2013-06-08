@@ -8,7 +8,6 @@ var express = require('express')
     , routes = require('./routes')
     , user = require('./routes/user')
     , auth = require('./routes/auth')
-    , search = require('./routes/search')
     , path = require('path')
     , db = require('./db')
     , io = require('socket.io').listen(server) 
@@ -22,10 +21,10 @@ var express = require('express')
                           , access_token:         '1104145118-zLyqFVjLMIjCQRIWTQDNDOfkB9qVkwycZrLTbYk'
                           , access_token_secret:  'fc8AxQ9TCcg2vDfTQf1L2IyzDvXVh3mVphDQxREOw'
                         })
-
+    , usersSockets
     ;
   
-
+usersSockets = [];
 
 var smtpTransport = nodemailer.createTransport("SMTP",{
     service: "Gmail",
@@ -82,6 +81,26 @@ var job = new cronJob('0 0 * * *', function(){
 
     todayString = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getDate();
 
+
+    db.getAllUsers(function (resp){
+        if (resp){
+            var length = resp.length;
+
+            for (var counter = 0; counter < length; counter++){
+                if (typeof usersSockets[resp[counter].value._id] != 'undefined') {
+
+                    getToDosAhead(resp.value._id, function(dates){
+                        usersSockets[resp[counter].value._id].emit('takeNotifications', dates);
+                        console.log(dates);
+                    });  
+                } else
+                    console.log('nu');        
+            }
+            
+        }
+    }); 
+
+
     db.getToDosByDate(todayString ,function (resp){
         if (resp) {
 
@@ -89,7 +108,7 @@ var job = new cronJob('0 0 * * *', function(){
 
             for (var counter = 0; counter < length; counter++){
                 
-                if (resp[counter].value.loggedIn === '#notLogged#')    
+                if (resp[counter].value.loggedIn === '#notLogged#' || resp[counter].value.priority === 'done')    
                     continue;
 
                 if (resp[counter].value.loggedIn.indexOf('@') != -1) {
@@ -128,8 +147,147 @@ var job = new cronJob('0 0 * * *', function(){
 );
 
 
+var before = new cronJob('0 20 * * *', function(){
+    var today = new Date();                
+    var todayString;
+
+    todayString = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + (today.getDate() + 1);
+
+    db.getToDosByDate(todayString ,function (resp){
+        if (resp) {
+
+            var length = resp.length;
+
+            for (var counter = 0; counter < length; counter++){
+                
+                if (resp[counter].value.loggedIn === '#notLogged#' || resp[counter].value.priority === 'done')    
+                    continue;
+
+                if (resp[counter].value.loggedIn.indexOf('@') != -1) {
+                    
+                    var mailOptions = {
+                        from: "WebToDo++ ✔ <webtodopp@gmail.com>", // sender address
+                        to: resp[counter].value.loggedIn, // list of receivers
+                        subject: "WebToDo++ notification", // Subject line
+                        text: 'Hello, ' + '\n' + 'Your to do is due tommorow: ' + resp[counter].value.todo // plaintext body
+                    };
+
+                    smtpTransport.sendMail(mailOptions, function(error, response){
+                        if(error){
+                            console.log(error);
+                        } else {
+                            console.log("Mail sent: " + response.message);
+                        }
+                    });
+                } else {
+                    var pm = 'Hi, your to do is due tommorow: ' + resp[counter].value.todo;  
+                    twitterClient.post('direct_messages/new', {'screen_name': resp[counter].value.loggedIn, 'text': pm}, function(err, reply) {
+                            if (!err) {
+                                console.log('Direct message sent...');
+                            } else {
+                                console.log(err);
+                            }
+                    });
+                }
+            }
+        }
+    });
+  }, function () {
+    console.log('Finished sending mails...')
+  }, 
+  true /* Start the job right now */
+);
+
+
+var after = new cronJob('0 8 * * *', function(){
+    var today = new Date();                
+    var todayString;
+
+    todayString = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getDate();
+
+    db.getToDosByDate(todayString ,function (resp){
+        if (resp) {
+
+            var length = resp.length;
+
+            for (var counter = 0; counter < length; counter++){
+                
+                if (resp[counter].value.loggedIn === '#notLogged#' || resp[counter].value.priority === 'done')    
+                    continue;
+
+                if (resp[counter].value.loggedIn.indexOf('@') != -1) {
+                    
+                    var mailOptions = {
+                        from: "WebToDo++ ✔ <webtodopp@gmail.com>", // sender address
+                        to: resp[counter].value.loggedIn, // list of receivers
+                        subject: "WebToDo++ notification", // Subject line
+                        text: 'Hello, ' + '\n' + 'Your to do is due today: ' + resp[counter].value.todo // plaintext body
+                    };
+
+                    smtpTransport.sendMail(mailOptions, function(error, response){
+                        if(error){
+                            console.log(error);
+                        } else {
+                            console.log("Mail sent: " + response.message);
+                        }
+                    });
+                } else {
+                    var pm = 'Hi, your to do is due today: ' + resp[counter].value.todo;  
+                    twitterClient.post('direct_messages/new', {'screen_name': resp[counter].value.loggedIn, 'text': pm}, function(err, reply) {
+                            if (!err) {
+                                console.log('Direct message sent...');
+                            } else {
+                                console.log(err);
+                            }
+                    });
+                }
+            }
+        }
+    });
+  }, function () {
+    console.log('Finished sending mails...')
+  }, 
+  true /* Start the job right now */
+);
+
 
 io.of('/shared').on('connection', function (socket) {
+    var clientCookies = cookie.parse(socket.handshake.headers.cookie);
+    var clientCookieString, loggedIn = false;
+
+    if (clientCookies.todo_logged_in != null) {
+        clientCookieString = clientCookies.todo_logged_in;
+        loggedIn = true;
+    } else  if (clientCookies.todo_memory != null)
+        clientCookieString = clientCookies.todo_memory;
+            else
+                return;
+
+
+    getCookie(clientCookieString, function (cookJson){
+        usersSockets[cookJson._id] = socket;
+    });
+
+
+    socket.on('disconnect', function(){
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString, loggedIn = false;
+
+        if (cookies.todo_logged_in != null) {
+            cookieString = cookies.todo_logged_in;
+            loggedIn = true;
+        } else  if (cookies.todo_memory != null)
+            cookieString = cookies.todo_memory;
+                else
+                    return;
+
+
+        getCookie(cookieString, function (cookJson){
+            usersSockets[cookJson._id] = undefined;
+            console.log('client disconnected: ' + cookJson._id);
+        }); 
+
+    });
 
 
     socket.on('validateEmail', function (data){
@@ -243,8 +401,26 @@ io.of('/shared').on('connection', function (socket) {
                 'project': item.project
             };
 
+
             db.insert(todo,function(){
                 socket.emit('validToDo', todo);            
+                var cookies = cookie.parse(socket.handshake.headers.cookie);
+                var cookieString;
+
+                if (cookies.todo_logged_in != null) 
+                    cookieString = cookies.todo_logged_in;
+                else if (cookies.todo_memory != null)
+                    cookieString = cookies.todo_memory;
+                else
+                    return;
+
+                getCookie(cookieString, function (cookJson){
+
+                    getToDosAhead(cookJson._id, function(dates){
+                        socket.emit('takeNotifications', dates);
+                        console.log(dates);
+                    });  
+                });    
             });
         });
     });
@@ -280,23 +456,94 @@ io.of('/shared').on('connection', function (socket) {
 
     socket.on('changeProgress', function(data){
         console.log(data);
-        db.updateToDo('percentage', data.value, data.uniqueId);
+        db.updateToDo('percentage', data.value, data.uniqueId, function(){
+            var cookies = cookie.parse(socket.handshake.headers.cookie);
+            var cookieString;
+
+            if (cookies.todo_logged_in != null) 
+                cookieString = cookies.todo_logged_in;
+            else if (cookies.todo_memory != null)
+                cookieString = cookies.todo_memory;
+            else
+                return;
+
+            getCookie(cookieString, function (cookJson){
+
+                getToDosAhead(cookJson._id, function(dates){
+                    socket.emit('takeNotifications', dates);
+                    console.log(dates);
+                });  
+            });    
+        });
     });
 
 
     socket.on('changePriority', function(data){
         console.log(data);
-        db.updateToDo('priority', data.value, data.uniqueId);
+        db.updateToDo('priority', data.value, data.uniqueId, function(){
+            var cookies = cookie.parse(socket.handshake.headers.cookie);
+            var cookieString;
+
+            if (cookies.todo_logged_in != null) 
+                cookieString = cookies.todo_logged_in;
+            else if (cookies.todo_memory != null)
+                cookieString = cookies.todo_memory;
+            else
+                return;
+
+            getCookie(cookieString, function (cookJson){
+
+                getToDosAhead(cookJson._id, function(dates){
+                    socket.emit('takeNotifications', dates);
+                    console.log(dates);
+                });  
+            });    
+        });
     });
 
     socket.on('markDone', function(data){
         console.log(data);
-        db.updateToDo('priority', 'done', data.uniqueId);
+        db.updateToDo('priority', 'done', data.uniqueId, function(){
+            var cookies = cookie.parse(socket.handshake.headers.cookie);
+            var cookieString;
+
+            if (cookies.todo_logged_in != null) 
+                cookieString = cookies.todo_logged_in;
+            else if (cookies.todo_memory != null)
+                cookieString = cookies.todo_memory;
+            else
+                return;
+
+            getCookie(cookieString, function (cookJson){
+
+                getToDosAhead(cookJson._id, function(dates){
+                    socket.emit('takeNotifications', dates);
+                    console.log(dates);
+                });  
+            });    
+        });
     });
 
     socket.on('deleteToDo', function(data){
         db.removeToDo(data.uniqueId, function(resp){
             console.log(resp);
+            var cookies = cookie.parse(socket.handshake.headers.cookie);
+            var cookieString;
+
+            if (cookies.todo_logged_in != null) 
+                cookieString = cookies.todo_logged_in;
+            else if (cookies.todo_memory != null)
+                cookieString = cookies.todo_memory;
+            else
+                return;
+
+            getCookie(cookieString, function (cookJson){
+
+                getToDosAhead(cookJson._id, function(dates){
+                    socket.emit('takeNotifications', dates);
+                    console.log(dates);
+                });  
+            });    
         });
     });
 
@@ -304,13 +551,13 @@ io.of('/shared').on('connection', function (socket) {
         if (data.value.length == 0)
             return;
 
-        db.updateToDo('notes', data.value, data.uniqueId);
+        db.updateToDo('notes', data.value, data.uniqueId, function(){});
         
     });
 
 
     socket.on('deleteToDoNote', function(data){
-        db.updateToDo('notes_delete', data.index, data.uniqueId);
+        db.updateToDo('notes_delete', data.index, data.uniqueId, function(){});
     });
 
     socket.on('giveMeProjects', function(data){
@@ -350,6 +597,13 @@ io.of('/shared').on('connection', function (socket) {
                         console.log('deleted');
                         db.removeToDo(resp[counter].value.uniqueId, function(resp){
                             console.log(resp);
+                            getCookie(cookieString, function (cookJson){
+
+                                getToDosAhead(cookJson._id, function(dates){
+                                    socket.emit('takeNotifications', dates);
+                                    console.log('##############################');
+                                });  
+                            });
                         });    
                     }
                 }
@@ -358,13 +612,14 @@ io.of('/shared').on('connection', function (socket) {
 
         db.removeProject(data.uniqueId, function(resp){
             console.log(resp);
+
         });
     });
 
     socket.on('addProject', function(data){
         var id = (new Date()).getTime().toString(16);
 
-        var matches = data.name.match('^[a-z0-9]+$');
+        var matches = data.name.match('^[ A-Za-z0-9]+$');
 
         if (matches == null || matches.length != 1) 
             return;
@@ -481,7 +736,7 @@ function getToDosAhead(userID, callback){
 
                 date.setHours(0, 0, 0, 0);
 
-                if (today <= date)
+                if (today <= date && resp[counter].value.priority != 'done')
                     dates.push(resp[counter].value);
             }
 
