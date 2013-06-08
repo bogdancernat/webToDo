@@ -305,6 +305,7 @@ io.of('/shared').on('connection', function (socket) {
             return;
 
         db.updateToDo('notes', data.value, data.uniqueId);
+        
     });
 
 
