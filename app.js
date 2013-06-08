@@ -88,11 +88,14 @@ var job = new cronJob('0 0 * * *', function(){
 
             for (var counter = 0; counter < length; counter++){
                 if (typeof usersSockets[resp[counter].value._id] != 'undefined') {
-
-                    getToDosAhead(resp.value._id, function(dates){
-                        usersSockets[resp[counter].value._id].emit('takeNotifications', dates);
-                        console.log(dates);
-                    });  
+                    var socket = usersSockets[resp[counter].value._id];
+                    var value = resp[counter].value._id;
+                    if (resp[counter].value._id){
+                        getToDosAhead(value, function(dates){
+                            socket.emit('takeNotifications', dates);
+                            console.log(dates);
+                        });      
+                    }
                 } else
                     console.log('nu');        
             }
@@ -337,7 +340,7 @@ io.of('/shared').on('connection', function (socket) {
         var date, today;
 
 
-        if (item.todo === '' || item.todo.length > 35) {
+        if (item.todo === '' || item.todo.length > 50) {
             socket.emit('addToDoError', {error: 'no to do item'});
             return;
         }

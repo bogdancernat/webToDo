@@ -303,7 +303,7 @@ $(document).ready(function() {
         });
         var date = dateElem.val();
         var d = new Date();
-        if (iElem.val().length < 35 && iElem.val().length > 0){ 
+        if (iElem.val().length < 50 && iElem.val().length > 0){ 
             if(date.length == 0){
                 var todoItem = {
                     todo: iElem.val(),
