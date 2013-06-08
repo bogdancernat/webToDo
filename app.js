@@ -379,7 +379,6 @@ io.of('/shared').on('connection', function (socket) {
 });
 
 
-
 io.of('/toDos').on('connection', function (socket){
     var id;
 
@@ -405,27 +404,59 @@ io.of('/toDos').on('connection', function (socket){
     });
 
     socket.on('giveMeToDosByProjectID', function(data){
-    var cookies = cookie.parse(socket.handshake.headers.cookie);
-    var cookieString;
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString;
 
-    if (cookies.todo_logged_in != null) 
-        cookieString = cookies.todo_logged_in;
-    else if (cookies.todo_memory != null)
-        cookieString = cookies.todo_memory;
-    else
-        return;
+        if (cookies.todo_logged_in != null) 
+            cookieString = cookies.todo_logged_in;
+        else if (cookies.todo_memory != null)
+            cookieString = cookies.todo_memory;
+        else
+            return;
 
-    getCookie(cookieString, function (cookJson){
+        getCookie(cookieString, function (cookJson){
 
-        db.getToDosByProjectAndUser(data.uniqueId, cookJson._id, function (resp){
-            if(resp){
-                socket.emit('takeToDos', { toDos: resp});                
-            }
+            db.getToDosByProjectAndUser(data.uniqueId, cookJson._id, function (resp){
+                if(resp){
+                    socket.emit('takeToDos', { toDos: resp});                
+                }
+            });
         });
-    });
     });
 });
 
+
+function getToDosAhead(userID, callback){
+    db.getToDosByUserWithDuedate(userID, function (resp){
+        if(resp){
+            var dates = [];
+            var length = resp.length;
+            var today = new Date();
+
+            today.setHours(0, 0, 0, 0);
+
+            for (var counter = 0; counter < length; counter++){
+                var date = new Date(resp[counter].value.duedate);
+
+                date.setHours(0, 0, 0, 0);
+
+                if (today <= date)
+                    dates.push(resp[counter].value);
+            }
+
+            dates.sort(function (a, b){
+                var date1 = new Date(a.duedate);
+                var date2 = new Date(b.duedate);
+
+                return (date1<date2?-1:date1>date2?1:0);
+            });
+
+            console.log(dates);
+
+            callback(resp);
+        }
+    });    
+} 
 
 
 server.listen(app.get('port'), function (){

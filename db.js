@@ -86,6 +86,18 @@ function pushViews(){
                     if (doc.type=='project')
                         emit(doc.user._id, doc);
                 }
+            },
+            'get_todos_by_user_and_date':{
+                'map': function (doc) {
+                    if (doc.type=='todo_item')
+                        emit([doc.user._id, doc.duedate], doc);
+                }
+            },
+            'get_todos_by_user_duedate':{
+                'map': function (doc) {
+                    if (doc.type=='todo_item' && doc.duedate!=null)
+                        emit(doc.user._id, doc);
+                }
             }
         }
     };
@@ -105,6 +117,22 @@ function pushViews(){
     });
 }
 
+exports.getToDosByUserWithDuedate = function(user, callback){
+    activeDb.view('web_to_do_views','get_todos_by_user_duedate', {key: user}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        }
+    });    
+}
+
+
+exports.getTodosByUserAndDate = function(user, duedate, callback){
+    activeDb.view('web_to_do_views','get_todos_by_user_and_date', {key: [user, duedate]}, function (err, body){
+        if (!err){
+            callback(body.rows);
+        }
+    });    
+}
 
 
 exports.insert = function (obj, callback){
