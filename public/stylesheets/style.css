@@ -711,7 +711,6 @@ body {
 }
 .toDoAdvancedOpt .todoOptions .todoProgress {
   -webkit-appearance: none;
-  -moz-appearance: none;
   background-color: #969696;
   height: 1px;
   width: 120px;
@@ -725,7 +724,6 @@ body {
 }
 .toDoAdvancedOpt .todoOptions .todoProgress::-webkit-slider-thumb {
   -webkit-appearance: none;
-  -moz-appearance: none;
   position: relative;
   top: -1px;
   z-index: 1;
