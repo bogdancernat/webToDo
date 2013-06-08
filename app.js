@@ -318,10 +318,7 @@ io.of('/shared').on('connection', function (socket) {
 
         if (cookies.todo_logged_in != null) 
             cookieString = cookies.todo_logged_in;
-        else if (cookies.todo_memory != null)
-            cookieString = cookies.todo_memory;
-        else
-            return;
+
 
         getCookie(cookieString, function (cookJson){
 
@@ -334,6 +331,29 @@ io.of('/shared').on('connection', function (socket) {
     });
 
     socket.on('removeProject', function (data){
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString;
+
+        if (cookies.todo_logged_in != null) 
+            cookieString = cookies.todo_logged_in;
+
+
+        getCookie(cookieString, function (cookJson){
+
+            db.getToDosByProjectAndUser(data.uniqueId, cookJson._id, function (resp){
+                if(resp){
+                    var length = resp.length;
+
+                    for (counter = 0; counter < length; counter++){
+                        console.log(resp[counter].value.uniqueId);
+                        console.log('deleted');
+                        db.removeToDo(resp[counter].value.uniqueId, function(resp){
+                            console.log(resp);
+                        });    
+                    }
+                }
+            });
+        });
 
         db.removeProject(data.uniqueId, function(resp){
             console.log(resp);
@@ -470,8 +490,6 @@ function getToDosAhead(userID, callback){
 
                 return (date1<date2?-1:date1>date2?1:0);
             });
-
-            console.log(dates);
 
             callback(dates);
         }
