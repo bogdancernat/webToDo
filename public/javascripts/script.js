@@ -106,6 +106,20 @@ $(document).ready(function() {
         // console.log(scrollTop);
         $(this).scrollTop(scrollTop-(Math.round(delta)*40));
     });
+     $("#notifContainer").bind("mousewheel",function(ev, delta) {
+        var scrollTop = $(this).scrollTop();
+        // console.log(scrollTop);
+        $(this).scrollTop(scrollTop-(Math.round(delta)*40));
+    });
+
+    $(".lostPassLink").click(function(){
+        $('#recoverPassword').toggle();
+    });
+    $("#recoverPassword > ul> li > button").click(function(){
+        /* password recovery */
+        var emailValue = $("#recoverPassword").find("input").val();
+        console.log(emailValue);
+    });
     $('#userButton').click(function(){
         if (displayingSubmenu){
             $('#userMenu > ul').css("display","none");

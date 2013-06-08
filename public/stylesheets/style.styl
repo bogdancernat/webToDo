@@ -29,6 +29,25 @@ linkcolor= rgba(86,143,240, 1)
     opacity:0
     display: none
 hColor=rgba(86,87,94, 1)
+#recoverPassword
+    width:300px
+    background:white
+    position:absolute
+    margin-left:190px
+    margin-top:30px
+    padding:20px
+    border-radius: 10px
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 1)
+    display:none
+    h1
+        font-weight:300
+        font-size:20px
+        margin-bottom:10px
+    button
+        width:80px
+        height:30px
+        margin-top:10px
+        float:right
 #authWrapper
     width: 720px
     height: 320px
@@ -529,7 +548,6 @@ todo_b_radius=5
     // float:left
     // margin-left:3%
     margin:0 auto
-    padding-top:80px
     padding-left:10px
     padding-right:10px
     overflow:scroll
@@ -537,6 +555,30 @@ todo_b_radius=5
     overflow-x:hidden
     background:#d6e6f6
     box-shadow:inset 0px 1px 5px hColor
+    .dayNotif
+        // background:white
+        margin-top:10px
+
+        h1
+            font-size:28px
+            margin-left:20px
+            font-weight:200
+            width:140px
+            height:auto
+            padding-right:10px
+            border-bottom:1px solid #969696
+            text-shadow:1px 1px 3px #fff
+        li
+            list-style-type: disc
+            padding-left:10px
+            margin-left:20px
+            font-weight:300
+            width:180px
+            text-shadow:1px 1px 3px #fff
+        li:first-child
+            margin-top:10px
+        li:not(:first-child)
+            margin-top:3px
 #todosContainer
     width:todo_w px
     float:left

@@ -25,6 +25,28 @@ body {
   opacity: 0;
   display: none;
 }
+#recoverPassword {
+  width: 300px;
+  background: #fff;
+  position: absolute;
+  margin-left: 190px;
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px #000;
+  display: none;
+}
+#recoverPassword h1 {
+  font-weight: 300;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+#recoverPassword button {
+  width: 80px;
+  height: 30px;
+  margin-top: 10px;
+  float: right;
+}
 #authWrapper {
   width: 720px;
   height: 320px;
@@ -524,7 +546,6 @@ body {
 #notifContainer {
   width: 220px;
   margin: 0 auto;
-  padding-top: 80px;
   padding-left: 10px;
   padding-right: 10px;
   overflow: scroll;
@@ -532,6 +553,33 @@ body {
   overflow-x: hidden;
   background: #d6e6f6;
   box-shadow: inset 0px 1px 5px #56575e;
+}
+#notifContainer .dayNotif {
+  margin-top: 10px;
+}
+#notifContainer .dayNotif h1 {
+  font-size: 28px;
+  margin-left: 20px;
+  font-weight: 200;
+  width: 140px;
+  height: auto;
+  padding-right: 10px;
+  border-bottom: 1px solid #969696;
+  text-shadow: 1px 1px 3px #fff;
+}
+#notifContainer .dayNotif li {
+  list-style-type: disc;
+  padding-left: 10px;
+  margin-left: 20px;
+  font-weight: 300;
+  width: 180px;
+  text-shadow: 1px 1px 3px #fff;
+}
+#notifContainer .dayNotif li:first-child {
+  margin-top: 10px;
+}
+#notifContainer .dayNotif li:not(:first-child) {
+  margin-top: 3px;
 }
 #todosContainer {
   width: 350px;
