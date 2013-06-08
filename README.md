@@ -178,9 +178,15 @@ Pentru împărțirea sarcinilor și dezvolatarea armonioasă a proiectului s-a f
 --------------
 
 1.[http://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html](http://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html)
+
 2.[http://profs.info.uaic.ro/~busaco/teach/courses/cliw/web-film.html](http://profs.info.uaic.ro/~busaco/teach/courses/cliw/web-film.html)
+
 3.[http://nodejs.org/api/index.html](http://nodejs.org/api/index.html)
+
 4.[http://expressjs.com/api.html](http://expressjs.com/api.html)
+
 5.[http://passportjs.org/guide/](http://passportjs.org/guide/)
+
 6.[http://socket.io/#how-to-use](http://socket.io/#how-to-use)
+
 7.[http://api.jquery.com/](http://api.jquery.com/)
