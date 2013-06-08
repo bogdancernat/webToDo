@@ -604,7 +604,6 @@ io.of('/shared').on('connection', function (socket) {
 
                                 getToDosAhead(cookJson._id, function(dates){
                                     socket.emit('takeNotifications', dates);
-                                    console.log('##############################');
                                 });  
                             });
                         });    
@@ -675,6 +674,38 @@ io.of('/shared').on('connection', function (socket) {
         });    
     });
 
+
+    socket.on('sendRecoveryMail', function (data){
+        db.getUser(data.email, function (resp) {
+            if (resp){
+                var password = (new Date()).getTime().toString(16);
+                var mailOptions = {
+                    from: "WebToDo++ ✔ <webtodopp@gmail.com>", // sender address
+                    to: data.email,
+                    subject: "WebToDo++ notification", // Subject line
+                    text: 'Hello, ' + '\n' + 'Your new password is: ' + password
+                };
+
+                smtpTransport.sendMail(mailOptions, function(error, response){
+                    if(error){
+                        console.log(error);
+                    } else {
+                        console.log("Mail sent: " + response.message);
+                    }
+                });    
+
+                resp.value.password = password;
+
+                auth.getHash(resp.value, function(user){
+                    db.updateUser(resp.value, resp.value._id, function(){
+                        socket.emit('recoverySucceded', {});
+                    });                    
+                });
+            } else {
+                socket.emit('recoveryFailed', {});
+            }
+        });
+    });
 });
 
 

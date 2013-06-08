@@ -94,6 +94,29 @@ var job = new cronJob('0 0 * * *', function(){
 
     todayString = today.getUTCFullYear() + "/" + (today.getUTCMonth() + 1) + "/" + today.getDate();
 
+
+    db.getAllUsers(function (resp){
+        if (resp){
+            var length = resp.length;
+
+            for (var counter = 0; counter < length; counter++){
+                if (typeof usersSockets[resp[counter].value._id] != 'undefined') {
+                    var socket = usersSockets[resp[counter].value._id];
+                    var value = resp[counter].value._id;
+                    if (resp[counter].value._id){
+                        getToDosAhead(value, function(dates){
+                            socket.emit('takeNotifications', dates);
+                            console.log(dates);
+                        });      
+                    }
+                } else
+                    console.log('nu');        
+            }
+            
+        }
+    }); 
+
+
     db.getToDosByDate(todayString ,function (resp){
         if (resp) {
 
@@ -101,7 +124,7 @@ var job = new cronJob('0 0 * * *', function(){
 
             for (var counter = 0; counter < length; counter++){
                 
-                if (resp[counter].value.loggedIn === '#notLogged#')    
+                if (resp[counter].value.loggedIn === '#notLogged#' || resp[counter].value.priority === 'done')    
                     continue;
 
                 if (resp[counter].value.loggedIn.indexOf('@') != -1) {
@@ -149,3 +172,15 @@ Pentru împărțirea sarcinilor și dezvolatarea armonioasă a proiectului s-a f
 --------------------------
 
 În concluzie, **(web to do)++** este o aplicație foarte utilă pentru organizarea timpului și a sarcinilor datorită sistemului de notificări, a simplității creării de sarcini și gestionării acestora.
+
+
+ Bibliografie
+--------------
+
+1.[http://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html](http://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html)
+2.[http://profs.info.uaic.ro/~busaco/teach/courses/cliw/web-film.html](http://profs.info.uaic.ro/~busaco/teach/courses/cliw/web-film.html)
+3.[http://nodejs.org/api/index.html](http://nodejs.org/api/index.html)
+4.[http://expressjs.com/api.html](http://expressjs.com/api.html)
+5.[http://passportjs.org/guide/](http://passportjs.org/guide/)
+6.[http://socket.io/#how-to-use](http://socket.io/#how-to-use)
+7.[http://api.jquery.com/](http://api.jquery.com/)

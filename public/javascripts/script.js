@@ -120,7 +120,7 @@ $(document).ready(function() {
     $("#recoverPassword > ul> li > button").click(function(){
         /* password recovery */
         var emailValue = $("#recoverPassword").find("input").val();
-        console.log(emailValue);
+        socket.emit('sendRecoveryMail', {email: emailValue});
     });
     $('#userButton').click(function(){
         if (displayingSubmenu){
@@ -234,9 +234,6 @@ $(document).ready(function() {
         // console.log(id+' '+value);
     });
     $(document).on('mouseup','.todoProgress',function(e){
-        /*
-            websockets aici!
-        */
         var parent = $(this).parents('.todoItemWrapper');
         var id = parent.attr('id');
         var val = $(this).val();
@@ -444,6 +441,16 @@ $(document).ready(function() {
             $('#emailLog').css('background', 'rgba(255, 255, 255, 1)');
             $('#passLog').css('background', 'rgba(249, 218, 226, 1)');    
         }
+    });
+
+    socket.on('recoverySucceded', function(data){
+        $("#recoverPassword").find("input").css('background', 'rgba(255, 255, 255, 1)');
+        $('.lostPassLink').click();
+    });
+
+
+    socket.on('recoveryFailed', function(data){
+        $("#recoverPassword").find("input").css('background', 'rgba(249, 218, 226, 1)');
     });
 
 

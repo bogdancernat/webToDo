@@ -169,7 +169,7 @@ exports.login = function(req, res){
 
     db.getUser(user['email'], function (resp){
         if(resp){
-            getHash(user, function(user){
+            getHash(user, function(user){console.log('asfasf'+resp.value['password']);
                 if (resp.value['password'] == user['password'])
                     res.cookie("todo_logged_in",{
                         "user": resp.key,

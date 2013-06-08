@@ -262,6 +262,19 @@ exports.updateToDo = function (field, value, key, callback){
 
 
 
+exports.updateUser = function (obj, key, callback){
+    activeDb.insert(obj, key, function (error, response) {
+        if(!error) {
+            console.log("it worked");
+            callback();
+        } else {
+            console.log(error);
+        }
+    });
+}
+
+
+
 exports.removeToDo = function(key, callback){
     this.getToDosByUniqueId(key, function (resp) {
         if(!resp) {
