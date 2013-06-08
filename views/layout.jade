@@ -86,7 +86,7 @@ html
                                             li
                                                 input(type='submit', value='login').button
                                 p#lostPass
-                                    a(href='#lostPass')
+                                    a(href='#lostPass').lostPassLink
                                         | Lost password?
                                 p#registerMessage
                                     | Already have an account? 
@@ -103,3 +103,12 @@ html
                                                 input(type='password', placeholder='Retype your password', name='password2', id="confPassReg").ifield
                                             li
                                                 input(type='submit', value='register').button
+                    div#recoverPassword
+                        h1
+                            |   Please enter your email
+                        ul
+                            li
+                                input(type="e-mail",placeholder="your@ema.il").ifield
+                            li
+                                button.button
+                                    |   Recover
