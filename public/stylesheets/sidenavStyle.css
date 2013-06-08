@@ -1,9 +1,9 @@
 #rightSideNav {
   color: #fefefe;
-  float: right;
+  float: left;
   width: 250px;
   background: #d6e6f6;
-  box-shadow: inset 1px 1px 3px #56575e;
+  box-shadow: inset -1px -1px 3px #56575e;
   overflow: scroll;
   overflow-y: hidden;
   overflow-x: hidden;
@@ -14,16 +14,17 @@
 #rightSideNav .sideNavGroup h1 {
   width: 220px;
   background: #fff;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
   box-shadow: 1px 1px 3px #56575e;
   height: 25px;
-  float: right;
+  float: left;
   cursor: pointer;
 }
 #rightSideNav .sideNavGroup h1 p {
   color: #56575e;
-  padding-left: 10px;
+  padding-right: 10px;
+  text-align: right;
   line-height: 25px;
   font-size: 15px;
   font-weight: 200;
@@ -39,9 +40,9 @@
   width: 200px;
   height: 28px;
   margin-top: 5px;
-  margin-right: 20px;
+  margin-left: 20px;
   line-height: 26px;
-  float: right;
+  float: left;
   background: #accded;
 }
 #rightSideNav .listItemsNavGroup .newProject .addProject {
@@ -78,8 +79,8 @@
 #rightSideNav .listItemsNavGroup ul {
   display: block;
   width: 200px;
-  float: right;
-  margin-right: 20px;
+  float: left;
+  margin-left: 20px;
 }
 #rightSideNav .listItemsNavGroup ul .listProjectItem {
   background: #f2f7fc;

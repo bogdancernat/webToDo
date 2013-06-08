@@ -239,7 +239,7 @@ gr_stop = #568ff0
 gradGroup_start = #a4d8ff
 // gradGroup_stop = rgba(62, 173, 255, 1)
 gradGroup_stop = #71c2ff
-
+rSNwidth = 250
 axW = rSNwidth px
 #contents
     width: calc(100% \- axW)
@@ -260,6 +260,7 @@ ntdSize= 50
     user-select: none
     position:absolute
     color:rgba(154,155,162,1)
+    margin-left:143px
     z-index:10
     span /* le circle */
         margin:0 auto
@@ -523,9 +524,23 @@ all_stop=#f2f7fc
 todo_w=350
 todo_h=70
 todo_b_radius=5
+#notifContainer
+    width:220px
+    // float:left
+    // margin-left:3%
+    margin:0 auto
+    padding-top:80px
+    padding-left:10px
+    padding-right:10px
+    overflow:scroll
+    overflow-y:hidden
+    overflow-x:hidden
+    background:#d6e6f6
+    box-shadow:inset 0px 1px 5px hColor
 #todosContainer
     width:todo_w px
-    margin:0 auto
+    float:left
+    margin-left:15%
     padding-top:80px
     padding-left:10px
     padding-right:10px

@@ -241,9 +241,9 @@ body {
   position: relative;
 }
 #contents {
-  width: calc(100% - rSNwidth px);
-  width: -moz-calc(100% - rSNwidth px);
-  width: -webkit-calc(100% - rSNwidth px);
+  width: calc(100% - 250px);
+  width: -moz-calc(100% - 250px);
+  width: -webkit-calc(100% - 250px);
   position: relative;
   overflow: scroll;
   overflow-y: hidden;
@@ -259,6 +259,7 @@ body {
   user-select: none;
   position: absolute;
   color: #9a9ba2;
+  margin-left: 143px;
   z-index: 10;
 }
 #addtoDos span /* le circle */ {
@@ -520,9 +521,22 @@ body {
   background-image: -webkit-linear-gradient(top, #fff, #f2f7fc);
   background-image: linear-gradient(top, #fff, #f2f7fc);
 }
+#notifContainer {
+  width: 220px;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background: #d6e6f6;
+  box-shadow: inset 0px 1px 5px #56575e;
+}
 #todosContainer {
   width: 350px;
-  margin: 0 auto;
+  float: left;
+  margin-left: 15%;
   padding-top: 80px;
   padding-left: 10px;
   padding-right: 10px;

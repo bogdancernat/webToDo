@@ -2,10 +2,10 @@ textColor=rgba(86,87,94, 1)
 rSNwidth = 250
 #rightSideNav
     color:#fefefe
-    float:right
+    float:left
     width:rSNwidth px
     background:#d6e6f6
-    box-shadow:inset 1px 1px 3px textColor
+    box-shadow:inset -1px -1px 3px textColor
     overflow:scroll
     overflow-y:hidden
     overflow-x:hidden
@@ -15,15 +15,16 @@ rSNwidth = 250
             width:(rSNwidth - 30) px
             // background: #7f808a
             background: #fff
-            border-top-left-radius: 3px
-            border-bottom-left-radius: 3px
+            border-top-right-radius: 3px
+            border-bottom-right-radius: 3px
             box-shadow: 1px 1px 3px textColor
             height:25px
-            float:right
+            float:left
             cursor:pointer
             p
                 color:textColor
-                padding-left:10px
+                padding-right:10px
+                text-align:right
                 line-height: 25px
                 font-size:15px
                 font-weight:200
@@ -37,9 +38,9 @@ rSNwidth = 250
             width:200px
             height:28px
             margin-top:5px
-            margin-right:20px
+            margin-left:20px
             line-height:26px
-            float:right
+            float:left
             background:#accded
             .addProject
                 display:block
@@ -70,8 +71,8 @@ rSNwidth = 250
         ul
             display:block
             width:200px
-            float:right
-            margin-right:20px
+            float:left
+            margin-left:20px
             .listProjectItem
                 background:#f2f7fc
                 width:192px
