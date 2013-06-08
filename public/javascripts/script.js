@@ -543,9 +543,25 @@ $(document).ready(function() {
     });
 
     socket.on('takeNotifications', function (data){
-        console.log(data);
+        $('#notifContainer').empty();
+        var keys = [];
+        var all = {}
+        for (var i = data.length - 1; i >= 0; i--) {
+            if(keys.indexOf(data[i].duedate)==-1){
+                keys.push(data[i].duedate);
+            }
+            if(all[data[i].duedate]){
+                all[data[i].duedate] += '<li>'+data[i].todo+'</li>';
+            } else {
+                all[data[i].duedate] = '<li>'+data[i].todo+'</li>';
+            }
+        };
+        for (var i = keys.length - 1; i >= 0; i--) {
+            var elem = '<ul class="dayNotif"><h1>'+keys[i]+'</h1><ul>'+all[keys[i]]+'</ul></ul>';
+            console.log(elem);
+            $('#notifContainer').append(elem);
+        };
     });
-
 });
 function filterToDos(){
     var filters = [];
