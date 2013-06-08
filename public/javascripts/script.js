@@ -8,6 +8,8 @@ $(document).ready(function() {
     // $('#todosContainer').sortable();
     // $('#todosContainer').disableSelection();
     // fade in!
+    socket.emit('giveMeNotifications', {});
+
     $('#loginButton').click(function(){
         $('#grayarea').css("display","block");
         $('#grayarea').fadeTo(200,1);
@@ -537,6 +539,10 @@ $(document).ready(function() {
 
 
     socket.on('takeUsers', function (data){
+        console.log(data);
+    });
+
+    socket.on('takeNotifications', function (data){
         console.log(data);
     });
 

@@ -376,6 +376,26 @@ io.of('/shared').on('connection', function (socket) {
         });
     });
 
+    socket.on('giveMeNotifications', function (data){
+        var cookies = cookie.parse(socket.handshake.headers.cookie);
+        var cookieString;
+
+        if (cookies.todo_logged_in != null) 
+            cookieString = cookies.todo_logged_in;
+        else if (cookies.todo_memory != null)
+            cookieString = cookies.todo_memory;
+        else
+            return;
+
+        getCookie(cookieString, function (cookJson){
+
+            getToDosAhead(cookJson._id, function(dates){
+                socket.emit('takeNotifications', dates);
+                console.log(dates);
+            });  
+        });    
+    });
+
 });
 
 
@@ -453,7 +473,7 @@ function getToDosAhead(userID, callback){
 
             console.log(dates);
 
-            callback(resp);
+            callback(dates);
         }
     });    
 } 
